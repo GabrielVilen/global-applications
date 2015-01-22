@@ -1,5 +1,7 @@
 package se.kth.iv1201projekt.util;
 
+import java.util.Objects;
+
 /**
  *
  * @author Samy
@@ -28,6 +30,33 @@ public class Competence {
     public void setYearsOfExperience(double yearsOfExperience) {
         this.yearsOfExperience = yearsOfExperience;
     }
+
+    @Override
+    public String toString() {
+        return "name=" + name + ", years:" + yearsOfExperience;
+    }
+
+    @Override
+    public int hashCode() {
+        int hash = 7;
+        return hash;
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+        if (obj == null) {
+            return false;
+        }
+        if (getClass() != obj.getClass()) {
+            return false;
+        }
+        final Competence other = (Competence) obj;
+        if (!Objects.equals(this.name, other.name)) {
+            return false;
+        }
+        return true;
+    }
+    
     
     
 }
