@@ -28,9 +28,11 @@ public class TestDBConnection {
             System.out.println("FAILED! Exiting.");
         }
         System.out.println("SUCCESS!");
+        
         System.out.println("loading driver...");
         Class.forName("com.mysql.jdbc.Driver");
         System.out.println("driver loaded");
+        
         System.out.println("Connecting to database...");
         Connection con = DriverManager.getConnection(db_host, db_user, db_pass);
         System.out.println("con=" + con);
