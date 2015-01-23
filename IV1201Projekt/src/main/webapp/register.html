@@ -2,47 +2,62 @@
 <html>
 
     <head>
-       
+        <title> Register </title>
+        <link rel="stylesheet" type="text/css" href="css.css">
     </head>
 
     <body>
-
         <div id="header">
-            <h1>Application Station</h1>
+            <h1> <a href="index.html">Application Station</a></h1>
         </div>
-
         <div id="nav">
-            Login<br/>
-            Register<br/>
-            Place a job<br/>
+            <a href="index.html"> Home </a><br/>
+            <a href="login.html"> Login </a><br/>
+            <a href="register.html"> Register </a><br/>
+            <a href="placejob.html"> Place a job </a><br/>
         </div>
-
-        <div>
+        <div id="content">
             <h3>Personal information</h3>
             <p>
             <div>
                 <form action="demo_form.asp">
-                    First name:    <input type="text" name="firstname"><br>
-                    Last name:     <input type="text" name="lastname"><br>
-                    Email:         <input type="text" name="email"><br>
-                    Date of birth: <input type="text" name="lastname"><br>
+                    <table>
+                        <tr>
+                            <td><label>First name</label></td>
+                            <td> <input type="text" name="firstname"><br></td>
+                        </tr>
+                        <tr>
+                            <td> <label> Last name </label></td>
+                            <td><input type="text" name="lastname"><br></td>
+                        </tr>
+                        <tr>
+                            <td><label>Email</label></td>
+                            <td>  <input type="text" name="email"><br></td>
+                        </tr>
+                        <tr>
+                            <td><label>Date of birth</label></td>
+                            <td> <input type="text" name="lastname"><br></td>
+                        </tr>
+                    </table>
                 </form>
             </div>
 
             <div>
                 <h3> Competence Profile </h3>
-                Enter competence: <input type="text" name="competence"><br>
+                Write competence: <input type="text" name="competence"><br/>
             </div>
 
             <div>
                 <h3> Availability </h3>
-                Enter availability: <input type="text" name="availability"><br>
+                Enter availability: <input type="text" name="availability"><br/>
             </div>
-
+            <br/>
             <input type="submit" value="Submit">
-            <div id="footer">
-                Copyright © W3Schools.com
-            </div>
+        </div>
+
+        <div id="footer">
+            Architecture and Design of Global Application project
+        </div>
 
     </body>
 </html>

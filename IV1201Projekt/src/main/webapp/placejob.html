@@ -4,12 +4,17 @@ To change this license header, choose License Headers in Project Properties.
 To change this template file, choose Tools | Templates
 and open the template in the editor.
 -->
-<html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+              xmlns:h="http://java.sun.com/jsf/html"
+              xmlns:a4j="http://richfaces.org/a4j"
+              xmlns:rich="http://richfaces.org/rich"
+              xmlns:f="http://java.sun.com/jsf/core"
+                >
     <head>
         <title>Place a job</title>
-        <meta charset="UTF-8">
-        <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <link rel="stylesheet" type="text/css" href="css.css">
+        <meta charset="UTF-8"/>
+        <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+        <link rel="stylesheet" type="text/css" href="css.css"/>
     </head>
     <body>
         <div id="header">
@@ -24,25 +29,24 @@ and open the template in the editor.
 
         <div id="content">
             <h3>Job information</h3>
-            <p>
             <div>
                 <form action="demo_form.asp">
                     <table>
                         <tr>
                             <td><label>Job name</label></td>
-                            <td> <input type="text" name="jobname"><br></td>
+                            <td><input type="text" name="jobname" /><br/></td>
                         </tr>
                         <tr>
-                            <td> <label> Job type </label></td>
-                            <td><input type="text" name="jobtype"><br></td>
+                            <td><label> Job type </label></td>
+                            <td><input type="text" name="jobtype"/><br/></td>
                         </tr>
                         <tr>
                             <td><label> Recruiter information</label></td>
-                            <td>  <input type="text" name="recruiter"><br></td>
+                            <td><input type="text" name="recruiter"/><br/></td>
                         </tr>
                         <tr>
                             <td><label> Duration </label></td>
-                            <td> <input type="text" name="duration"><br></td>
+                            <td><input type="text" name="duration"/><br/></td>
                         </tr>
                     </table>
                 </form>

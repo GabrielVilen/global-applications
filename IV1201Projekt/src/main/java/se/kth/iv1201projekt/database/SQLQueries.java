@@ -11,14 +11,7 @@ package se.kth.iv1201projekt.database;
  */
 public class SQLQueries {
     
-    
-    
-    public void createDatabase() {
-        
-
-    }
-    
-    public void 
+    public final String 
     
     
 }
