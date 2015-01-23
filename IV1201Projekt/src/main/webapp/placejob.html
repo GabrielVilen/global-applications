@@ -5,11 +5,11 @@ To change this template file, choose Tools | Templates
 and open the template in the editor.
 -->
 <html xmlns="http://www.w3.org/1999/xhtml"
-              xmlns:h="http://java.sun.com/jsf/html"
-              xmlns:a4j="http://richfaces.org/a4j"
-              xmlns:rich="http://richfaces.org/rich"
-              xmlns:f="http://java.sun.com/jsf/core"
-                >
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:a4j="http://richfaces.org/a4j"
+      xmlns:rich="http://richfaces.org/rich"
+      xmlns:f="http://java.sun.com/jsf/core"
+      >
     <head>
         <title>Place a job</title>
         <meta charset="UTF-8"/>
@@ -41,14 +41,14 @@ and open the template in the editor.
                             <td><input type="text" name="jobtype"/><br/></td>
                         </tr>
                         <tr>
-                            <td><label> Recruiter information</label></td>
+                            <td><label> Job information</label></td>
                             <td><input type="text" name="recruiter"/><br/></td>
                         </tr>
-                        <tr>
-                            <td><label> Duration </label></td>
-                            <td><input type="text" name="duration"/><br/></td>
-                        </tr>
                     </table>
+                    <b><br/>Duration<br/></b>
+                    From <input type="datetime-local" name="fromtime"/>
+                    To<input type="datetime-local" name="totime"/><br/><br/>
+                    <input type="button" name="createjobbutton" value="submit"/>
                 </form>
             </div>
         </div>

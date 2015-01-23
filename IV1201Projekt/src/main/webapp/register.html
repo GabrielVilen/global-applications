@@ -31,12 +31,16 @@
                             <td><input type="text" name="lastname"><br></td>
                         </tr>
                         <tr>
+                            <td><label>Social security number</label></td>
+                            <td>  <input type="text" name="ssn"><br></td>
+                        </tr>
+                        <tr>
                             <td><label>Email</label></td>
-                            <td>  <input type="text" name="email"><br></td>
+                            <td>  <input type="email" name="email"><br></td>
                         </tr>
                         <tr>
                             <td><label>Date of birth</label></td>
-                            <td> <input type="text" name="lastname"><br></td>
+                            <td><input type="datetime-local" name="birth"><br/><br></td>
                         </tr>
                     </table>
                 </form>
@@ -44,12 +48,35 @@
 
             <div>
                 <h3> Competence Profile </h3>
-                Write competence: <input type="text" name="competence"><br/>
+                <table>
+                    <tr>
+                        <td><label>Role</label></td>
+                        <td>  <input type="radio" name="role"> Applicant <br></td>
+                        <td>  <input type="radio" name="role"> Recruiter <br></td>
+                    <tr>
+                    <tr>
+                        <td><label>Career role</label></td>
+                        <td>  <input type="text" name="role"><br></td>
+                    <tr>
+                    <tr>
+                        <td><label>Competence: </label></td>
+                        <td><input type="text" name="competence"><br/></td>
+                    </tr>
+                    <tr>
+                        <td><label>Years of experience</label></td>
+                        <td><input type="number" name="yearsofexperience"><br></td>
+                    </tr>
+                </table>
             </div>
 
             <div>
-                <h3> Availability </h3>
-                Enter availability: <input type="text" name="availability"><br/>
+                <h3> Availability (date and time)</h3>
+                <form action="action_page.php">
+                    From
+                    <input type="datetime-local" name="fromtime">
+                    To
+                    <input type="datetime-local" name="totime"> 
+                </form>
             </div>
             <br/>
             <input type="submit" value="Submit">
