@@ -27,10 +27,13 @@ public class LoggerUtil {
        logger.log(Level.FINE, "Minor", e);
    }
    
-   public static void logMethod(Object obj){
+   public static void logMethod(Object obj, String methodname, String[] formattedParams ,boolean before){
        Logger logger = Logger.getLogger(obj.getClass().getName());
        logger.addHandler(getHandler(methodFile));
-       logger.log(Level.OFF, "Method");
+       if(before)
+           logger.log(Level.OFF, "Before " + methodname + formattedParams.toString());
+       else
+           logger.log(Level.OFF, "After " + methodname + formattedParams.toString());
    }
    
    private static Handler getHandler(String filename){
