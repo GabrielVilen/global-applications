@@ -4,10 +4,11 @@
 <html xmlns="http://www.w3.org/1999/xhtml"   
       xmlns:h="http://java.sun.com/jsf/html"
       xmlns:ui="http://java.sun.com/jsf/facelets"
-      >
+          
+      xmlns:c="http://xmlns.jcp.org/jsp/jstl/core">
  
     <h:head>
-	<h:outputStylesheet name="style.css" />
+	<link rel="stylesheet" href="../css/style.css" type="text/css" media="all" />
     </h:head>
  
     <h:body>
@@ -16,19 +17,25 @@
  
 	    <div id="header">
 		<ui:insert name="header" >
-		  <ui:include src="header.xhtml" />
+		  <ui:include src="/template/header.xhtml" />
 		</ui:insert>
 	    </div>
+            
+            <div id="nav">
+                <ui:insert name="nav">
+                    <ui:include src="/template/nav.xhtml" />
+                </ui:insert>
+            </div>
  
 	    <div id="content">
 	  	<ui:insert name="content" >
-	 	  <ui:include src="content.xhtml" />
+	 	  <ui:include src="/template/index.xhtml" />
 	   	</ui:insert>
 	    </div>
  
 	    <div id="footer">
 	    	<ui:insert name="footer" >
-	    	  <ui:include src="footer.xhtml" />
+	    	  <ui:include src="/template/footer.xhtml" />
 	    	</ui:insert>
     	    </div>
  

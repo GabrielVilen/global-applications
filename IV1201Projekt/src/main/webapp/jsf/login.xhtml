@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" 
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"   
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      >
+    <h:body>
+
+        <ui:composition template="/template/layout.xhtml">
+
+            <ui:define name="content">
+                <form action="" method="post">
+                    <table>
+                        <tr>
+                            <td><label> Username </label></td>
+                            <td><input type="text" name="username"/></td>
+                        </tr>
+                        <tr>
+                            <td><label> Password </label></td>
+                            <td> <input type="password" name="password"/></td>
+                        </tr>
+                        <tr>
+                            <td colspan="2"><input type="submit" value="submit"/></td>
+                        </tr>
+                    </table>
+                </form> 
+                <br/>
+                <a href="register.html"> No account? Register here </a><br/>
+            </ui:define>
+        </ui:composition>
+
+    </h:body>
+
+</html>
