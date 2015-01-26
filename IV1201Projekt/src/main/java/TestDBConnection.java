@@ -18,8 +18,8 @@ import java.sql.SQLException;
  */
 public class TestDBConnection {
 
-    private final static String db_host = "jdbc:derby://localhost:1527/ApplicationStationDevelopmentDB";
-    
+    //private final static String db_host_derby = "jdbc:derby://localhost:1527/ApplicationStationDevelopmentDB";
+    private final static String db_host = "jdbc:mysql://localhost:3306/iv1201gasakiproject";
     //private final static String db_host = "jdbc:mysql://mysql.serversfree.com/u570302017_as";
     //private final static String db_host2 = "jdbc:mysql://applicationstation.bug3.com";
     //private final static String db_host3 = "jdbc:mysql://server14.serversfree.com/u570302017_as";
@@ -35,13 +35,13 @@ public class TestDBConnection {
         System.out.println("SUCCESS!");
         
         System.out.println("loading driver...");
-        //Class.forName("com.mysql.jdbc.Driver");
-        Class.forName("org.apache.derby");
+        Class.forName("com.mysql.jdbc.Driver");
+        //Class.forName("org.apache.derby.jdbc.EmbeddedDriver");
         System.out.println("driver loaded");
         
         System.out.println("Connecting to database...");
         //System.out.println("DM=" + DriverManager);
-        Connection con = DriverManager.getConnection(db_host, "root", "");
+        Connection con = DriverManager.getConnection(db_host, "root", "password");
         System.out.println("con=" + con);
 
     }
