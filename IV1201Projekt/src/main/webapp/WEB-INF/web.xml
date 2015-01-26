@@ -41,7 +41,7 @@
 
     <welcome-file-list>
 
-        <welcome-file>page1.xhtml</welcome-file>
+        <welcome-file>index.xhtml</welcome-file>
 
     </welcome-file-list>
 

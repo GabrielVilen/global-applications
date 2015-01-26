@@ -4,12 +4,18 @@
 <html xmlns="http://www.w3.org/1999/xhtml"   
       xmlns:h="http://java.sun.com/jsf/html"
       xmlns:ui="http://java.sun.com/jsf/facelets"
-      >
-    <h:body>
 
+      xmlns:c="http://xmlns.jcp.org/jsp/jstl/core">
+    <h:body>
         <ui:composition template="/template/layout.xhtml">
             <ui:define name="content">
+
                 <div id="content">
+
+                    <label><b>Register as:</b><br/></label>
+                    <input  type="radio" name="role" id="applicant" onclick="radio_button_check(this.id)"/> Applicant
+                    <input  type="radio" name="role" id="recruiter" onclick="radio_button_check(this.id)"/> Recruiter <br/><br/>
+
                     <h3>Personal information</h3>
                     <p/>
                     <div>
@@ -39,14 +45,9 @@
                         </form>
                     </div>
 
-                    <div>
+                    <div id="comp_prof">
                         <h3> Competence Profile </h3>
                         <table>
-                            <tr>
-                                <td><label>Role</label></td>
-                                <td>  <input type="radio" name="role"/> Applicant <br/></td>
-                                <td>  <input type="radio" name="role"/> Recruiter <br/></td>
-                            </tr>
                             <tr>
                                 <td><label>Career role</label></td>
                                 <td>  <input type="text" name="role"/><br/></td>
@@ -65,9 +66,9 @@
                     <div>
                         <h3> Availability (date and time)</h3>
                         <form action="action_page.php">
-                            From
-                            <input type="datetime-local" name="fromtime"/>
-                            To
+                            <label>From</label>
+                            <input type="datetime-local" name="fromtime"/><br/>
+                            <label>To</label>
                             <input type="datetime-local" name="totime"/> 
                         </form>
                     </div>
@@ -80,5 +81,6 @@
 
 
     </h:body>
+
 
 </html>

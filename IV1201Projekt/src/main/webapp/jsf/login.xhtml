@@ -10,6 +10,11 @@
         <ui:composition template="/template/layout.xhtml">
 
             <ui:define name="content">
+
+                <b><br/>Log in as: <br/></b>
+                <input type="radio" name="role"/> Applicant 
+                <input type="radio" name="role"/> Recruiter <br/><br/>
+                
                 <form action="" method="post">
                     <table>
                         <tr>
@@ -26,7 +31,7 @@
                     </table>
                 </form> 
                 <br/>
-                <a href="register.html"> No account? Register here </a><br/>
+                <a href="../jsf/register.xhtml"> No account? Register here </a><br/>
             </ui:define>
         </ui:composition>
 
