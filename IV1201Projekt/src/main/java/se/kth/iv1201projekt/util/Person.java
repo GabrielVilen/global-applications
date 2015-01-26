@@ -7,7 +7,7 @@ import java.util.List;
  * @author Samy
  */
 public class Person {
- private final int id;
+ private int id;
  private String name;
  private String surname;
  private String ssn;
@@ -17,6 +17,17 @@ public class Person {
  private List<Competence> competences;
  private Availability availability;
 
+    public Person(String name, String surname, String ssn, String email, String role, String username, List<Competence> competences, Availability availability) {
+        this.name = name;
+        this.surname = surname;
+        this.ssn = ssn;
+        this.email = email;
+        this.role = role;
+        this.username = username;
+        this.competences = competences;
+        this.availability = availability;
+    }
+    
     public Person(int id, String name, String surname, String ssn, String email, String role, String username, List<Competence> competences, Availability availability) {
         this.id = id;
         this.name = name;
@@ -28,7 +39,6 @@ public class Person {
         this.competences = competences;
         this.availability = availability;
     }
-
  
     public int getId() {
         return id;
