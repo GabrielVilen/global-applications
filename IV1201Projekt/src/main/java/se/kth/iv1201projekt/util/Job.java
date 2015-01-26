@@ -11,12 +11,12 @@ package se.kth.iv1201projekt.util;
  */
 public class Job {
     private String name;
-    private Person recruiter;
+    private PersonDTO recruiter;
     private String type;
     private String info;
     private Availability availability;
 
-    public Job(String name, Person recruiter, String type, String info, Availability availability) {
+    public Job(String name, PersonDTO recruiter, String type, String info, Availability availability) {
         this.name = name;
         this.recruiter = recruiter;
         this.type = type;
@@ -32,11 +32,11 @@ public class Job {
         this.name = name;
     }
 
-    public Person getRecruiter() {
+    public PersonDTO getRecruiter() {
         return recruiter;
     }
 
-    public void setRecruiter(Person recruiter) {
+    public void setRecruiter(PersonDTO recruiter) {
         this.recruiter = recruiter;
     }
 

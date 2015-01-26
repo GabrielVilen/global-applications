@@ -6,7 +6,7 @@ import java.util.List;
  * Definierar en användare med dess erfarenheter
  * @author Samy
  */
-public class Person {
+public class PersonDTO {
  private int id;
  private String name;
  private String surname;
@@ -17,7 +17,7 @@ public class Person {
  private List<Competence> competences;
  private Availability availability;
 
-    public Person(String name, String surname, String ssn, String email, String role, String username, List<Competence> competences, Availability availability) {
+    public PersonDTO(String name, String surname, String ssn, String email, String role, String username, List<Competence> competences, Availability availability) {
         this.name = name;
         this.surname = surname;
         this.ssn = ssn;
@@ -28,7 +28,7 @@ public class Person {
         this.availability = availability;
     }
     
-    public Person(int id, String name, String surname, String ssn, String email, String role, String username, List<Competence> competences, Availability availability) {
+    public PersonDTO(int id, String name, String surname, String ssn, String email, String role, String username, List<Competence> competences, Availability availability) {
         this.id = id;
         this.name = name;
         this.surname = surname;
@@ -52,48 +52,24 @@ public class Person {
         return name;
     }
 
-    public void setName(String name) {
-        this.name = name;
-    }
-
     public String getSurname() {
         return surname;
-    }
-
-    public void setSurname(String surname) {
-        this.surname = surname;
     }
 
     public String getSsn() {
         return ssn;
     }
 
-    public void setSsn(String ssn) {
-        this.ssn = ssn;
-    }
-
     public String getEmail() {
         return email;
-    }
-
-    public void setEmail(String email) {
-        this.email = email;
     }
 
     public String getRole() {
         return role;
     }
 
-    public void setRole(String role) {
-        this.role = role;
-    }
-
     public List<Competence> getCompetences() {
         return competences;
-    }
-
-    public void setCompetences(List<Competence> competences) {
-        this.competences = competences;
     }
     
     public void addCompetence(Competence competence){
@@ -114,10 +90,4 @@ public class Person {
         return availability;
     }
 
-    public void setAvailability(Availability availability) {
-        this.availability = availability;
-    }
-    
-    
- 
 }

@@ -5,23 +5,23 @@
  */
 package se.kth.iv1201projekt.integration;
 
-import se.kth.iv1201projekt.businesslogic.UserBean;
 import se.kth.iv1201projekt.util.Job;
-import se.kth.iv1201projekt.util.Person;
+import se.kth.iv1201projekt.util.LoginErrorException;
+import se.kth.iv1201projekt.util.PersonDTO;
 
 /**
  *
  * @author Kborak
  */
 public interface ASDatabase {
-    public UserBean login(String username, String password, Object role);
+    public PersonDTO login(String username, String password) throws LoginErrorException;
     
-    public boolean registerApplicant(Person applicant);
+    public boolean registerApplicant(PersonDTO applicant);
     
-    public boolean registerRecruiter(Person recruiter);
+    public boolean registerRecruiter(PersonDTO recruiter);
     
-    public boolean placeJob(Person recruiter, Job job);
+    public boolean placeJob(PersonDTO recruiter, Job job);
     
-    public boolean applyJob(Person applicant, Job job);
+    public boolean applyJob(PersonDTO applicant, Job job);
     
 }
