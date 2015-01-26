@@ -3,14 +3,15 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package se.kth.iv1201projekt.database;
+package se.kth.iv1201projekt.integration;
 
 /**
  *
- * @author Kborak
+ * @author Gabriel
  */
-public class DatabaseBean {
+public class SQLQueries {
     
-    
-    
+ 
 }
+
+
