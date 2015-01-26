@@ -11,9 +11,7 @@ package se.kth.iv1201projekt.database;
  */
 public class SQLQueries {
     
-    public final String 
-    
-    
+ 
 }
 
 
