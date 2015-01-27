@@ -14,8 +14,8 @@ import se.kth.iv1201projekt.integration.ASController;
  *
  * @author Gabriel
  */
-@Named("loginBean")
-public class LoginBean implements Serializable {
+@Named("userBean")
+public class UserBean implements Serializable {
 
     private static final long serialVersionUID = 1L;
 
@@ -51,6 +51,7 @@ public class LoginBean implements Serializable {
 
     public void setUsername(String username) {
         this.username = username;
+        
         System.out.println("username set to " + username);
     }
 

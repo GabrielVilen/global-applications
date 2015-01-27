@@ -5,7 +5,7 @@
  */
 package se.kth.iv1201projekt.integration;
 
-import se.kth.iv1201projekt.businesslogic.LoginBean;
+import se.kth.iv1201projekt.businesslogic.UserBean;
 import se.kth.iv1201projekt.util.Job;
 import se.kth.iv1201projekt.util.LoginErrorException;
 
@@ -17,7 +17,7 @@ import se.kth.iv1201projekt.util.LoginErrorException;
  */
 public class ASController {
     
-    public LoginBean login(String username, String password) throws LoginErrorException {
+    public UserBean login(String username, String password) throws LoginErrorException {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
