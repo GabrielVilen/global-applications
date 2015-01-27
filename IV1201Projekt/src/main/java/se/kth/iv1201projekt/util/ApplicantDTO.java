@@ -4,20 +4,22 @@ import java.util.List;
 
 /**
  * Definierar en användare med dess erfarenheter
+ *
  * @author Samy
  */
-public class PersonDTO {
- private int id;
- private String name;
- private String surname;
- private String ssn;
- private String email;
- private String role;
- private final String username;
- private List<Competence> competences;
- private Availability availability;
+public class ApplicantDTO {
 
-    public PersonDTO(String name, String surname, String ssn, String email, String role, String username, List<Competence> competences, Availability availability) {
+    private int id;
+    private String name;
+    private String surname;
+    private String ssn;
+    private String email;
+    private String role;
+    private final String username;
+    private List<Competence> competences;
+    private Availability availability;
+
+    public ApplicantDTO(String name, String surname, String ssn, String email, String role, String username, List<Competence> competences, Availability availability) {
         this.name = name;
         this.surname = surname;
         this.ssn = ssn;
@@ -27,8 +29,8 @@ public class PersonDTO {
         this.competences = competences;
         this.availability = availability;
     }
-    
-    public PersonDTO(int id, String name, String surname, String ssn, String email, String role, String username, List<Competence> competences, Availability availability) {
+
+    public ApplicantDTO(int id, String name, String surname, String ssn, String email, String role, String username, List<Competence> competences, Availability availability) {
         this.id = id;
         this.name = name;
         this.surname = surname;
@@ -39,7 +41,7 @@ public class PersonDTO {
         this.competences = competences;
         this.availability = availability;
     }
- 
+
     public int getId() {
         return id;
     }
@@ -71,14 +73,14 @@ public class PersonDTO {
     public List<Competence> getCompetences() {
         return competences;
     }
-    
-    public void addCompetence(Competence competence){
+
+    public void addCompetence(Competence competence) {
         competences.add(competence);
     }
-    
-    public boolean removeCompetence(String name){
-        for(Competence c : competences){
-            if(c.equals(name)){
+
+    public boolean removeCompetence(String name) {
+        for (Competence c : competences) {
+            if (c.equals(name)) {
                 competences.remove(c);
                 return true;
             }
