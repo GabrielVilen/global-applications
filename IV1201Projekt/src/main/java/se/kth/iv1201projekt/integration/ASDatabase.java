@@ -5,25 +5,23 @@
  */
 package se.kth.iv1201projekt.integration;
 
-import se.kth.iv1201projekt.util.ApplicantDTO;
 import se.kth.iv1201projekt.util.Job;
 import se.kth.iv1201projekt.util.LoginErrorException;
-import se.kth.iv1201projekt.util.RecruiterDTO;
-import se.kth.iv1201projekt.util.RegisterErrorException;
+import se.kth.iv1201projekt.util.PersonDTO;
 
 /**
  *
  * @author Kborak
  */
 public interface ASDatabase {
-    public Object login(String username, String password) throws LoginErrorException;
+    public PersonDTO login(String username, String password) throws LoginErrorException;
     
-    public void register(ApplicantDTO applicant) throws RegisterErrorException;
+    public boolean registerApplicant(PersonDTO applicant);
     
-    public void register(RecruiterDTO recruiter) throws RegisterErrorException;
+    public boolean registerRecruiter(PersonDTO recruiter);
     
-    public boolean placeJob(RecruiterDTO recruiter, Job job);
+    public boolean placeJob(PersonDTO recruiter, Job job);
     
-    public boolean applyJob(ApplicantDTO applicant, Job job);
+    public boolean applyJob(PersonDTO applicant, Job job);
     
 }

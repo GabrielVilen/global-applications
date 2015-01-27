@@ -11,9 +11,8 @@ package se.kth.iv1201projekt.integration;
  */
 public class SQLQueries {
     
-    public final static String SELECT_USER_LOGIN = "SELECT * FROM ´user´ WHERE ´username´=? AND `password`=?";
-    public final static String SELECT_PERSON_ONUSERNAME = "";
-    public final static String INSERT_PERSON = "";
+    public final static String USER_LOGIN = "SELECT * FROM ´user´ WHERE ´username´=? AND `password`=?";
+    public final static String PERSON_INFO = "";
 }
 
 

@@ -1,5 +1,6 @@
 package se.kth.iv1201projekt.util;
 
+import java.io.Serializable;
 import javax.interceptor.AroundInvoke;
 import javax.interceptor.InvocationContext;
 
@@ -7,7 +8,7 @@ import javax.interceptor.InvocationContext;
  *
  * @author Samy
  */
-public class LoggingInterceptor {
+public class LoggingInterceptor implements Serializable{
 
     @AroundInvoke
     public static Object intercept(InvocationContext context) throws Exception{
@@ -22,3 +23,4 @@ public class LoggingInterceptor {
         return obj;
     }
 }
+    

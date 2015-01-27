@@ -14,16 +14,16 @@
                 <b><br/>Log in as: <br/></b>
                 <input type="radio" name="role"/> Applicant 
                 <input type="radio" name="role"/> Recruiter <br/><br/>
-                
+
                 <form action="" method="post">
                     <table>
                         <tr>
                             <td><label> Username </label></td>
-                            <td><input type="text" name="username"/></td>
+                            <td><h:inputText value="#{loginBean.username}"/></td>
                         </tr>
                         <tr>
                             <td><label> Password </label></td>
-                            <td> <input type="password" name="password"/></td>
+                            <td><h:inputText value="#{loginBean.password}"/></td>
                         </tr>
                         <tr>
                             <td colspan="2"><input type="submit" value="submit"/></td>

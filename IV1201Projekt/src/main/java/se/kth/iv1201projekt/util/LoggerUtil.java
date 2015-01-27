@@ -1,6 +1,7 @@
 package se.kth.iv1201projekt.util;
 
 import java.io.IOException;
+import java.io.Serializable;
 import java.util.logging.FileHandler;
 import java.util.logging.Handler;
 import java.util.logging.Level;
@@ -10,7 +11,7 @@ import java.util.logging.Logger;
  * A class for logging exceptions.
  * @author Samy
  */
-public class LoggerUtil {
+public class LoggerUtil implements Serializable {
 
     private static final String exceptionFile = "../logs/exceptionLog.txt";
     private static final String methodFile ="../logs/methodLog.txt";
