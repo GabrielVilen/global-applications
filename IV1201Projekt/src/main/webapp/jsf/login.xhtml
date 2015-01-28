@@ -15,21 +15,21 @@
                 <input type="radio" name="role"/> Applicant 
                 <input type="radio" name="role"/> Recruiter <br/><br/>
 
-                <form action="" method="post">
+                <h:form>    
                     <table>
                         <tr>
                             <td><label> Username </label></td>
-                            <td><h:inputText value="#{loginBean.username}"/></td>
+                            <td><h:inputText value="#{userBean.username}"/></td>
                         </tr>
                         <tr>
                             <td><label> Password </label></td>
-                            <td><h:inputText value="#{loginBean.password}"/></td>
+                            <td><h:inputSecret  value="#{userBean.password}"/></td>
                         </tr>
                         <tr>
-                            <td colspan="2"><input type="submit" value="submit"/></td>
+                            <td colspan="2"><h:commandButton value="submit" type="submit" action="#{userBean.print}" /></td>
                         </tr>
                     </table>
-                </form> 
+                </h:form> 
                 <br/>
                 <a href="../jsf/register.xhtml"> No account? Register here </a><br/>
             </ui:define>
