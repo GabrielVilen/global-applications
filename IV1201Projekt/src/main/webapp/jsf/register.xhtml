@@ -2,91 +2,81 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" 
     "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml"   
-      xmlns:h="http://java.sun.com/jsf/html"
-      xmlns:ui="http://java.sun.com/jsf/facelets"
-
-      xmlns:c="http://xmlns.jcp.org/jsp/jstl/core">
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
     <h:body>
         <ui:composition template="/template/layout.xhtml">
             <ui:define name="content">
-
                 <div id="content">
 
-                    <label><b>Register as:</b><br/></label>
-                    <input  type="radio" name="role" id="applicant" onclick="radio_button_check(this.id)"/> Applicant
-                    <input  type="radio" name="role" id="recruiter" onclick="radio_button_check(this.id)"/> Recruiter <br/><br/>
+                    <h:outputLabel><b>Register as:</b><br/></h:outputLabel>
+                    <h:form id="registration_form">
+                        <input  type="radio" name="role" id="applicant" onclick="radio_button_check(this.id)"/> Applicant
+                        <input  type="radio" name="role" id="recruiter" onclick="radio_button_check(this.id)"/> Recruiter <br/><br/>
+                        <div id="application_div">
+                            <h3>Personal information</h3>
+                            <p/> 
 
-                    <h3>Personal information</h3>
-                    <p/>
-                    <div>
-                        <form action="demo_form.asp">
                             <table>
                                 <tr>
-                                    <td><label>First name</label></td>
-                                    <td> <input type="text" name="firstname"/><br/></td>
+                                    <td><h:outputLabel value="First name"/></td>
+                                    <td> <h:inputText value="firstname"/><br/></td>
                                 </tr>
                                 <tr>
-                                    <td> <label> Last name </label></td>
-                                    <td><input type="text" name="lastname"/><br/></td>
+                                    <td> <h:outputLabel value="Last Name"/></td>
+                                    <td><h:inputText value="lastname"/><br/></td>
                                 </tr>
                                 <tr>
-                                    <td><label>Social security number</label></td>
-                                    <td>  <input type="text" name="ssn"/><br/></td>
+                                    <td><h:outputLabel value="Social security number"/></td>
+                                    <td>  <h:inputText value="ssn"/><br/></td>
                                 </tr>
                                 <tr>
-                                    <td><label>Email</label></td>
-                                    <td>  <input type="email" name="email"/><br/></td>
+                                    <td><h:outputLabel value="Email"/></td>
+                                    <td><h:inputText value="email"/><br/></td>
                                 </tr>
                                 <tr>
-                                    <td><label>Date of birth</label></td>
+                                    <td><h:outputLabel value="Date of birth"/></td>
                                     <td><input type="datetime-local" name="birth"/><br/><br/></td>
                                 </tr>
                             </table>
-                        </form>
-                    </div>
 
-                    <div id="comp_prof">
-                        <h3> Competence Profile </h3>
-                        <table>
-                            <tr>
-                                <td><label>Career role</label></td>
-                                <td>  <input type="text" name="role"/><br/></td>
-                            </tr>
-                            <tr>
-                                <label>Competence: </label>
-                                <select name="cars"> 
-                                        <option value="volvo">blabla</option>
-                                        <option value="saab">haxxs</option>
-                                        <option value="opel">sweg</option>
-                                        <option value="audi">king</option>
-                                    </select><br/>
+                            <div id="comp_prof">
+                                <h3> Competence Profile </h3>
+                                <table>
+                                    <tr>
+                                        <td><h:outputLabel value="Career Role"/></td>
+                                        <td>  <h:inputText value="role"/><br/></td>
+                                    </tr>
+                                    <tr>
+                                        <td><h:outputLabel value="Competence:"/></td>
+                                        <h:selectManyListbox value="cars" >
+                                            <f:selectItem itemValue="volvo" itemLabel="Volvo"/>
+                                            <f:selectItem itemValue="saab" itemLabel="Saab"/>
+                                            <f:selectItem itemValue="opel" itemLabel="Opel"/>
+                                            <f:selectItem itemValue="audi" itemLabel="Audi"/>
+                                        </h:selectManyListbox><br/>
+                                    </tr>
+                                    <tr>
+                                        <td><h:outputLabel value="Years of experience"/></td>
+                                        <td><input type="number" name="yearsofexperience"/><br/></td>
+                                    </tr>
+                                </table>
+                            </div>
 
-                            </tr>
-                            <tr>
-                                <td><label>Years of experience</label></td>
-                                <td><input type="number" name="yearsofexperience"/><br/></td>
-                            </tr>
-                        </table>
-                    </div>
 
-                    <div>
-                        <h3> Availability (date and time)</h3>
-                        <form action="action_page.php">
-                            <label>From</label>
+                            <h3> Availability (date and time)</h3>
+                            <h:outputLabel value="From"/>
                             <input type="datetime-local" name="fromtime"/><br/>
-                            <label>To</label>
+                            <h:outputLabel value="To"/>
                             <input type="datetime-local" name="totime"/> 
-                        </form>
-                    </div>
-                    <br/>
-                    <input type="submit" value="Submit"/>
-                </div>
 
+                            <br/>
+                            <h:commandButton type="submit" value="Submit"/>
+                        </div>
+                    </h:form>
+                </div>
             </ui:define>
         </ui:composition>
-
-
     </h:body>
-
-
 </html>
