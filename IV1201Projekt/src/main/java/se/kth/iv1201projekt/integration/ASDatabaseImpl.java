@@ -71,15 +71,78 @@ class ASDatabaseImpl implements ASDatabase {
         }
     }
     
-    /**
-     * 
-     * @param username The username to look for
-     * @param password The password to 
-     * @return
-     * @throws LoginErrorException 
-     */
     @Override
-    public Object login(String username, String password) throws LoginErrorException {
+    public void register(ApplicantDTO applicant) throws RegisterErrorException {
+        try {
+            PreparedStatement psReg = con.prepareStatement(SQLQueries.INSERT_PERSON);
+            psReg.setString(1, applicant.getName());
+            psReg.setString(2, applicant.getSurname());
+            psReg.setString(3, applicant.getSsn());
+            psReg.setString(4, applicant.getEmail());
+            psReg.setString(5, applicant.getUsername());
+            //psReg.setString(1, applicant.getPassword());
+            boolean success = psReg.execute();
+            if(success) return;
+        } catch (SQLException ex) {
+            Logger.getLogger(ASDatabaseImpl.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        throw new RegisterErrorException();
+    }
+
+    @Override
+    public void register(RecruiterDTO recruiter) throws RegisterErrorException {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+
+    @Override
+    public boolean placeJob(RecruiterDTO recruiter, Job job) {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+
+    @Override
+    public boolean applyJob(ApplicantDTO applicant, Job job) {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+
+    @Override
+    public RecruiterDTO loginRecruiter(String username, String password) throws LoginErrorException {
+        try {
+            PreparedStatement psUser = con.prepareStatement(SQLQueries.SELECT_USER_LOGIN);
+            PreparedStatement psPerson = con.prepareStatement(SQLQueries.SELECT_PERSON_ONUSERNAME);
+            psUser.setString(1, username);
+            psUser.setString(2, password);
+            psUser.executeQuery();
+            
+            ResultSet rsUser = psUser.getResultSet();
+            if(rsUser.next()){
+                int personid = rsUser.getInt("personid");
+                psPerson.setInt(1, personid);
+                
+                // beroende på id, ge rätt objekt
+                
+                ResultSet rsPerson = psPerson.executeQuery();
+                String name = rsPerson.getString("name");
+                String surname = rsPerson.getString("surname");
+                String ssn = rsPerson.getString("ssn");
+                String email = rsPerson.getString("email");
+                int role_id = rsPerson.getInt("role_id");
+                String usernamePerson = rsPerson.getString("username");
+                
+                // not complete, among others the competence list
+                
+                // fetch competence from a different table 
+                
+                RecruiterDTO person = new RecruiterDTO(role_id, name, surname, ssn, email, name, username, null, null);
+                return person;
+            }
+        } catch (SQLException ex) {
+            Logger.getLogger(ASDatabaseImpl.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        throw new LoginErrorException();
+    }
+
+    @Override
+    public ApplicantDTO loginApplicant(String username, String password) throws LoginErrorException {
         try {
             PreparedStatement psUser = con.prepareStatement(SQLQueries.SELECT_USER_LOGIN);
             PreparedStatement psPerson = con.prepareStatement(SQLQueries.SELECT_PERSON_ONUSERNAME);
@@ -113,38 +176,5 @@ class ASDatabaseImpl implements ASDatabase {
             Logger.getLogger(ASDatabaseImpl.class.getName()).log(Level.SEVERE, null, ex);
         }
         throw new LoginErrorException();
-    }
-
-    @Override
-    public void register(ApplicantDTO applicant) throws RegisterErrorException {
-        try {
-            PreparedStatement psReg = con.prepareStatement(SQLQueries.INSERT_PERSON);
-            psReg.setString(1, applicant.getName());
-            psReg.setString(2, applicant.getSurname());
-            psReg.setString(3, applicant.getSsn());
-            psReg.setString(4, applicant.getEmail());
-            psReg.setString(5, applicant.getUsername());
-            //psReg.setString(1, applicant.getPassword());
-            boolean success = psReg.execute();
-            if(success) return;
-        } catch (SQLException ex) {
-            Logger.getLogger(ASDatabaseImpl.class.getName()).log(Level.SEVERE, null, ex);
-        }
-        throw new RegisterErrorException();
-    }
-
-    @Override
-    public void register(RecruiterDTO recruiter) throws RegisterErrorException {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-    }
-
-    @Override
-    public boolean placeJob(RecruiterDTO recruiter, Job job) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-    }
-
-    @Override
-    public boolean applyJob(ApplicantDTO applicant, Job job) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 }

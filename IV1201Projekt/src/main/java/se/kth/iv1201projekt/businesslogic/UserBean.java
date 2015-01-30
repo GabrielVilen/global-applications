@@ -8,8 +8,10 @@ package se.kth.iv1201projekt.businesslogic;
 import java.io.Serializable;
 import java.util.logging.Logger;
 import javax.enterprise.context.SessionScoped;
+import javax.inject.Inject;
 import javax.inject.Named;
-import se.kth.iv1201projekt.integration.ASController;
+import se.kth.iv1201projekt.integration.ASDatabase;
+import se.kth.iv1201projekt.integration.ASDBController;
 
 /**
  *
@@ -20,15 +22,15 @@ import se.kth.iv1201projekt.integration.ASController;
 public class UserBean implements Serializable {
 
     private static final long serialVersionUID = 1L;
-    private ASController controller = new ASController();
-    
+    @Inject private ASDBController controller;
 
     private String username;
     private String password;
 
+    // check role_id or split up
     public boolean login(String username, String password) {
         try {
-            controller.login(username, password);
+            controller.loginApplicant(username, password);
             return true;
         } catch (Exception e) {
             e.printStackTrace();
