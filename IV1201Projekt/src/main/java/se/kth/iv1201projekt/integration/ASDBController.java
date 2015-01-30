@@ -5,7 +5,6 @@
  */
 package se.kth.iv1201projekt.integration;
 
-import java.util.concurrent.locks.ReentrantReadWriteLock;
 import se.kth.iv1201projekt.util.ApplicantDTO;
 import se.kth.iv1201projekt.util.Job;
 import se.kth.iv1201projekt.util.LoginErrorException;
@@ -13,29 +12,22 @@ import se.kth.iv1201projekt.util.RecruiterDTO;
 import se.kth.iv1201projekt.util.RegisterErrorException;
 
 /**
- * This class makes database call transaction-safe, translate DTO:s into 
- * appropriate beans and also handle flow control.
- * Uses an optimistic solution;
+ * This class should be the connection between the business layer and the 
+ * integration layer.
  * 
  * @author Kim
  */
-class TransactionSafeASDatabaseImpl implements ASDatabase {
+public class ASDBController implements ASDatabase {
     
-    private ASDatabaseImpl db = new ASDatabaseImpl();
-    private static final ReentrantReadWriteLock lock = new ReentrantReadWriteLock();
+    private TransactionSafeASDatabaseImpl db;
+    
+    public ASDBController() {
+        this.db = new TransactionSafeASDatabaseImpl();
+    }
 
     @Override
     public RecruiterDTO loginRecruiter(String username, String password) throws LoginErrorException {
-        RecruiterDTO recruiter;
-        try {
-            lock.readLock().lock();
-            recruiter = db.loginRecruiter(username, password);
-        } catch(LoginErrorException e) {
-            throw e;
-        } finally {
-            lock.readLock().unlock();
-        }
-        return recruiter;
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
     @Override
@@ -57,10 +49,9 @@ class TransactionSafeASDatabaseImpl implements ASDatabase {
     public boolean placeJob(RecruiterDTO recruiter, Job job) {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
-    
+
     @Override
     public boolean applyJob(ApplicantDTO applicant, Job job) {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
-
 }
