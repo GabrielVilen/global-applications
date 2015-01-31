@@ -4,40 +4,40 @@
 <html xmlns="http://www.w3.org/1999/xhtml"   
       xmlns:h="http://xmlns.jcp.org/jsf/html"
       xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
-      xmlns:f="http://xmlns.jcp.org/jsf/core">
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:p="http://xmlns.jcp.org/jsf/passthrough">
     <h:body>
         <ui:composition template="/template/layout.xhtml">
             <ui:define name="content">
                 <div id="content">
 
                     <h:outputLabel><b>Register as:</b><br/></h:outputLabel>
-                    <h:form id="registration_form">
-                        <input  type="radio" name="role" id="applicant" onclick="radio_button_check(this.id)"/> Applicant
-                        <input  type="radio" name="role" id="recruiter" onclick="radio_button_check(this.id)"/> Recruiter <br/><br/>
+                    <h:form id="registration_form" onsubmit="return validateRegister()">
+                        <input type="radio" name="role" id="applicant" onclick="radio_button_check(this.id)"/> Applicant
+                        <input type="radio" name="role" id="recruiter" onclick="radio_button_check(this.id)"/> Recruiter <br/><br/>
                         <div id="application_div">
                             <h3>Personal information</h3>
                             <p/> 
-
                             <table>
                                 <tr>
                                     <td><h:outputLabel value="First name"/></td>
-                                    <td> <h:inputText value="firstname"/><br/></td>
+                                    <td> <h:inputText value="#{registerBean.firstname}" p:required="required"/><br/></td>
                                 </tr>
                                 <tr>
                                     <td> <h:outputLabel value="Last Name"/></td>
-                                    <td><h:inputText value="lastname"/><br/></td>
+                                    <td><h:inputText value="#{registerBean.lastname}" p:required="required"/><br/></td>
                                 </tr>
                                 <tr>
-                                    <td><h:outputLabel value="Social security number"/></td>
-                                    <td>  <h:inputText value="ssn"/><br/></td>
+                                    <td><h:outputLabel value="Social security number" p:required="required"/></td>
+                                    <td><h:inputText value="#{registerBean.ssn}" p:required="required"/><br/></td>
                                 </tr>
                                 <tr>
                                     <td><h:outputLabel value="Email"/></td>
-                                    <td><h:inputText value="email"/><br/></td>
+                                    <td><h:inputText value="#{registerBean.email}" p:required="required"/><br/></td>
                                 </tr>
                                 <tr>
                                     <td><h:outputLabel value="Date of birth"/></td>
-                                    <td><input type="datetime-local" name="birth"/><br/><br/></td>
+                                    <td><inputText p:type="datetime-local" value="#{registerBean.birth}" p:required="required"/><br/><br/></td>
                                 </tr>
                             </table>
 
@@ -45,12 +45,12 @@
                                 <h3> Competence Profile </h3>
                                 <table>
                                     <tr>
-                                        <td><h:outputLabel value="Career Role"/></td>
-                                        <td>  <h:inputText value="role"/><br/></td>
+                                        <td><h:outputLabel value="Career Role" /></td>
+                                        <td>  <h:inputText value="#{registerBean.role}" p:required="required"/><br/></td>
                                     </tr>
                                     <tr>
                                         <td><h:outputLabel value="Competence:"/></td>
-                                        <h:selectManyListbox value="cars" >
+                                        <h:selectManyListbox  value="#{registerBean.competences}" p:required="required">
                                             <f:selectItem itemValue="volvo" itemLabel="Volvo"/>
                                             <f:selectItem itemValue="saab" itemLabel="Saab"/>
                                             <f:selectItem itemValue="opel" itemLabel="Opel"/>
@@ -59,7 +59,7 @@
                                     </tr>
                                     <tr>
                                         <td><h:outputLabel value="Years of experience"/></td>
-                                        <td><input type="number" name="yearsofexperience"/><br/></td>
+                                        <td><input type="number" name="yearsofexperience" p:required="required"/><br/></td>
                                     </tr>
                                 </table>
                             </div>
@@ -67,9 +67,9 @@
 
                             <h3> Availability (date and time)</h3>
                             <h:outputLabel value="From"/>
-                            <input type="datetime-local" name="fromtime"/><br/>
+                            <input type="datetime-local" value="#{registerBean.fromtime}" p:required="required"/><br/>
                             <h:outputLabel value="To"/>
-                            <input type="datetime-local" name="totime"/> 
+                            <input type="datetime-local" value="#{registerBean.totime}" p:required="required"/> 
 
                             <br/>
                             <h:commandButton type="submit" value="Submit"/>
