@@ -6,7 +6,6 @@
 package se.kth.iv1201projekt.businesslogic;
 
 import java.io.Serializable;
-import java.util.Date;
 import java.util.List;
 import javax.enterprise.context.SessionScoped;
 import javax.inject.Named;
@@ -27,7 +26,6 @@ public class RegisterBean implements Serializable {
     private String email;
     private String role;
     private String birth;
-    private int yearsofexperience;
     private String fromtime;
     private String totime;
     private List competences;
@@ -80,15 +78,6 @@ public class RegisterBean implements Serializable {
         this.birth = birth;
     }
 
-
-    public int getYearsofexperience() {
-        return yearsofexperience;
-    }
-
-    public void setYearsofexperience(int yearsofexperience) {
-        this.yearsofexperience = yearsofexperience;
-    }
-
     public String getFromtime() {
         return fromtime;
     }
@@ -112,7 +101,4 @@ public class RegisterBean implements Serializable {
     public void setCompetences(List competences) {
         this.competences = competences;
     }
-    
-    
-    
 }

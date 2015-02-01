@@ -6,8 +6,8 @@
       xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
       xmlns:f="http://xmlns.jcp.org/jsf/core"
       xmlns:p="http://xmlns.jcp.org/jsf/passthrough">
-    
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.3/jquery.min.js"/>
+
+
     <h:body>
         <ui:composition template="/template/layout.xhtml">
             <ui:define name="content">
@@ -24,7 +24,7 @@
                             <table>
                                 <tr>
                                     <td><h:outputLabel value="First name"/></td>
-                                    <td> <h:inputText value="#{registerBean.firstname}" p:required="true">
+                                    <td> <h:inputText value="#{registerBean.firstname}" styleClass="" p:required="true">
                                             <f:validator validatorId="nameValidator"/>
                                         </h:inputText><br/></td>
                                 </tr>
@@ -36,7 +36,10 @@
                                 </tr>
                                 <tr>
                                     <td><h:outputLabel value="Social security number" p:required="true"/></td>
-                                    <td><h:inputText value="#{registerBean.ssn}" p:required="true"/><br/></td>
+                                    <td><h:inputText value="#{registerBean.ssn}" p:required="true">
+                                            <f:validator validatorId="ssnValidator" />
+                                        </h:inputText>
+                                        <br/></td>
                                 </tr>
                                 <tr>
                                     <td><h:outputLabel value="Email"/></td>
@@ -44,7 +47,7 @@
                                 </tr>
                                 <tr>
                                     <td><h:outputLabel value="Date of birth"/></td>
-                                    <td><input type="date" value="#{registerBean.birth}" p:required="true"/><br/><br/></td>
+                                    <td><h:inputText p:type="date" value="#{registerBean.birth}" p:required="true"/><br/><br/></td>
                                 </tr>
                             </table>
 
@@ -57,38 +60,44 @@
                                     </tr>
                                     <tr>
                                         <td><h:outputLabel value="Competence:"/></td>
-                                        <td><h:selectOneMenu>
-                                                <f:selectItem itemValue="java" itemLabel="java"/>
-                                                <f:selectItem itemValue="HTML" itemLabel="html"/>
-                                                <f:selectItem itemValue="XML" itemLabel="xml"/>
-                                                <f:selectItem itemValue=".Net" itemLabel="winnet"/>
+                                        <td><h:selectOneMenu p:id="competenceList">
+                                                <f:selectItem itemValue="java" itemLabel="Java"/>
+                                                <f:selectItem itemValue="html" itemLabel="HTML"/>
+                                                <f:selectItem itemValue="xml" itemLabel="XML"/>
+                                                <f:selectItem itemValue="dotnet" itemLabel=".NET"/>
                                             </h:selectOneMenu></td>                          
                                         <td><h:outputLabel value="Years of experience"/></td>
-                                        <td><h:inputText p:type="number"/></td>
-                                        <br/>
-                                        <input type="button" value="Add" onClick="addCompetence()"/>
-                                        <div id="competenceDiv">
-                                            <table id="skillsTable">
-                                                <tr>
-                                                    <th>Skill</th>
-                                                    <th>Experience</th>
-                                                    <th/>
-                                                </tr>
-                                            </table>
-                                        </div>
+                                        <td><h:inputText p:id="competenceYears" p:type="number"/></td>
                                         <br/>
                                     </tr>
-
+                                    <tr>
+                                        <td><input type="button" value="Add" onClick="addCompetence()"/></td>
+                                    </tr>
                                 </table>
+                                <br/>
+                                <strong>Compteneces</strong>
+                                <br/>
+                                <div id="competenceDiv">
+                                    <table id="competenceTable">
+                                        <tr>
+                                            <th>Skill</th>
+                                            <th>Experience</th>
+                                            <th/>
+                                        </tr>
+                                    </table>
+                                </div>
+                                <br/>
                             </div>
-
-
                             <h3> Availability (date and time)</h3>
                             <h:outputLabel value="From"/>
-                            <input type="datetime-local" value="#{registerBean.fromtime}" p:required="true"/><br/>
+                            <h:inputText p:type="datetime-local" value="#{registerBean.fromtime}" p:required="true">
+                                <f:validator validatorId="dateValidator"/>
+                            </h:inputText>
+                            <br/>
                             <h:outputLabel value="To"/>
-                            <input type="datetime-local" value="#{registerBean.totime}" p:required="true"/> 
-
+                            <h:inputText p:type="datetime-local" value="#{registerBean.totime}" p:required="true"> 
+                                <f:validator validatorId="dateValidator"/>
+                            </h:inputText>
                             <br/>
                             <h:commandButton type="submit" value="Submit"/>
                         </div>

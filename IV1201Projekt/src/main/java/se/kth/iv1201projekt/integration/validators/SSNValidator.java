@@ -1,5 +1,11 @@
 package se.kth.iv1201projekt.integration.validators;
 
+import java.text.DateFormat;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
+import java.util.Locale;
+import java.util.logging.Logger;
 import javax.faces.application.FacesMessage;
 import javax.faces.component.UIComponent;
 import javax.faces.context.FacesContext;
@@ -11,8 +17,8 @@ import javax.faces.validator.ValidatorException;
  * Checks if name contains number or is bigger than the database limit
  * @author Samy
  */
-@FacesValidator("nameValidator")
-public class NameValidator implements Validator{
+@FacesValidator("ssnValidator")
+public class SSNValidator implements Validator{
         
     private final String numberRegex="/^\\d+$/";
     
@@ -20,8 +26,8 @@ public class NameValidator implements Validator{
     public void validate(FacesContext context, UIComponent component, Object value) throws ValidatorException {
        String param = value.toString();
        
-       if(param.matches(numberRegex)||param.length()<2 || param.length()>255){
-           FacesMessage msg = new FacesMessage("A name can't contain a number and must be between 3 and 255");
+       if(param.matches(numberRegex)||param.length()==10){
+           FacesMessage msg = new FacesMessage("Invalid Social Security Number");
            msg.setSeverity(FacesMessage.SEVERITY_ERROR);
            throw new ValidatorException(msg);
        }
