@@ -6,6 +6,8 @@
       xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
       xmlns:f="http://xmlns.jcp.org/jsf/core"
       xmlns:p="http://xmlns.jcp.org/jsf/passthrough">
+    
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.3/jquery.min.js"/>
     <h:body>
         <ui:composition template="/template/layout.xhtml">
             <ui:define name="content">
@@ -16,28 +18,33 @@
                         <input type="radio" name="role" id="applicant" onclick="radio_button_check(this.id)"/> Applicant
                         <input type="radio" name="role" id="recruiter" onclick="radio_button_check(this.id)"/> Recruiter <br/><br/>
                         <div id="application_div">
+                            <h:messages styleClass="errorMessage"/>
                             <h3>Personal information</h3>
                             <p/> 
                             <table>
                                 <tr>
                                     <td><h:outputLabel value="First name"/></td>
-                                    <td> <h:inputText value="#{registerBean.firstname}" p:required="required"/><br/></td>
+                                    <td> <h:inputText value="#{registerBean.firstname}" p:required="true">
+                                            <f:validator validatorId="nameValidator"/>
+                                        </h:inputText><br/></td>
                                 </tr>
                                 <tr>
                                     <td> <h:outputLabel value="Last Name"/></td>
-                                    <td><h:inputText value="#{registerBean.lastname}" p:required="required"/><br/></td>
+                                    <td><h:inputText value="#{registerBean.lastname}" p:required="true">
+                                            <f:validator validatorId="nameValidator"/>
+                                        </h:inputText><br/></td>
                                 </tr>
                                 <tr>
-                                    <td><h:outputLabel value="Social security number" p:required="required"/></td>
-                                    <td><h:inputText value="#{registerBean.ssn}" p:required="required"/><br/></td>
+                                    <td><h:outputLabel value="Social security number" p:required="true"/></td>
+                                    <td><h:inputText value="#{registerBean.ssn}" p:required="true"/><br/></td>
                                 </tr>
                                 <tr>
                                     <td><h:outputLabel value="Email"/></td>
-                                    <td><h:inputText value="#{registerBean.email}" p:required="required"/><br/></td>
+                                    <td><h:inputText p:type="email" value="#{registerBean.email}" p:required="true"/><br/></td>
                                 </tr>
                                 <tr>
                                     <td><h:outputLabel value="Date of birth"/></td>
-                                    <td><inputText p:type="datetime-local" value="#{registerBean.birth}" p:required="required"/><br/><br/></td>
+                                    <td><input type="date" value="#{registerBean.birth}" p:required="true"/><br/><br/></td>
                                 </tr>
                             </table>
 
@@ -46,30 +53,41 @@
                                 <table>
                                     <tr>
                                         <td><h:outputLabel value="Career Role" /></td>
-                                        <td>  <h:inputText value="#{registerBean.role}" p:required="required"/><br/></td>
+                                        <td><h:inputText value="#{registerBean.role}" p:required="true"/><br/></td>
                                     </tr>
                                     <tr>
                                         <td><h:outputLabel value="Competence:"/></td>
-                                        <h:selectManyListbox  value="#{registerBean.competences}" p:required="required">
-                                            <f:selectItem itemValue="volvo" itemLabel="Volvo"/>
-                                            <f:selectItem itemValue="saab" itemLabel="Saab"/>
-                                            <f:selectItem itemValue="opel" itemLabel="Opel"/>
-                                            <f:selectItem itemValue="audi" itemLabel="Audi"/>
-                                        </h:selectManyListbox><br/>
-                                    </tr>
-                                    <tr>
+                                        <td><h:selectOneMenu>
+                                                <f:selectItem itemValue="java" itemLabel="java"/>
+                                                <f:selectItem itemValue="HTML" itemLabel="html"/>
+                                                <f:selectItem itemValue="XML" itemLabel="xml"/>
+                                                <f:selectItem itemValue=".Net" itemLabel="winnet"/>
+                                            </h:selectOneMenu></td>                          
                                         <td><h:outputLabel value="Years of experience"/></td>
-                                        <td><input type="number" name="yearsofexperience" p:required="required"/><br/></td>
+                                        <td><h:inputText p:type="number"/></td>
+                                        <br/>
+                                        <input type="button" value="Add" onClick="addCompetence()"/>
+                                        <div id="competenceDiv">
+                                            <table id="skillsTable">
+                                                <tr>
+                                                    <th>Skill</th>
+                                                    <th>Experience</th>
+                                                    <th/>
+                                                </tr>
+                                            </table>
+                                        </div>
+                                        <br/>
                                     </tr>
+
                                 </table>
                             </div>
 
 
                             <h3> Availability (date and time)</h3>
                             <h:outputLabel value="From"/>
-                            <input type="datetime-local" value="#{registerBean.fromtime}" p:required="required"/><br/>
+                            <input type="datetime-local" value="#{registerBean.fromtime}" p:required="true"/><br/>
                             <h:outputLabel value="To"/>
-                            <input type="datetime-local" value="#{registerBean.totime}" p:required="required"/> 
+                            <input type="datetime-local" value="#{registerBean.totime}" p:required="true"/> 
 
                             <br/>
                             <h:commandButton type="submit" value="Submit"/>
