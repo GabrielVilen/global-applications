@@ -22,15 +22,14 @@ import se.kth.iv1201projekt.integration.ASDBController;
 public class UserBean implements Serializable {
 
     private static final long serialVersionUID = 1L;
-    @Inject private ASDBController controller;
+    /*@Inject*/ private ASDBController controller;
 
     private String username;
     private String password;
 
-    // check role_id or split up
     public boolean login(String username, String password) {
         try {
-            controller.loginApplicant(username, password);
+            controller.login(username, password);
             return true;
         } catch (Exception e) {
             e.printStackTrace();

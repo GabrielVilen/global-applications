@@ -6,13 +6,14 @@
 package se.kth.iv1201projekt.util;
 
 import java.util.List;
+import se.kth.iv1201projekt.integration.model.CompetenceProfile;
 
 /**
  *
  * @author Kim
  */
 public class RecruiterDTO {
-    
+
     private int id;
     private String name;
     private String surname;
@@ -20,19 +21,13 @@ public class RecruiterDTO {
     private String email;
     private String role;
     private final String username;
-    private Availability availability;
+    //private AvailabilityDTO availability;
+    //private List<CompetenceProfileDTO> competenceProfileList;
 
-    public RecruiterDTO(String name, String surname, String ssn, String email, String role, String username, List<Competence> competences, Availability availability) {
-        this.name = name;
-        this.surname = surname;
-        this.ssn = ssn;
-        this.email = email;
-        this.role = role;
-        this.username = username;
-        this.availability = availability;
-    }
-
-    public RecruiterDTO(int id, String name, String surname, String ssn, String email, String role, String username, List<Competence> competences, Availability availability) {
+    public RecruiterDTO(int id, String name, String surname, String ssn,
+            String email, String role, String username
+            /*,List<Competence> competences, AvailabilityDTO availability, 
+            List<CompetenceProfileDTO> competenceProfileList)*/) {
         this.id = id;
         this.name = name;
         this.surname = surname;
@@ -40,7 +35,7 @@ public class RecruiterDTO {
         this.email = email;
         this.role = role;
         this.username = username;
-        this.availability = availability;
+        //this.availability = availability;
     }
 
     public int getId() {
@@ -70,8 +65,12 @@ public class RecruiterDTO {
     public String getRole() {
         return role;
     }
-
-    public Availability getAvailability() {
+/*
+    public AvailabilityDTO getAvailability() {
         return availability;
     }
+
+    public List<CompetenceProfileDTO> getCompetenceProfileList() {
+        return competenceProfileList;
+    }*/
 }
