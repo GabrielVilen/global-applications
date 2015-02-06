@@ -21,8 +21,10 @@ import se.kth.iv1201projekt.integration.ASDBController;
 @SessionScoped
 public class UserBean implements Serializable {
 
+    //@Inject 
+    private ASDBController controller;
+    private Logger logger = Logger.getLogger(getClass().getName());
     private static final long serialVersionUID = 1L;
-    /*@Inject*/ private ASDBController controller;
 
     private String username;
     private String password;
@@ -36,12 +38,7 @@ public class UserBean implements Serializable {
             return false;
         }
     }
-    
-    public void print() {
-        Logger logger = Logger.getLogger(getClass().getName());
-        logger.info("hello from USER BEAN");
-    }
-//
+
 //    public boolean register() {
 //        try {
 //            controller.register();

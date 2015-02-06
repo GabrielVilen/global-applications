@@ -4,6 +4,8 @@
 <html xmlns="http://www.w3.org/1999/xhtml"   
       xmlns:h="http://java.sun.com/jsf/html"
       xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:p="http://xmlns.jcp.org/jsf/passthrough"
       >
     <h:body>
 
@@ -11,22 +13,26 @@
 
             <ui:define name="content">
 
-                <b><br/>Log in as: <br/></b>
-                <input type="radio" name="role"/> Applicant 
-                <input type="radio" name="role"/> Recruiter <br/><br/>
-
-                <h:form>    
+                <h:form>  
+                    <b><br/>Log in as: <br/></b>
+                    <input type="radio" name="role" p:reqruited="true"/> Applicant 
+                    <input type="radio" name="role" p:reqruited="true"/> Recruiter <br/><br/>
                     <table>
                         <tr>
-                            <td><label> Username </label></td>
-                            <td><h:inputText value="#{userBean.username}"/></td>
+                            <td><h:outputLabel value="Username" /></td>
+                            <td><h:inputText value="#{userBean.username}" p:required="true" >
+                                    <f:validator validatorId="usernameValidator"/>
+                                </h:inputText></td>
                         </tr>
                         <tr>
-                            <td><label> Password </label></td>
-                            <td><h:inputSecret  value="#{userBean.password}"/></td>
+                            <td><h:outputLabel value="Password" /></td>
+                            <td><h:inputSecret  value="#{userBean.password}" p:requried="true" >
+                                    <f:validator validatorId="passwordValidator" />
+                                </h:inputSecret>
+                            </td>
                         </tr>
                         <tr>
-                            <td colspan="2"><h:commandButton value="submit" type="submit" action="#{userBean.print}" /></td>
+                            <td colspan="2"><h:commandButton value="submit" type="submit" action="#{userBean.login}" /></td>
                         </tr>
                     </table>
                 </h:form> 

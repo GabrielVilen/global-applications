@@ -4,8 +4,8 @@
 <html xmlns="http://www.w3.org/1999/xhtml"   
       xmlns:h="http://java.sun.com/jsf/html"
       xmlns:ui="http://java.sun.com/jsf/facelets"
-
-      xmlns:f="http://xmlns.jcp.org/jsf/core">
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:p="http://xmlns.jcp.org/jsf/passthrough">
     <h:body>
 
         <ui:composition template="/template/layout.xhtml">
@@ -17,25 +17,33 @@
                         <table>
                             <tr>
                                 <td><label>Job name</label></td>
-                                <td><h:inputText value="#{jobBean.name}" /><br/></td>
+                                <td><h:inputText value="#{jobBean.name}" p:required="true" >
+                                        <f:validator validatorId="jobNameValidator"/>
+                                    </h:inputText><br/></td>
                             </tr>
                             <tr>
                                 <td><label> Job type </label></td>
-                                <td><h:inputText value="#{jobBean.type}" /><br/></td>
+                                <td><h:inputText value="#{jobBean.type}" p:required="true" >
+                                        <f:validator validatorId="jobTypeValidator" />
+                                    </h:inputText><br/></td>
                             </tr>
                             <tr>
                                 <td><label> Job information</label></td>
-                                <td><h:inputText value="#{jobBean.information}" /><br/></td>
+                                <td><h:inputText value="#{jobBean.information}" p:required="true" >
+                                        <f:validator validatorId="jobInfoValidator"/>
+                                    </h:inputText><br/></td>
                             </tr>
                         </table>
                         <b><br/>Duration<br/></b>
-                        From  <h:inputText value="#{jobBean.fromDate}">
+                        Start date  <h:inputText value="#{jobBean.fromDate}" p:required="true">
                             <f:convertDateTime pattern="MM/dd/yyyy" />
+                            <f:validator validatorId="fromDateValidator" />
                         </h:inputText>
-                        To<h:inputText value="#{jobBean.toDate}">
+                        End date<h:inputText value="#{jobBean.toDate}" p:required="true">
                             <f:convertDateTime pattern="MM/dd/yyyy" />
+                            <f:validator validatorId="toDateValidator" />
                         </h:inputText><br/><br/>
-                        <h:commandButton value="submit" type="submit" action="#{jobBean.print}" />
+                        <h:commandButton value="submit" type="submit" action="#{jobBean.registerJob}" />
                     </h:form>
                 </div>
             </ui:define>
