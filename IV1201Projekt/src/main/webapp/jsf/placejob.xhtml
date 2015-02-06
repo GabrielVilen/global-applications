@@ -29,13 +29,13 @@
                             </tr>
                         </table>
                         <b><br/>Duration<br/></b>
-                        From  <h:inputText value="#{jobBean.fromDate}">
+                        Start date  <h:inputText value="#{jobBean.fromDate}">
                             <f:convertDateTime pattern="MM/dd/yyyy" />
                         </h:inputText>
-                        To<h:inputText value="#{jobBean.toDate}">
+                        End date<h:inputText value="#{jobBean.toDate}">
                             <f:convertDateTime pattern="MM/dd/yyyy" />
                         </h:inputText><br/><br/>
-                        <h:commandButton value="submit" type="submit" action="#{jobBean.print}" />
+                        <h:commandButton value="submit" type="submit" action="#{jobBean.registerJob}" />
                     </h:form>
                 </div>
             </ui:define>

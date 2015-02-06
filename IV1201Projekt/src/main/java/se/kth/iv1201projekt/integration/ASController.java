@@ -5,7 +5,9 @@
  */
 package se.kth.iv1201projekt.integration;
 
+import se.kth.iv1201projekt.businesslogic.JobBean;
 import se.kth.iv1201projekt.util.ApplicantDTO;
+import se.kth.iv1201projekt.util.Job;
 import se.kth.iv1201projekt.util.LoginErrorException;
 import se.kth.iv1201projekt.util.RecruiterDTO;
 import se.kth.iv1201projekt.util.RegisterErrorException;
@@ -16,7 +18,7 @@ import se.kth.iv1201projekt.util.RegisterErrorException;
  * 
  * @author Kim
  */
-public class ASController {
+public class ASController implements ASDatabase{
     
     private ASDatabaseImpl db = new ASDatabaseImpl();
     
@@ -34,5 +36,15 @@ public class ASController {
     public void register(ApplicantDTO applicant) throws RegisterErrorException {
         db.register(applicant);
         db.commit();
+    }
+
+    @Override
+    public boolean placeJob(RecruiterDTO recruiter, Job job) {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+
+    @Override
+    public boolean applyJob(ApplicantDTO applicant, Job job) {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 }

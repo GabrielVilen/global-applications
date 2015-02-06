@@ -147,4 +147,5 @@ class ASDatabaseImpl implements ASDatabase {
     public boolean applyJob(ApplicantDTO applicant, Job job) {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
+
 }

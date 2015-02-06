@@ -19,15 +19,16 @@ import se.kth.iv1201projekt.integration.ASController;
 @SessionScoped
 public class UserBean implements Serializable {
 
+    private Logger logger = Logger.getLogger(getClass().getName());
     private static final long serialVersionUID = 1L;
     private ASController controller = new ASController();
-    
 
     private String username;
     private String password;
 
-    public boolean login(String username, String password) {
+    public boolean login() {
         try {
+            logger.info("login(..) from USER BEAN");
             controller.login(username, password);
             return true;
         } catch (Exception e) {
@@ -35,12 +36,7 @@ public class UserBean implements Serializable {
             return false;
         }
     }
-    
-    public void print() {
-        Logger logger = Logger.getLogger(getClass().getName());
-        logger.info("hello from USER BEAN");
-    }
-//
+
 //    public boolean register() {
 //        try {
 //            controller.register();

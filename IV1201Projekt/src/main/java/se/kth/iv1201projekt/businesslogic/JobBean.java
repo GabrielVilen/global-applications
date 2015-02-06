@@ -10,6 +10,7 @@ import java.util.Date;
 import java.util.logging.Logger;
 import javax.enterprise.context.SessionScoped;
 import javax.inject.Named;
+import se.kth.iv1201projekt.integration.ASController;
 import se.kth.iv1201projekt.util.RecruiterDTO;
 
 /**
@@ -26,11 +27,18 @@ public class JobBean implements Serializable {
     private RecruiterDTO recruiter;
     private Date fromDate;
     private Date toDate;
+    
+    private ASController controller = new ASController();
 
     public String getName() {
         return name;
     }
+    
+    public void registerJob() {
+        //controller.placeJob(recruiter, this);
+    }
 
+    
     public void setName(String name) {
         this.name = name;
     }
