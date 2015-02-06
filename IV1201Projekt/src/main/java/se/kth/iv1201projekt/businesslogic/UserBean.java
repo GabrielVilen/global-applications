@@ -33,7 +33,7 @@ public class UserBean implements Serializable {
     // check role_id or split up
     public boolean login(String username, String password) {
         try {
-            controller.loginApplicant(username, password);
+            controller.login(username, password);
             return true;
         } catch (Exception e) {
             e.printStackTrace();
