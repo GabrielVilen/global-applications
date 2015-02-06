@@ -5,11 +5,8 @@
  */
 package se.kth.iv1201projekt.integration;
 
-import se.kth.iv1201projekt.util.ApplicantDTO;
-import se.kth.iv1201projekt.util.Job;
+import se.kth.iv1201projekt.integration.model.Person;
 import se.kth.iv1201projekt.util.LoginErrorException;
-import se.kth.iv1201projekt.util.RecruiterDTO;
-import se.kth.iv1201projekt.util.RegisterErrorException;
 
 /**
  * This class should be the connection between the business layer and the 
@@ -19,19 +16,20 @@ import se.kth.iv1201projekt.util.RegisterErrorException;
  */
 public class ASDBController implements ASDatabase {
     
-    private TransactionSafeASDatabaseImpl db;
+    private ASJPADatabaseImpl db;
     
     public ASDBController() {
-        this.db = new TransactionSafeASDatabaseImpl();
+        this.db = new ASJPADatabaseImpl();
     }
 
     @Override
-    public RecruiterDTO loginRecruiter(String username, String password) throws LoginErrorException {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    public Person login(String username, String password) 
+            throws LoginErrorException {
+        return db.login(username, password);
     }
-
+/*
     @Override
-    public ApplicantDTO loginApplicant(String username, String password) throws LoginErrorException {
+    public Applicant loginApplicant(String username, String password) throws LoginErrorException {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
@@ -53,5 +51,5 @@ public class ASDBController implements ASDatabase {
     @Override
     public boolean applyJob(ApplicantDTO applicant, Job job) {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-    }
+    }*/
 }
