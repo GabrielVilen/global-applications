@@ -1,4 +1,4 @@
-package se.kth.iv1201projekt.integration;
+package se.kth.iv1201projekt.integration.test_temp;
 
 
 import java.net.HttpURLConnection;

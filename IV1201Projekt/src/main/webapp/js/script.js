@@ -12,5 +12,11 @@ function radio_button_check(id) {
     }
 }
 
+function addCompetence(){
+    var skill = $("#competenceList option:selected").text();
+    var numOfYears=$("#competenceYears").val();
+    $("#competenceTable tbody").append('<tr><td>'+skill +'</td><td>'+numOfYears+'</td><td><input type="hidden" name="skill[]" value="'+skill+'"/>\n\
+        <input type="hidden" name="skill[]" value="'+numOfYears+'"/></tr>');
+}
 
 

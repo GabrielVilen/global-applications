@@ -12,18 +12,21 @@ import se.kth.iv1201projekt.util.RecruiterDTO;
 import se.kth.iv1201projekt.util.RegisterErrorException;
 
 /**
- *
+ * 
  * @author Kborak
  */
 public interface ASDatabase {
-    public Object login(String username, String password) throws LoginErrorException;
-    
+
+    public RecruiterDTO loginRecruiter(String username, String password) throws LoginErrorException;
+
+    public ApplicantDTO loginApplicant(String username, String password) throws LoginErrorException;
+
     public void register(ApplicantDTO applicant) throws RegisterErrorException;
-    
+
     public void register(RecruiterDTO recruiter) throws RegisterErrorException;
-    
+
     public boolean placeJob(RecruiterDTO recruiter, Job job);
-    
+
     public boolean applyJob(ApplicantDTO applicant, Job job);
-    
+
 }
