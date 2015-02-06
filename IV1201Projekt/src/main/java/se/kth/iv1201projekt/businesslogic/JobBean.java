@@ -28,7 +28,7 @@ public class JobBean implements Serializable {
     private Date fromDate;
     private Date toDate;
     
-    private ASController controller = new ASController();
+    private ASDBController controller = new ASDBController();
 
     public String getName() {
         return name;
