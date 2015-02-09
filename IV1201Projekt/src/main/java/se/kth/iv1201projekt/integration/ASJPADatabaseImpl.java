@@ -5,6 +5,7 @@
  */
 package se.kth.iv1201projekt.integration;
 
+import java.io.Serializable;
 import javax.ejb.Remote;
 import javax.ejb.Stateless;
 import javax.inject.Inject;
@@ -20,7 +21,7 @@ import se.kth.iv1201projekt.util.LoginErrorException;
  * @author Kim
  */
 @Stateless
-public class ASJPADatabaseImpl implements ASDatabase {
+public class ASJPADatabaseImpl implements Serializable {
 
     //private final EntityManager entityManager;
     /*
@@ -28,7 +29,7 @@ public class ASJPADatabaseImpl implements ASDatabase {
         EntityManagerFactory emf = Persistence.createEntityManagerFactory("se.kth_IV1201Projekt");
         this.entityManager = emf.createEntityManager();
     }*/
-    @Override
+    
     public Person login(String username, String password) throws LoginErrorException {
         EntityManagerFactory emf = Persistence.createEntityManagerFactory("se.kth_IV1201Projekt");
         EntityManager entityManager = emf.createEntityManager();

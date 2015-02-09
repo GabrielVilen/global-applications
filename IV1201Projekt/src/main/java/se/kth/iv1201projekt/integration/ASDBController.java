@@ -5,6 +5,7 @@
  */
 package se.kth.iv1201projekt.integration;
 
+import java.io.Serializable;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.ejb.EJB;
@@ -22,7 +23,7 @@ import se.kth.iv1201projekt.util.LoginErrorException;
  */
 
 
-public class ASDBController implements ASDatabase {
+public class ASDBController implements Serializable {
     
     @EJB
     private ASJPADatabaseImpl db;
@@ -37,7 +38,6 @@ public class ASDBController implements ASDatabase {
         }
     }*/
 
-    @Override
     public Person login(String username, String password) 
             throws LoginErrorException {
         return db.login(username, password);
