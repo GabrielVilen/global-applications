@@ -7,6 +7,7 @@ package se.kth.iv1201projekt.integration;
 
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javax.ejb.EJB;
 import javax.ejb.Stateless;
 import javax.naming.InitialContext;
 import javax.naming.NamingException;
@@ -21,18 +22,22 @@ import se.kth.iv1201projekt.util.LoginErrorException;
  */
 public class ASDBController implements ASDatabase {
     
+    @EJB
     private ASJPADatabaseImpl db;
     
-    public ASDBController() {
-        this.db = new ASJPADatabaseImpl();
-    }
+    /*public ASDBController() {
+        try {
+            InitialContext ctx = new InitialContext();
+            ASJPADatabaseImpl db = (ASJPADatabaseImpl)ctx.lookup("ASJPADatabaseImpl");
+            this.db = db;//new ASJPADatabaseImpl();
+        } catch (NamingException ex) {
+            Logger.getLogger(ASDBController.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }*/
 
     @Override
     public Person login(String username, String password) 
             throws LoginErrorException {
-   
-        //InitialContext ctx = new InitialContext();
-        //ASJPADatabaseImpl db = (ASJPADatabaseImpl)ctx.lookup("ASJPADatabaseImpl");
         return db.login(username, password);
     }
 /*
