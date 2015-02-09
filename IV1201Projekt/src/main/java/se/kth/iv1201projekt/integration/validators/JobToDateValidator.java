@@ -14,15 +14,15 @@ import javax.faces.validator.ValidatorException;
 @FacesValidator("jobToDateValidator")
 public class JobToDateValidator implements Validator {
     
-    private final String numberRegex="^(19|20)\\d\\d[- /.](0[1-9]|1[012])[- /.](0[1-9]|[12][0-9]|3[01])$";
+    //private final String numberRegex="^(19|20)\\d\\d[- /.](0[1-9]|1[012])[- /.](0[1-9]|[12][0-9]|3[01])$";
 
     @Override
     public void validate(FacesContext context, UIComponent component, Object value) throws ValidatorException {
         
         String param = value.toString();
             
-        if (param.length() < 10) {
-            FacesMessage msg = new FacesMessage("Invalid job to date: must be more than 10 characters");
+        if (param.length() != 8) {
+            FacesMessage msg = new FacesMessage("Invalid job start-date: must be 8 characters");
             msg.setSeverity(FacesMessage.SEVERITY_ERROR);
             throw new ValidatorException(msg);
         }
