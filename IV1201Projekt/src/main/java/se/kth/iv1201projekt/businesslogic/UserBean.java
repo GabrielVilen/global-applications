@@ -7,6 +7,7 @@ package se.kth.iv1201projekt.businesslogic;
 
 import java.io.Serializable;
 import java.util.logging.Logger;
+import javax.ejb.EJB;
 import javax.enterprise.context.SessionScoped;
 import javax.inject.Inject;
 import javax.inject.Named;
@@ -22,14 +23,16 @@ import se.kth.iv1201projekt.integration.ASDBController;
 public class UserBean implements Serializable {
 
     //@Inject 
+    @EJB
     private ASDBController controller;
     private Logger logger = Logger.getLogger(getClass().getName());
-    private static final long serialVersionUID = 1L;
 
     private String username;
     private String password;
 
-    public boolean login(String username, String password) {
+    public boolean login() {
+        System.out.println("controller=" + controller + "username=" + username + "password=" + password);
+        if(username == null || password == null) return false;
         try {
             controller.login(username, password);
             return true;
@@ -38,6 +41,7 @@ public class UserBean implements Serializable {
             return false;
         }
     }
+    
 
 //    public boolean register() {
 //        try {
