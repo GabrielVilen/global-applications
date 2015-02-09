@@ -22,7 +22,7 @@ import se.kth.iv1201projekt.util.LoginErrorException;
  * @author Kim
  */
 
-@Stateless(name = "ASDatabase")
+@Stateless(name = "ASDBController")
 public class ASDBController  {
 
     @EJB
