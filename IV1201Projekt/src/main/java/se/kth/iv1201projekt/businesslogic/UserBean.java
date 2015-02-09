@@ -10,7 +10,6 @@ import java.util.logging.Logger;
 import javax.enterprise.context.SessionScoped;
 import javax.inject.Inject;
 import javax.inject.Named;
-import se.kth.iv1201projekt.integration.ASDatabase;
 import se.kth.iv1201projekt.integration.ASDBController;
 
 /**
@@ -21,15 +20,14 @@ import se.kth.iv1201projekt.integration.ASDBController;
 @SessionScoped
 public class UserBean implements Serializable {
 
-    //@Inject 
-    private ASDBController controller;
+    @Inject private ASDBController controller;
     private Logger logger = Logger.getLogger(getClass().getName());
     private static final long serialVersionUID = 1L;
 
     private String username;
     private String password;
 
-    public boolean login(String username, String password) {
+    public boolean login() {
         try {
             controller.login(username, password);
             return true;

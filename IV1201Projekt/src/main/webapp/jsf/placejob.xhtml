@@ -35,13 +35,15 @@
                             </tr>
                         </table>
                         <b><br/>Duration<br/></b>
-                        Start date  <h:inputText value="#{jobBean.fromDate}" p:required="true">
+                        <label>Start date</label>
+                        <h:inputText value="#{jobBean.fromDate}" p:required="true">
                             <f:convertDateTime pattern="MM/dd/yyyy" />
-                            <f:validator validatorId="fromDateValidator" />
+                            <f:validator validatorId="jobFromDateValidator" />
                         </h:inputText>
-                        End date<h:inputText value="#{jobBean.toDate}" p:required="true">
+                        <label>End date</label>
+                        <h:inputText value="#{jobBean.toDate}" p:required="true">
                             <f:convertDateTime pattern="MM/dd/yyyy" />
-                            <f:validator validatorId="toDateValidator" />
+                            <f:validator validatorId="jobToDateValidator" />
                         </h:inputText><br/><br/>
                         <h:commandButton value="submit" type="submit" action="#{jobBean.registerJob}" />
                     </h:form>
