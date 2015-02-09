@@ -19,7 +19,7 @@ import se.kth.iv1201projekt.util.LoginErrorException;
  * This class will use JPA to connect to the database 
  * @author Kim
  */
-//@Stateless
+@Stateless
 public class ASJPADatabaseImpl implements ASDatabase {
 
     //private final EntityManager entityManager;
