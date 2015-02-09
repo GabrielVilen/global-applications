@@ -7,6 +7,7 @@
     <jta-data-source>iv1201gasakiproject</jta-data-source>
     <exclude-unlisted-classes>false</exclude-unlisted-classes>
     <properties>
+        <property name="javax.persistence.jdbc.driver" value="com.mysql.jdbc.Driver"/>
         <property name="javax.persistence.jdbc.url"
                  value="jdbc:mysql://localhost:3306/iv1201gasakiproject"/>
         <property name="javax.persistence.jdbc.user" value="root"/>

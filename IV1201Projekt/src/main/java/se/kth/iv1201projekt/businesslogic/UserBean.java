@@ -30,15 +30,15 @@ public class UserBean implements Serializable {
     private String username;
     private String password;
 
-    public boolean login() {
+    public String login() {
         System.out.println("controller=" + controller + "username=" + username + "password=" + password);
-        if(username == null || password == null) return false;
+        if(username == null || password == null) return "fail_1";
         try {
             controller.login(username, password);
-            return true;
+            return "success";
         } catch (Exception e) {
             e.printStackTrace();
-            return false;
+            return "fail2";
         }
     }
     
