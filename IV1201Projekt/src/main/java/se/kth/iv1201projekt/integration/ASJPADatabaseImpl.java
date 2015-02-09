@@ -5,6 +5,9 @@
  */
 package se.kth.iv1201projekt.integration;
 
+import javax.ejb.Remote;
+import javax.ejb.Stateless;
+import javax.inject.Inject;
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
 import javax.persistence.Persistence;
@@ -16,16 +19,19 @@ import se.kth.iv1201projekt.util.LoginErrorException;
  * This class will use JPA to connect to the database 
  * @author Kim
  */
+//@Stateless
 public class ASJPADatabaseImpl implements ASDatabase {
 
-    private final EntityManager entityManager;
-
+    //private final EntityManager entityManager;
+    /*
     public ASJPADatabaseImpl() {
         EntityManagerFactory emf = Persistence.createEntityManagerFactory("se.kth_IV1201Projekt");
         this.entityManager = emf.createEntityManager();
-    }
-    
+    }*/
+    @Override
     public Person login(String username, String password) throws LoginErrorException {
+        EntityManagerFactory emf = Persistence.createEntityManagerFactory("se.kth_IV1201Projekt");
+        EntityManager entityManager = emf.createEntityManager();
         entityManager.getTransaction().begin();
         
         try {
@@ -57,6 +63,7 @@ public class ASJPADatabaseImpl implements ASDatabase {
         } finally {
             entityManager.getTransaction().commit();
             entityManager.close();
+            emf.close();
         }
     }
 

@@ -5,6 +5,11 @@
  */
 package se.kth.iv1201projekt.integration;
 
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import javax.ejb.Stateless;
+import javax.naming.InitialContext;
+import javax.naming.NamingException;
 import se.kth.iv1201projekt.integration.model.Person;
 import se.kth.iv1201projekt.util.LoginErrorException;
 
@@ -25,6 +30,9 @@ public class ASDBController implements ASDatabase {
     @Override
     public Person login(String username, String password) 
             throws LoginErrorException {
+   
+        //InitialContext ctx = new InitialContext();
+        //ASJPADatabaseImpl db = (ASJPADatabaseImpl)ctx.lookup("ASJPADatabaseImpl");
         return db.login(username, password);
     }
 /*
