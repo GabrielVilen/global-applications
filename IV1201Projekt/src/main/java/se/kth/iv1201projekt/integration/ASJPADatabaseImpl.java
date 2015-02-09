@@ -19,8 +19,8 @@ import se.kth.iv1201projekt.util.LoginErrorException;
  * This class will use JPA to connect to the database 
  * @author Kim
  */
-@Stateless
-public class ASJPADatabaseImpl implements ASDatabase {
+@Stateless(name = "ASJPADatabaseImpl")
+public class ASJPADatabaseImpl {
 
     //private final EntityManager entityManager;
     /*
@@ -28,7 +28,7 @@ public class ASJPADatabaseImpl implements ASDatabase {
         EntityManagerFactory emf = Persistence.createEntityManagerFactory("se.kth_IV1201Projekt");
         this.entityManager = emf.createEntityManager();
     }*/
-    @Override
+  //  @Override
     public Person login(String username, String password) throws LoginErrorException {
         EntityManagerFactory emf = Persistence.createEntityManagerFactory("se.kth_IV1201Projekt");
         EntityManager entityManager = emf.createEntityManager();

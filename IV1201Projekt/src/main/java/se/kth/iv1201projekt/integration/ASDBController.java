@@ -21,8 +21,8 @@ import se.kth.iv1201projekt.util.LoginErrorException;
  * @author Kim
  */
 
-
-public class ASDBController implements ASDatabase {
+@Stateless(name = "ASDatabase")
+public class ASDBController  {
     
     @EJB
     private ASJPADatabaseImpl db;
@@ -37,7 +37,7 @@ public class ASDBController implements ASDatabase {
         }
     }*/
 
-    @Override
+   // @Override
     public Person login(String username, String password) 
             throws LoginErrorException {
         return db.login(username, password);

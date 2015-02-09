@@ -5,6 +5,7 @@
  */
 package se.kth.iv1201projekt.integration;
 
+import javax.ejb.Stateless;
 import se.kth.iv1201projekt.integration.model.Person;
 import se.kth.iv1201projekt.util.LoginErrorException;
 
@@ -12,6 +13,7 @@ import se.kth.iv1201projekt.util.LoginErrorException;
  * 
  * @author Kborak
  */
+
 public interface ASDatabase {
 
     public Person login(String username, String password) 
