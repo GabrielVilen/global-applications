@@ -25,7 +25,7 @@ public class UserBean implements Serializable {
     //@Inject 
     @EJB
     private ASDBController controller;
-    private Logger logger = Logger.getLogger(getClass().getName());
+    //private Logger logger = Logger.getLogger(getClass().getName());
 
     private String username;
     private String password;

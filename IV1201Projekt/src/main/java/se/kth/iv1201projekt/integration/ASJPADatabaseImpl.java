@@ -34,31 +34,28 @@ public class ASJPADatabaseImpl {
         EntityManagerFactory emf = Persistence.createEntityManagerFactory("se.kth_IV1201Projekt");
         EntityManager entityManager = emf.createEntityManager();
         entityManager.getTransaction().begin();
-        System.out.println("<1>");
+
         try {
             Query userQuery = entityManager.createNamedQuery("User.findByUsername", User.class);
             userQuery.setParameter("username", username);
             User user = (User) userQuery.getSingleResult();
-            System.out.println("<2>");    
+   
             if(user == null){
                 throw new LoginErrorException();
             }
-            System.out.println("<3>");
-            
+
             boolean hasCorrectPassword = user.getPassword().equals(password);
 
             if(!hasCorrectPassword){
                 throw new LoginErrorException();
             }
-            System.out.println("<4>");
+
             if(!user.getActive()){
                 throw new LoginErrorException("The user is no longer active.");
             }
-            System.out.println("<5>");
             Query personQuery = entityManager.createNamedQuery("Person.findByUsername", Person.class);
             personQuery.setParameter("username", user.getUsername());
             Person person = (Person) personQuery.getSingleResult();
-            System.out.println("<6>");
             return person;
         } catch(Exception e) {
             throw e;
