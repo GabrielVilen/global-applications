@@ -81,6 +81,7 @@ public class Person implements Serializable {
     private List<Job> jobList;
 
     @Version
+    @Column(name = "version", columnDefinition = "integer DEFAULT 1", nullable = false)
     private long version;
     
     public Person() {

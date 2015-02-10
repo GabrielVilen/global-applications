@@ -55,6 +55,7 @@ public class User implements Serializable {
     private List<Person> personList;
 
     @Version
+    @Column(name = "version", columnDefinition = "integer DEFAULT 1", nullable = false)
     private long version;
     
     public User() {
