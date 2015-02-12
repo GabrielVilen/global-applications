@@ -5,8 +5,7 @@
  */
 package se.kth.iv1201projekt.integration;
 
-import java.util.HashMap;
-import java.util.Map;
+import java.io.Serializable;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
@@ -21,46 +20,40 @@ import se.kth.iv1201projekt.util.LoginErrorException;
  */
 
 @Stateless(name = "ASJPADatabaseImpl")
-public class ASJPADatabaseImpl {
-
-    //private final EntityManager entityManager;
-    /*
-    public ASJPADatabaseImpl() {
-        EntityManagerFactory emf = Persistence.createEntityManagerFactory("se.kth_IV1201Projekt");
-        this.entityManager = emf.createEntityManager();
-    }*/
+public class ASJPADatabaseImpl implements Serializable {
 
     public Person login(String username, String password) throws LoginErrorException {
         EntityManagerFactory emf = Persistence.createEntityManagerFactory("se.kth_IV1201Projekt");
         EntityManager entityManager = emf.createEntityManager();
-        entityManager.getTransaction().begin();
-
+        //entityManager.getTransaction().begin();
+        
         try {
-            Query userQuery = entityManager.createNamedQuery("User.findByUsername", User.class);
-            userQuery.setParameter("username", username);
-            User user = (User) userQuery.getSingleResult();
+            User user = entityManager.find(User.class, username);
    
             if(user == null){
-                throw new LoginErrorException();
+                throw new LoginErrorException("user null");
             }
-
+            
             boolean hasCorrectPassword = user.getPassword().equals(password);
 
             if(!hasCorrectPassword){
-                throw new LoginErrorException();
+                throw new LoginErrorException("wrong pass");
             }
 
             if(!user.getActive()){
                 throw new LoginErrorException("The user is no longer active.");
             }
-            Query personQuery = entityManager.createNamedQuery("Person.findByUsername", Person.class);
-            personQuery.setParameter("username", user.getUsername());
+
+            //Query personQuery = entityManager.createNamedQuery("Person.findByUsername", Person.class);
+            Query personQuery = entityManager.createQuery("SELECT p FROM Person p WHERE p.username = :username");
+            personQuery.setParameter("username", user);
             Person person = (Person) personQuery.getSingleResult();
+            
             return person;
         } catch(Exception e) {
             throw e;
         } finally {
-            entityManager.getTransaction().commit();
+            //entityManager.getTransaction().commit();
             entityManager.close();
             emf.close();
         }

@@ -23,7 +23,7 @@ import se.kth.iv1201projekt.util.LoginErrorException;
  */
 
 @Stateless(name = "ASDBController")
-public class ASDBController  {
+public class ASDBController implements Serializable {
 
     @EJB
     private ASJPADatabaseImpl db;
