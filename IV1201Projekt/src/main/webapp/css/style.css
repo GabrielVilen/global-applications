@@ -45,6 +45,10 @@ a:hover
      cursor:pointer;  
 }
 
+#application_div {
+    visibility: hidden;
+}
+
 .errorMessage{
     color:red;
 }

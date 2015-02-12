@@ -5,6 +5,7 @@
  */
 
 function radio_button_check(id) {
+        document.getElementById("application_div").style.display='block';
     if (id === 'recruiter') {
         document.getElementById("comp_prof").style.display = 'none';
     } else {
