@@ -30,13 +30,14 @@ public class UserBean implements Serializable {
 
     private String username;
     private String password;
+    private Person person;
 
     public String login() {
         System.out.println("controller=" + controller + "username=" + username + "password=" + password);
         if(username == null || password == null) return "fail_1";
         
         try {
-            Person person = controller.login(username, password);
+            person = controller.login(username, password);
             String role = person.getRoleId().getName();
             return "success_" + role;
         } catch (Exception e) {
@@ -71,6 +72,10 @@ public class UserBean implements Serializable {
 
     public void setPassword(String password) {
         this.password = password;
+    }
+
+    public Person getPerson() {
+        return person;
     }
     
     

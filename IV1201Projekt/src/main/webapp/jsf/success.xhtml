@@ -8,10 +8,10 @@
     </h:head>
     <h:body>
         <p>SUCCESS</p>
-        <c:if test="#{userBean.user.roleId eq 1}">
+        <c:if test="#{userBean.person.roleId.roleId eq 1}">
             <p>Recruit</p>
         </c:if>
-        <c:if test="#{userBean.user.roleId eq 2}">
+        <c:if test="#{userBean.person.roleId.roleId eq 2}">
             <p>Applicant</p>
         </c:if>
           
