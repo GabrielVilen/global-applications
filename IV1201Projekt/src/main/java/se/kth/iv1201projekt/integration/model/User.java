@@ -35,6 +35,10 @@ import javax.xml.bind.annotation.XmlTransient;
     @NamedQuery(name = "User.findByPassword", query = "SELECT u FROM User u WHERE u.password = :password"),
     @NamedQuery(name = "User.findByActive", query = "SELECT u FROM User u WHERE u.active = :active")})
 public class User implements Serializable {
+    @Basic(optional = false)
+    @NotNull
+    @Column(name = "version")
+    private int version;
     private static final long serialVersionUID = 1L;
     @Id
     @Basic(optional = false)
@@ -54,9 +58,6 @@ public class User implements Serializable {
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "username")
     private List<Person> personList;
 
-    @Version
-    @Column(name = "version", columnDefinition = "integer DEFAULT 1", nullable = false)
-    private long version;
     
     public User() {
     }
@@ -127,6 +128,14 @@ public class User implements Serializable {
     @Override
     public String toString() {
         return "se.kth.iv1201projekt.integration.model.User[ username=" + username + " ]";
+    }
+
+    public int getVersion() {
+        return version;
+    }
+
+    public void setVersion(int version) {
+        this.version = version;
     }
     
 }
