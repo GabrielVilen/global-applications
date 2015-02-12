@@ -11,5 +11,18 @@
         </managed-bean-class>
         <managed-bean-scope>request</managed-bean-scope>
     </managed-bean>
+    
+    <navigation-rule>
+        <navigation-case> 
+            <from-action>#{userBean.login}</from-action>
+            <from-outcome>success_recruit</from-outcome>
+            <to-view-id>jsf/placejob.xhtml</to-view-id>
+        </navigation-case>
+        <navigation-case> 
+            <from-action>#{userBean.login}</from-action>
+            <from-outcome>success_applicant</from-outcome>
+            <to-view-id>jsf/register.xhtml</to-view-id>
+        </navigation-case>
+    </navigation-rule>
 
 </faces-config>
