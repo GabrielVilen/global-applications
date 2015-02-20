@@ -6,12 +6,9 @@
 package se.kth.iv1201projekt.businesslogic;
 
 import java.io.Serializable;
-import java.util.logging.Logger;
 import javax.ejb.EJB;
 import javax.enterprise.context.SessionScoped;
-import javax.inject.Inject;
 import javax.inject.Named;
-import se.kth.iv1201projekt.integration.ASDatabase;
 import se.kth.iv1201projekt.integration.ASDBController;
 import se.kth.iv1201projekt.integration.model.Person;
 
@@ -23,10 +20,8 @@ import se.kth.iv1201projekt.integration.model.Person;
 @SessionScoped
 public class UserBean implements Serializable {
 
-    //@Inject 
     @EJB
     private ASDBController controller;
-    //private Logger logger = Logger.getLogger(getClass().getName());
 
     private String username;
     private String password;
@@ -41,7 +36,6 @@ public class UserBean implements Serializable {
             String role = person.getRoleId().getName();
             return "success_" + role;
         } catch (Exception e) {
-            e.printStackTrace();
             return "fail_2";
         }
     }

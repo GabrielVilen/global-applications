@@ -1,3 +1,5 @@
+package MockitoTests;
+
 /*
  * To change this license header, choose License Headers in Project Properties.
  * To change this template file, choose Tools | Templates
@@ -35,6 +37,7 @@ public class IntegrationLayerTest {
         } catch (LoginErrorException ex) {
             Mockito.doThrow(ex);
         }
+        person = null;
     }
     
     @Test
@@ -47,5 +50,6 @@ public class IntegrationLayerTest {
         }
         
         Assert.assertNull(leexception); 
+        Assert.assertNotNull(person);
     }
 }

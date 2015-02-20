@@ -1,4 +1,6 @@
-package se.kth.iv1201projekt.mockito;
+package MockitoTests;
+
+
 
 import static org.junit.Assert.assertTrue;
 import org.junit.Test;
