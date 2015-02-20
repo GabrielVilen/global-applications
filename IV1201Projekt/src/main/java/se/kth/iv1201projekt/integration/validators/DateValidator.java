@@ -24,10 +24,12 @@ public class DateValidator implements Validator{
     public void validate(FacesContext context, UIComponent component, Object value) throws ValidatorException {
         try {
             String format=null;
-            String param = value.toString().replace('T', ' ');
+            String param = value.toString();
             
-            if(param.contains("T"))
+            if(param.contains("T")){
+                param.replace("T", " ");
                 format="YYYY-MM-dd HH:mm";
+            }
             else
                 format="YYYY-MM-dd";
             

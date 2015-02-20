@@ -6,13 +6,6 @@
   <persistence-unit name="se.kth_IV1201Projekt" transaction-type="JTA">
     <jta-data-source>jdbc/asdb</jta-data-source>
     <exclude-unlisted-classes>false</exclude-unlisted-classes>
-    <properties>
-        <!-- property name="javax.persistence.jdbc.driver" value="com.mysql.jdbc.Driver"/>
-        <property name="javax.persistence.jdbc.url"
-                 value="jdbc:mysql://localhost:3306/iv1201gasakiproject"/>
-        <property name="javax.persistence.jdbc.user" value="root"/>
-        <property name="javax.persistence.jdbc.password" value="password"/ -->
-    </properties>
   </persistence-unit>
   
 </persistence>

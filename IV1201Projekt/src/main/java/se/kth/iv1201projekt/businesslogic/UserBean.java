@@ -13,6 +13,7 @@ import javax.inject.Inject;
 import javax.inject.Named;
 import se.kth.iv1201projekt.integration.ASDatabase;
 import se.kth.iv1201projekt.integration.ASDBController;
+import se.kth.iv1201projekt.integration.model.Person;
 
 /**
  *
@@ -29,16 +30,19 @@ public class UserBean implements Serializable {
 
     private String username;
     private String password;
+    private Person person;
 
     public String login() {
         System.out.println("controller=" + controller + "username=" + username + "password=" + password);
         if(username == null || password == null) return "fail_1";
+        
         try {
-            controller.login(username, password);
-            return "success";
+            person = controller.login(username, password);
+            String role = person.getRoleId().getName();
+            return "success_" + role;
         } catch (Exception e) {
             e.printStackTrace();
-            return "fail2";
+            return "fail_2";
         }
     }
     
@@ -68,6 +72,10 @@ public class UserBean implements Serializable {
 
     public void setPassword(String password) {
         this.password = password;
+    }
+
+    public Person getPerson() {
+        return person;
     }
     
     

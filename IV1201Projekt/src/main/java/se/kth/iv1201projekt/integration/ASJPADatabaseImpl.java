@@ -10,6 +10,7 @@ import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
 import javax.persistence.Persistence;
+import javax.persistence.PersistenceContext;
 import javax.persistence.Query;
 import se.kth.iv1201projekt.integration.model.*;
 import se.kth.iv1201projekt.util.LoginErrorException;
@@ -22,11 +23,11 @@ import se.kth.iv1201projekt.util.LoginErrorException;
 @Stateless(name = "ASJPADatabaseImpl")
 public class ASJPADatabaseImpl implements Serializable {
 
+    @PersistenceContext(unitName="se.kth_IV1201Projekt") 
+    protected EntityManager entityManager;
+    
     public Person login(String username, String password) throws LoginErrorException {
-        EntityManagerFactory emf = Persistence.createEntityManagerFactory("se.kth_IV1201Projekt");
-        EntityManager entityManager = emf.createEntityManager();
-        //entityManager.getTransaction().begin();
-        
+
         try {
             User user = entityManager.find(User.class, username);
    
@@ -44,19 +45,14 @@ public class ASJPADatabaseImpl implements Serializable {
                 throw new LoginErrorException("The user is no longer active.");
             }
 
-            //Query personQuery = entityManager.createNamedQuery("Person.findByUsername", Person.class);
-            Query personQuery = entityManager.createQuery("SELECT p FROM Person p WHERE p.username = :username");
+            Query personQuery = entityManager.createNamedQuery("Person.findByUsername", Person.class);
             personQuery.setParameter("username", user);
             Person person = (Person) personQuery.getSingleResult();
             
             return person;
         } catch(Exception e) {
             throw e;
-        } finally {
-            //entityManager.getTransaction().commit();
-            entityManager.close();
-            emf.close();
-        }
+        } 
     }
 
 }
