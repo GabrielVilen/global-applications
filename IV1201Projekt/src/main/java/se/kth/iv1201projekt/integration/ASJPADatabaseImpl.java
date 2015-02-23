@@ -15,7 +15,9 @@ import javax.persistence.PersistenceContext;
 import javax.persistence.Query;
 import javax.persistence.TypedQuery;
 import se.kth.iv1201projekt.integration.model.*;
+import se.kth.iv1201projekt.util.JobDTO;
 import se.kth.iv1201projekt.util.LoginErrorException;
+import se.kth.iv1201projekt.util.RecruiterDTO;
 
 /**
  * This class will use JPA to connect to the database
@@ -72,6 +74,29 @@ public class ASJPADatabaseImpl implements Serializable {
         Query query = entityManager.createNamedQuery("Job.deleteJobById", Job.class);
         query.setParameter("id", id);
         query.executeUpdate();
+    }
+
+    public void placeJob(RecruiterDTO recruiter, JobDTO job) {
+        try {
+            if (!entityManager.isOpen()) {
+                entityManager.getTransaction().begin();
+            }
+            entityManager.persist(new Job(job));
+            //TODO: kastar exception
+            entityManager.getTransaction().commit();
+        } catch (Exception e) {
+            System.err.println(e.getMessage());
+        }
+
+//        Query query = entityManager.createNamedQuery("Job.placeJob", Job.class);
+//        query.setParameter("name", job.getName());
+//        query.setParameter("information", job.getInformation());
+//        query.setParameter("startDate", job.getStartDate());
+//        query.setParameter("endDate", job.getEndDate());
+//        query.setParameter("recruiterId", job.getRecruiterPersonId());
+//        query.setParameter("type", job.getType());
+//                
+//        query.executeUpdate();
     }
 
 }

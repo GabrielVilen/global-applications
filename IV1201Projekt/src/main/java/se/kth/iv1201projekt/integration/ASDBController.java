@@ -15,7 +15,9 @@ import javax.naming.InitialContext;
 import javax.naming.NamingException;
 import se.kth.iv1201projekt.integration.model.Job;
 import se.kth.iv1201projekt.integration.model.Person;
+import se.kth.iv1201projekt.util.JobDTO;
 import se.kth.iv1201projekt.util.LoginErrorException;
+import se.kth.iv1201projekt.util.RecruiterDTO;
 
 /**
  * This class should be the connection between the business layer and the
@@ -50,6 +52,11 @@ public class ASDBController implements Serializable {
     public void applyForJob(int id) {
         db.applyForJob(id);
     }
+    
+        
+     public void placeJob(RecruiterDTO recruiter, JobDTO job) {
+         db.placeJob(recruiter, job);
+     }
 
     /*
      @Override
@@ -66,10 +73,7 @@ public class ASDBController implements Serializable {
      public void register(RecruiterDTO recruiter) throws RegisterErrorException {
      throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
      }
+*/
 
-     @Override
-     public boolean placeJob(RecruiterDTO recruiter, Job job) {
-     throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-     }
-     */
+  
 }

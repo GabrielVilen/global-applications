@@ -5,6 +5,7 @@
  */
 package se.kth.iv1201projekt.businesslogic;
 
+import se.kth.iv1201projekt.util.JobDTO;
 import java.io.Serializable;
 import java.util.Date;
 import java.util.List;
@@ -29,6 +30,7 @@ public class JobBean implements Serializable {
     private String type;
     private String information;
     private RecruiterDTO recruiter;
+    private JobDTO job;
     private Date fromDate;
     private Date toDate;
 
@@ -41,14 +43,16 @@ public class JobBean implements Serializable {
     }
 
     public void registerJob() {
-        //controller.placeJob(recruiter, this);
+        job =  new JobDTO(name, type, information, recruiter, fromDate, toDate); 
+        recruiter = new RecruiterDTO(1, "test", "test", "11", "test", "test", "test");
+        controller.placeJob(recruiter, job);
     }
 
     public List<Job> getJobList() throws LoginErrorException {
         jobList = controller.getJobList();
         return jobList;
     }
-    
+
     public void setName(String name) {
         this.name = name;
     }
