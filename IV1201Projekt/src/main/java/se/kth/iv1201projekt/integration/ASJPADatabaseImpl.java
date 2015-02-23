@@ -17,6 +17,7 @@ import se.kth.iv1201projekt.util.LoginErrorException;
 /**
  * This class will use JPA to connect to the database 
  * @author Kim
+ * TODO: Fixa exceptions i BEANS
  */
 
 @Stateless(name = "ASJPADatabaseImpl")
