@@ -13,6 +13,7 @@ import org.jasypt.util.password.StrongPasswordEncryptor;
 import se.kth.iv1201projekt.integration.ASDBController;
 import se.kth.iv1201projekt.integration.model.Job;
 import se.kth.iv1201projekt.integration.model.Person;
+import se.kth.iv1201projekt.util.LoggerUtil;
 import se.kth.iv1201projekt.util.LoginErrorException;
 
 /**
@@ -41,6 +42,7 @@ public class UserBean implements Serializable {
             String role = person.getRoleId().getName();
             return "success_" + role;
         } catch (Exception e) {
+            LoggerUtil.logSevere(e, this);
             return "fail_2";
         }
     }
