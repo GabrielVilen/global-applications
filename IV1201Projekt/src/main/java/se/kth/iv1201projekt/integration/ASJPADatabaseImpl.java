@@ -6,6 +6,8 @@
 package se.kth.iv1201projekt.integration;
 
 import java.io.Serializable;
+import java.util.ArrayList;
+import java.util.Iterator;
 import java.util.List;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
@@ -61,9 +63,18 @@ public class ASJPADatabaseImpl implements Serializable {
         return jobQuery.getResultList();
     }
     
-    public List<Job> getJobs(List<Competence> competenceList) {
-        //entityManager.createNamedQuery("Job.", Job.class);
-        throw new UnsupportedOperationException("Get jobs with criteria is not supported yet.");
+    public List<Job> getJobs(List<String> typeList) {
+        List<Job> jobList = new ArrayList<>();
+        for(String type : typeList) {
+            Query jobByTypeQuery = entityManager.createNamedQuery("Job.findByType", Job.class);
+            jobByTypeQuery.setParameter("type", type);
+            List<Job> jlist = jobByTypeQuery.getResultList();
+            for (Job j : jlist) {
+                if(jobList.contains(j)) continue;
+                jobList.add(j);
+            }
+        }
+        return jobList;
     }
 
 }

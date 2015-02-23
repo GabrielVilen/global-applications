@@ -41,4 +41,7 @@ public class ASDBController implements Serializable {
         return db.getAllJobs();
     }
 
+    public List<Job> getJobs(List<String> typeList) {
+        return db.getJobs(typeList);
+    }
 }
