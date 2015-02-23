@@ -9,6 +9,7 @@ import java.io.Serializable;
 import javax.ejb.EJB;
 import javax.enterprise.context.SessionScoped;
 import javax.inject.Named;
+import org.jasypt.util.password.StrongPasswordEncryptor;
 import se.kth.iv1201projekt.integration.ASDBController;
 import se.kth.iv1201projekt.integration.model.Job;
 import se.kth.iv1201projekt.integration.model.Person;
@@ -43,23 +44,16 @@ public class UserBean implements Serializable {
             return "fail_2";
         }
     }
-
-    public void applyForJob(int id) throws LoginErrorException {
-//        if (person == null) {
-//            throw new LoginErrorException("You must be logged in in order to apply for a job!");
-//        }
-        controller.applyForJob(id);
+  
+    public String logout() {
+        person = null;
+        return "index.xhtml";
     }
 
-//    public boolean register() {
-//        try {
-//            controller.register();
-//            return true;
-//        } catch (Exception e) {
-//            e.printStackTrace();
-//            return false;
-//        }
-//    }
+    public boolean isLoggedIn() {
+        return person != null;
+    }
+
     public String getUsername() {
         return username;
     }
@@ -73,7 +67,9 @@ public class UserBean implements Serializable {
     }
 
     public void setPassword(String password) {
-        this.password = password;
+        StrongPasswordEncryptor passwordEncryptor = new StrongPasswordEncryptor();
+        String encryptedPassword = passwordEncryptor.encryptPassword(password);
+        this.password = encryptedPassword;
     }
 
     public Person getPerson() {

@@ -14,9 +14,7 @@ import javax.ejb.EJB;
 import javax.enterprise.context.SessionScoped;
 import javax.inject.Named;
 import se.kth.iv1201projekt.integration.ASDBController;
-import se.kth.iv1201projekt.integration.model.Job;
-import se.kth.iv1201projekt.util.LoginErrorException;
-import se.kth.iv1201projekt.util.RecruiterDTO;
+import se.kth.iv1201projekt.integration.old.RecruiterDTO;
 
 /**
  *
