@@ -22,8 +22,6 @@ import javax.persistence.Version;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 import javax.xml.bind.annotation.XmlRootElement;
-import se.kth.iv1201projekt.util.JobDTO;
-import se.kth.iv1201projekt.util.RecruiterDTO;
 
 /**
  *
@@ -89,7 +87,7 @@ public class Job implements Serializable {
         this.id = id;
     }
 
-    public Job(Integer id, String type, String information, Date startDate, Date endDate, String name, RecruiterDTO recruiter) {
+    public Job(Integer id, String type, String information, Date startDate, Date endDate, String name, Recruiter recruiter) {
         this.id = id;
         this.type = type;
         this.information = information;
@@ -97,15 +95,6 @@ public class Job implements Serializable {
         this.endDate = endDate;
         this.name = name;
         //this.recruiterPersonId = recruiter.getId();
-    }
-
-    public Job(JobDTO job) {
-        this.name = job.getName();
-        this.type = job.getType();
-        this.information = job.getInfomration();
-        this.startDate = job.getFromDate();
-        this.endDate = job.getToDate();
-        //this.recruiterPersonId = job.getRecruiter();
     }
 
     public Integer getId() {

@@ -5,7 +5,6 @@
  */
 package se.kth.iv1201projekt.businesslogic;
 
-import se.kth.iv1201projekt.util.JobDTO;
 import java.io.Serializable;
 import java.util.Date;
 import java.util.List;
@@ -14,7 +13,7 @@ import javax.ejb.EJB;
 import javax.enterprise.context.SessionScoped;
 import javax.inject.Named;
 import se.kth.iv1201projekt.integration.ASDBController;
-import se.kth.iv1201projekt.integration.old.RecruiterDTO;
+import se.kth.iv1201projekt.integration.model.Job;
 
 /**
  *
@@ -27,8 +26,6 @@ public class JobBean implements Serializable {
     private String name;
     private String type;
     private String information;
-    private RecruiterDTO recruiter;
-    private JobDTO job;
     private Date fromDate;
     private Date toDate;
 
@@ -41,13 +38,13 @@ public class JobBean implements Serializable {
     }
 
     public void registerJob() {
-        job =  new JobDTO(name, type, information, recruiter, fromDate, toDate); 
-        recruiter = new RecruiterDTO(1, "test", "test", "11", "test", "test", "test");
-        controller.placeJob(recruiter, job);
+//        job =  new JobDTO(name, type, information, recruiter, fromDate, toDate); 
+//        recruiter = new RecruiterDTO(1, "test", "test", "11", "test", "test", "test");
+//        controller.placeJob(recruiter, job);
     }
 
-    public List<Job> getJobList() throws LoginErrorException {
-        jobList = controller.getJobList();
+    public List<Job> getJobList() {
+        controller.getAllJobs();
         return jobList;
     }
 
@@ -76,13 +73,6 @@ public class JobBean implements Serializable {
         this.information = information;
     }
 
-    public RecruiterDTO getRecruiter() {
-        return recruiter;
-    }
-
-    public void setRecruiter(RecruiterDTO recruiter) {
-        this.recruiter = recruiter;
-    }
 
     public Date getFromDate() {
         return fromDate;

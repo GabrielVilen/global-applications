@@ -14,9 +14,7 @@ import javax.persistence.PersistenceContext;
 import javax.persistence.Query;
 import org.jasypt.util.password.StrongPasswordEncryptor;
 import se.kth.iv1201projekt.integration.model.*;
-import se.kth.iv1201projekt.util.JobDTO;
 import se.kth.iv1201projekt.util.LoginErrorException;
-import se.kth.iv1201projekt.util.RecruiterDTO;
 
 /**
  * This class will handle the connection to the database and the sending of

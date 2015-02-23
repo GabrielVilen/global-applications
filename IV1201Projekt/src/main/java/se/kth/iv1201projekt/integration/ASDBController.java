@@ -11,9 +11,7 @@ import javax.ejb.EJB;
 import javax.ejb.Stateless;
 import se.kth.iv1201projekt.integration.model.Job;
 import se.kth.iv1201projekt.integration.model.Person;
-import se.kth.iv1201projekt.util.JobDTO;
 import se.kth.iv1201projekt.util.LoginErrorException;
-import se.kth.iv1201projekt.util.RecruiterDTO;
 
 /**
  * This class is the connection between the business layer and the 
