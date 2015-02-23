@@ -5,49 +5,37 @@
          xmlns="http://xmlns.jcp.org/xml/ns/javaee"
          version="3.1">
 
-
     <context-param>
-
         <param-name>javax.faces.PROJECT_STAGE</param-name>
-            
         <param-value>Development</param-value>
-
     </context-param>
 
-
     <servlet>
-
         <servlet-name>Faces Servlet</servlet-name>
-
         <servlet-class>javax.faces.webapp.FacesServlet</servlet-class>
-
         <load-on-startup>1</load-on-startup>
-
     </servlet>
 
-
     <servlet-mapping>
-
         <servlet-name>Faces Servlet</servlet-name>
-
         <url-pattern>*.xhtml</url-pattern>
-        
 <!--        <url-pattern>*.css</url-pattern>    -->
-
     </servlet-mapping>
 
-
     <session-config>
-
         <session-timeout> 30 </session-timeout>
-
     </session-config>
 
-
     <welcome-file-list>
-
         <welcome-file>jsf/index.xhtml</welcome-file>
-
     </welcome-file-list>
 
+    <servlet>
+       <servlet-name>ArquillianServletRunner</servlet-name>
+       <servlet-class>org.jboss.arquillian.protocol.servlet.runner.ServletTestRunner</servlet-class>
+   </servlet>
+   <servlet-mapping>
+       <servlet-name>ArquillianServletRunner</servlet-name>
+       <url-pattern>/ArquillianServletRunner</url-pattern>
+   </servlet-mapping>
 </web-app>
