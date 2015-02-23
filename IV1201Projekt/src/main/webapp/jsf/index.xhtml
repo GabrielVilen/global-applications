@@ -2,28 +2,42 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" 
     "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml"   
-      xmlns:h="http://java.sun.com/jsf/html"
-      xmlns:ui="http://java.sun.com/jsf/facelets"
-      >
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:p="http://xmlns.jcp.org/jsf/passthrough">
+
     <h:body>
 
         <ui:composition template="../template/layout.xhtml">
 
             <ui:define name="content">
                 <h2>Available jobs</h2>
-                <p/>
-                    <div>
-                        Here is the first job 
-                        <Button>
-                            Apply
-                        </Button>
-                    </div>
-                    <div>
-                        Here is the second job 
-                        <Button>
-                            Apply
-                        </Button>
-                    </div>
+                <h:dataTable value="#{jobBean.jobList}" var="job" styleClass="order-table"
+                             headerClass="order-table-header"
+                             rowClasses="order-table-odd-row,order-table-even-row">
+                    <h:column> 
+                        <f:facet name="header">Job name</f:facet>
+                        <h:outputText value="#{job.name}" />
+                    </h:column>
+                    <h:column>      
+                        <f:facet name="header">Information</f:facet>
+                        <h:outputText value="#{job.information}" />
+                    </h:column>
+                    <h:column> 
+                        <f:facet name="header">Start date</f:facet>
+                        <h:outputText value="#{job.startDate}" />
+                    </h:column>
+                    <h:column>                      
+                        <f:facet name="header">End date</f:facet>
+                        <h:outputText value="#{job.endDate}" />
+                    </h:column>
+                    <h:column>                      
+                        <h:form>
+                            <h:commandButton value="Apply" type="submit" action="#{userBean.applyForJob(job.id)}" />
+                        </h:form>
+                    </h:column>
+                </h:dataTable>
             </ui:define>
         </ui:composition>
 

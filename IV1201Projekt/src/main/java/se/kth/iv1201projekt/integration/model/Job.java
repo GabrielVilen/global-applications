@@ -37,7 +37,9 @@ import javax.xml.bind.annotation.XmlRootElement;
     @NamedQuery(name = "Job.findByInformation", query = "SELECT j FROM Job j WHERE j.information = :information"),
     @NamedQuery(name = "Job.findByStartDate", query = "SELECT j FROM Job j WHERE j.startDate = :startDate"),
     @NamedQuery(name = "Job.findByEndDate", query = "SELECT j FROM Job j WHERE j.endDate = :endDate"),
-    @NamedQuery(name = "Job.findByName", query = "SELECT j FROM Job j WHERE j.name = :name")})
+    @NamedQuery(name = "Job.findByName", query = "SELECT j FROM Job j WHERE j.name = :name"),
+    @NamedQuery(name = "Job.deleteJobById", query = "DELETE FROM Job j WHERE j.id = :id")
+})
 public class Job implements Serializable {
     private static final long serialVersionUID = 1L;
     @Id

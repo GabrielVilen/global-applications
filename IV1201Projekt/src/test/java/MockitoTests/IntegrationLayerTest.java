@@ -33,11 +33,11 @@ public class IntegrationLayerTest {
     public void testCorrectLogin() {
         try {
             Mockito.when(databaseMock.login("borg", "pass")).thenReturn(person);
+           // Assert.assertEquals("borg", person.getName());
             Assert.assertNotNull(person);  
         } catch (LoginErrorException ex) {
             Mockito.doThrow(ex);
         }
-        person = null;
     }
     
     @Test

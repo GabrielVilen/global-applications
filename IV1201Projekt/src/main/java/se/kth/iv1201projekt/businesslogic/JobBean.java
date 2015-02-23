@@ -7,10 +7,14 @@ package se.kth.iv1201projekt.businesslogic;
 
 import java.io.Serializable;
 import java.util.Date;
+import java.util.List;
 import java.util.logging.Logger;
+import javax.ejb.EJB;
 import javax.enterprise.context.SessionScoped;
 import javax.inject.Named;
 import se.kth.iv1201projekt.integration.ASDBController;
+import se.kth.iv1201projekt.integration.model.Job;
+import se.kth.iv1201projekt.util.LoginErrorException;
 import se.kth.iv1201projekt.util.RecruiterDTO;
 
 /**
@@ -20,29 +24,35 @@ import se.kth.iv1201projekt.util.RecruiterDTO;
 @Named("jobBean")
 @SessionScoped
 public class JobBean implements Serializable {
-    
+
     private String name;
     private String type;
     private String information;
     private RecruiterDTO recruiter;
     private Date fromDate;
     private Date toDate;
-    
-    private ASDBController controller = new ASDBController();
+
+    @EJB
+    private ASDBController controller;
+    private List<Job> jobList;
 
     public String getName() {
         return name;
     }
-    
+
     public void registerJob() {
         //controller.placeJob(recruiter, this);
     }
 
+    public List<Job> getJobList() throws LoginErrorException {
+        jobList = controller.getJobList();
+        return jobList;
+    }
     
     public void setName(String name) {
         this.name = name;
     }
-    
+
     public void print() {
         Logger logger = Logger.getLogger(getClass().getName());
         logger.info("hello from JOB BEAN");
@@ -88,7 +98,4 @@ public class JobBean implements Serializable {
         this.toDate = toDate;
     }
 
-
-    
-    
 }
