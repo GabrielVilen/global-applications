@@ -6,14 +6,18 @@
 package se.kth.iv1201projekt.integration;
 
 import java.io.Serializable;
+import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.ejb.EJB;
 import javax.ejb.Stateless;
 import javax.naming.InitialContext;
 import javax.naming.NamingException;
+import se.kth.iv1201projekt.businesslogic.UserBean;
+import se.kth.iv1201projekt.integration.model.Job;
 import se.kth.iv1201projekt.integration.model.Person;
 import se.kth.iv1201projekt.util.LoginErrorException;
+import se.kth.iv1201projekt.util.NotLoggedInException;
 
 /**
  * This class should be the connection between the business layer and the 
@@ -33,5 +37,8 @@ public class ASDBController implements Serializable {
         return db.login(username, password);
     }
 
-    
+    public List<Job> getAllJobs() {
+        return db.getAllJobs();
+    }
+
 }

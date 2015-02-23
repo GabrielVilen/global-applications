@@ -11,7 +11,7 @@ import java.util.logging.Logger;
 import javax.enterprise.context.SessionScoped;
 import javax.inject.Named;
 import se.kth.iv1201projekt.integration.ASDBController;
-import se.kth.iv1201projekt.util.RecruiterDTO;
+import se.kth.iv1201projekt.integration.old.RecruiterDTO;
 
 /**
  *
