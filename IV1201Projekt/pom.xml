@@ -15,54 +15,12 @@
     </properties>
     
     <dependencies>
-        
-        <dependency>
-            <groupId>org.jboss.spec</groupId>
-            <artifactId>jboss-javaee-6.0</artifactId>
-            <version>1.0.0.Final</version>
-            <type>pom</type>
-            <scope>provided</scope>
-        </dependency>
-            <dependency>
-            <groupId>org.jboss.as</groupId>
-            <artifactId>jboss-as-arquillian-container-remote</artifactId>
-            <version>7.1.1.Final</version>
-            <scope>test</scope>
-        </dependency>
-        <!-- dependency>
-            <groupId>org.jboss.arquillian.container</groupId>
-            <artifactId>arquillian-glassfish-embedded-3.1</artifactId>
-            <version>1.0.0.CR4</version>
-        </dependency -->
-
-        <!-- dependency>  
-            <groupId>org.jboss.arquillian.core</groupId>  
-            <artifactId>arquillian-core-impl-base</artifactId>  
-            <version>1.1.7.Final</version>
-            <scope>test</scope>  
-        </dependency>  
-  
-        <dependency>  
-            <groupId>org.jboss.arquillian.test</groupId>  
-            <artifactId>arquillian-test-impl-base</artifactId>  
-            <version>1.1.7.Final</version>
-            <scope>test</scope>  
-        </dependency>
-        <dependency>
-            <groupId>org.jboss.arquillian.junit</groupId>
-            <artifactId>arquillian-junit-container</artifactId>
-            <version>1.1.7.Final</version>
-        </dependency -->
-        <!-- dependency>
-            <groupId>org.jboss.arquillian.container</groupId>
-            <artifactId>arquillian-glassfish-embedded-3.1</artifactId>
-            <version>1.0.0.CR4</version>
-            <scope>test</scope>
-        </dependency-->
         <dependency>
             <groupId>org.mockito</groupId>
             <artifactId>mockito-core</artifactId>
             <version>2.0.3-beta</version>
+            <scope>test</scope>
+            <type>jar</type>
         </dependency>
         <dependency>
             <groupId>junit</groupId>
@@ -74,20 +32,6 @@
             <artifactId>eclipselink</artifactId>
             <version>2.5.2</version>
             <scope>provided</scope>
-        </dependency>
-        <!-- dependency>
-            <groupId>org.jboss.arquillian.junit</groupId>
-            <artifactId>arquillian-junit-core</artifactId>
-            <version>1.1.7.Final</version>
-            <scope>test</scope>
-            <type>jar</type>
-        </dependency -->
-        <dependency>
-            <groupId>org.jboss.arquillian.junit</groupId>
-            <artifactId>arquillian-junit-core</artifactId>
-            <version>1.1.7.Final</version>
-            <scope>test</scope>
-            <type>jar</type>
         </dependency>
         <dependency>
             <groupId>javax</groupId>
@@ -104,25 +48,6 @@
 
     <build>
         <plugins>
-            <!-- plugin>
-                <groupId>org.glassfish</groupId>
-                <artifactId>maven-embedded-glassfish-plugin</artifactId>
-                <version>4.1</version>
-                <configuration>
-                    <goalPrefix>embedded-glassfish</goalPrefix>
-                    <app>test.war</app>
-                    <port>8080</port>
-                    <contextRoot>IV1201Projekt</contextRoot>
-                </configuration>
-                <executions>
-                    <execution>
-                        <phase>install</phase>
-                        <goals>
-                            <goal>run</goal>
-                        </goals>
-                    </execution>
-                </executions>
-            </plugin -->
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-compiler-plugin</artifactId>

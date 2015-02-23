@@ -39,18 +39,15 @@ public class UserBean implements Serializable {
             return "fail_2";
         }
     }
-    
+  
+    public String logout() {
+        person = null;
+        return "index.xhtml";
+    }
 
-//    public boolean register() {
-//        try {
-//            controller.register();
-//            return true;
-//        } catch (Exception e) {
-//            e.printStackTrace();
-//            return false;
-//        }
-//    }
-
+    public boolean isLoggedIn() {
+        return person != null;
+    }
 
     public String getUsername() {
         return username;

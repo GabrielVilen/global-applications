@@ -32,24 +32,26 @@ public class IntegrationLayerTest {
     @Test
     public void testCorrectLogin() {
         try {
-            Mockito.when(databaseMock.login("borg", "pass")).thenReturn(person);
-            Assert.assertNotNull(person);  
+            Person p = null;
+            Mockito.when(databaseMock.login("borg", "pass")).thenReturn(p = new Person());
+            Assert.assertNotNull(p);  
         } catch (LoginErrorException ex) {
             Mockito.doThrow(ex);
         }
-        person = null;
+        //person = null;
     }
     
     @Test
     public void testWrongLogin() {
         LoginErrorException leexception = null;
+        Person p = null;
         try {
-            Mockito.when(databaseMock.login("borg", "wrongpass")).thenReturn(person);
+            Mockito.when(databaseMock.login("borg", "wrongpass")).thenReturn(p = new Person());
         } catch (LoginErrorException ex) {
             leexception = ex;
         }
         
         Assert.assertNull(leexception); 
-        Assert.assertNotNull(person);
+        Assert.assertNull(p);
     }
 }

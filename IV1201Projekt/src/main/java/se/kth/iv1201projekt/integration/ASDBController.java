@@ -28,43 +28,10 @@ public class ASDBController implements Serializable {
     @EJB
     private ASJPADatabaseImpl db;
     
-    /*public ASDBController() {
-        try {
-            InitialContext ctx = new InitialContext();
-            ASJPADatabaseImpl db = (ASJPADatabaseImpl)ctx.lookup("ASJPADatabaseImpl");
-            this.db = db;//new ASJPADatabaseImpl();
-        } catch (NamingException ex) {
-            Logger.getLogger(ASDBController.class.getName()).log(Level.SEVERE, null, ex);
-        }
-    }*/
-
     public Person login(String username, String password) 
             throws LoginErrorException {
         return db.login(username, password);
     }
-/*
-    @Override
-    public Applicant loginApplicant(String username, String password) throws LoginErrorException {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-    }
 
-    @Override
-    public void register(ApplicantDTO applicant) throws RegisterErrorException {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-    }
-
-    @Override
-    public void register(RecruiterDTO recruiter) throws RegisterErrorException {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-    }
-
-    @Override
-    public boolean placeJob(RecruiterDTO recruiter, Job job) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-    }
-
-    @Override
-    public boolean applyJob(ApplicantDTO applicant, Job job) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-    }*/
+    
 }
