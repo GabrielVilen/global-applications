@@ -12,6 +12,7 @@ import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import javax.persistence.Query;
+import org.jasypt.util.password.StrongPasswordEncryptor;
 import se.kth.iv1201projekt.integration.model.*;
 import se.kth.iv1201projekt.util.LoginErrorException;
 
@@ -43,7 +44,8 @@ public class ASJPADatabaseImpl implements Serializable {
                 throw new LoginErrorException();
             }
             
-            boolean hasCorrectPassword = user.getPassword().equals(password);
+            StrongPasswordEncryptor passwordEncryptor = new StrongPasswordEncryptor();
+            boolean hasCorrectPassword = passwordEncryptor.checkPassword(user.getPassword(), password);
 
             if(!hasCorrectPassword){
                 throw new LoginErrorException();

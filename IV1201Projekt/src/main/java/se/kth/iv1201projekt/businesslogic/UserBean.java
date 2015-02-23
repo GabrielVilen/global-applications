@@ -9,6 +9,7 @@ import java.io.Serializable;
 import javax.ejb.EJB;
 import javax.enterprise.context.SessionScoped;
 import javax.inject.Named;
+import org.jasypt.util.password.StrongPasswordEncryptor;
 import se.kth.iv1201projekt.integration.ASDBController;
 import se.kth.iv1201projekt.integration.model.Person;
 
@@ -62,7 +63,9 @@ public class UserBean implements Serializable {
     }
 
     public void setPassword(String password) {
-        this.password = password;
+        StrongPasswordEncryptor passwordEncryptor = new StrongPasswordEncryptor();
+        String encryptedPassword = passwordEncryptor.encryptPassword(password);
+        this.password = encryptedPassword;
     }
 
     public Person getPerson() {
