@@ -7,45 +7,50 @@ package se.kth.iv1201projekt.integration;
 
 import java.io.Serializable;
 import java.util.ArrayList;
-import java.util.Iterator;
 import java.util.List;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
-import javax.persistence.EntityManagerFactory;
-import javax.persistence.Persistence;
 import javax.persistence.PersistenceContext;
 import javax.persistence.Query;
 import se.kth.iv1201projekt.integration.model.*;
 import se.kth.iv1201projekt.util.LoginErrorException;
 
 /**
- * This class will use JPA to connect to the database 
+ * This class will handle the connection to the database and the sending of
+ * queries.
  * @author Kim
  */
-
 @Stateless(name = "ASJPADatabaseImpl")
 public class ASJPADatabaseImpl implements Serializable {
 
     @PersistenceContext(unitName="se.kth_IV1201Projekt") 
     protected EntityManager entityManager;
     
+    /**
+     * Logins the user by giving a reference to the user's information.
+     * @param username The username to match.
+     * @param password The password to match.
+     * @return The user's information.
+     * @throws LoginErrorException Is thrown if it wasn't found or 
+     * wasn't correct password or if the account was inactive.
+     */
     public Person login(String username, String password) throws LoginErrorException {
 
         try {
             User user = entityManager.find(User.class, username);
    
             if(user == null){
-                throw new LoginErrorException("user null");
+                throw new LoginErrorException();
             }
             
             boolean hasCorrectPassword = user.getPassword().equals(password);
 
             if(!hasCorrectPassword){
-                throw new LoginErrorException("wrong pass");
+                throw new LoginErrorException();
             }
 
             if(!user.getActive()){
-                throw new LoginErrorException("The user is no longer active.");
+                throw new LoginErrorException();
             }
 
             Query personQuery = entityManager.createNamedQuery("Person.findByUsername", Person.class);
@@ -54,15 +59,26 @@ public class ASJPADatabaseImpl implements Serializable {
             
             return person;
         } catch(Exception e) {
-            throw e;
+            LoginErrorException lee = new LoginErrorException();
+            lee.addSuppressed(e);
+            throw lee;
         } 
     }
     
+    /**
+     * Fetches all jobs.
+     * @return A list of jobs.
+     */
     public List<Job> getAllJobs() {
         Query jobQuery = entityManager.createNamedQuery("Job.findAll", Job.class);
         return jobQuery.getResultList();
     }
     
+    /**
+     * Fetches all jobs that match any of the specified types.
+     * @param typeList The types (of job) to search for.
+     * @return A list of jobs.
+     */
     public List<Job> getJobs(List<String> typeList) {
         List<Job> jobList = new ArrayList<>();
         for(String type : typeList) {
