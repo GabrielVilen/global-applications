@@ -20,6 +20,7 @@ import se.kth.iv1201projekt.util.LoginErrorException;
  * This class will handle the connection to the database and the sending of
  * queries.
  * @author Kim
+ * TODO: Fixa exceptions i BEANS
  */
 @Stateless(name = "ASJPADatabaseImpl")
 public class ASJPADatabaseImpl implements Serializable {
