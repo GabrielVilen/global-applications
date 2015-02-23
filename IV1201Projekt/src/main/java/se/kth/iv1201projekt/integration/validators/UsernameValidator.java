@@ -23,8 +23,8 @@ public class UsernameValidator implements Validator {
     public void validate(FacesContext context, UIComponent component, Object value) throws ValidatorException {
        String param = value.toString();
        
-       if(param.matches(numberRegex)||param.length()<4){
-           FacesMessage msg = new FacesMessage("Invalid username: cannot be less than 4 char or contain a blank space");
+       if(param.matches(numberRegex)||param.length()<3){
+           FacesMessage msg = new FacesMessage("Invalid username: cannot be less than 3 char or contain a blank space");
            msg.setSeverity(FacesMessage.SEVERITY_ERROR);
            throw new ValidatorException(msg);
        }

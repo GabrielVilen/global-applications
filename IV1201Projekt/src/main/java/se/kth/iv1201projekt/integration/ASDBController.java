@@ -20,7 +20,6 @@ import se.kth.iv1201projekt.util.LoginErrorException;
  * 
  * @author Kim
  */
-
 @Stateless(name = "ASDBController")
 public class ASDBController implements Serializable {
 

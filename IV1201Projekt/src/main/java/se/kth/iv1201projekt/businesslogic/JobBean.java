@@ -7,11 +7,13 @@ package se.kth.iv1201projekt.businesslogic;
 
 import java.io.Serializable;
 import java.util.Date;
+import java.util.List;
 import java.util.logging.Logger;
+import javax.ejb.EJB;
 import javax.enterprise.context.SessionScoped;
 import javax.inject.Named;
 import se.kth.iv1201projekt.integration.ASDBController;
-import se.kth.iv1201projekt.integration.old.RecruiterDTO;
+import se.kth.iv1201projekt.integration.model.Job;
 
 /**
  *
@@ -20,29 +22,36 @@ import se.kth.iv1201projekt.integration.old.RecruiterDTO;
 @Named("jobBean")
 @SessionScoped
 public class JobBean implements Serializable {
-    
+
     private String name;
     private String type;
     private String information;
-    private RecruiterDTO recruiter;
     private Date fromDate;
     private Date toDate;
-    
-    private ASDBController controller = new ASDBController();
+
+    @EJB
+    private ASDBController controller;
+    private List<Job> jobList;
 
     public String getName() {
         return name;
     }
-    
+
     public void registerJob() {
-        //controller.placeJob(recruiter, this);
+//        job =  new JobDTO(name, type, information, recruiter, fromDate, toDate); 
+//        recruiter = new RecruiterDTO(1, "test", "test", "11", "test", "test", "test");
+//        controller.placeJob(recruiter, job);
     }
 
-    
+    public List<Job> getJobList() {
+        controller.getAllJobs();
+        return jobList;
+    }
+
     public void setName(String name) {
         this.name = name;
     }
-    
+
     public void print() {
         Logger logger = Logger.getLogger(getClass().getName());
         logger.info("hello from JOB BEAN");
@@ -64,13 +73,6 @@ public class JobBean implements Serializable {
         this.information = information;
     }
 
-    public RecruiterDTO getRecruiter() {
-        return recruiter;
-    }
-
-    public void setRecruiter(RecruiterDTO recruiter) {
-        this.recruiter = recruiter;
-    }
 
     public Date getFromDate() {
         return fromDate;
@@ -88,7 +90,4 @@ public class JobBean implements Serializable {
         this.toDate = toDate;
     }
 
-
-    
-    
 }

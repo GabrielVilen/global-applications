@@ -12,6 +12,7 @@ import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import javax.persistence.Query;
+import org.jasypt.util.password.StrongPasswordEncryptor;
 import se.kth.iv1201projekt.integration.model.*;
 import se.kth.iv1201projekt.util.LoginErrorException;
 
@@ -24,7 +25,7 @@ import se.kth.iv1201projekt.util.LoginErrorException;
 @Stateless(name = "ASJPADatabaseImpl")
 public class ASJPADatabaseImpl implements Serializable {
 
-    @PersistenceContext(unitName="se.kth_IV1201Projekt") 
+    @PersistenceContext(unitName = "se.kth_IV1201Projekt")
     protected EntityManager entityManager;
     
     /**
@@ -44,7 +45,8 @@ public class ASJPADatabaseImpl implements Serializable {
                 throw new LoginErrorException();
             }
             
-            boolean hasCorrectPassword = user.getPassword().equals(password);
+            StrongPasswordEncryptor passwordEncryptor = new StrongPasswordEncryptor();
+            boolean hasCorrectPassword = passwordEncryptor.checkPassword(user.getPassword(), password);
 
             if(!hasCorrectPassword){
                 throw new LoginErrorException();
@@ -57,7 +59,7 @@ public class ASJPADatabaseImpl implements Serializable {
             Query personQuery = entityManager.createNamedQuery("Person.findByUsername", Person.class);
             personQuery.setParameter("username", user);
             Person person = (Person) personQuery.getSingleResult();
-            
+
             return person;
         } catch(Exception e) {
             LoginErrorException lee = new LoginErrorException();

@@ -8,6 +8,29 @@ and open the template in the editor.
     Author     : Gabriel
 */
 
+.order-table{   
+	border-collapse:collapse;
+}
+ 
+.order-table-header{
+	text-align:center;
+	background:none repeat scroll 0 0 #D3FFCE;
+	border-bottom:1px solid #BBBBBB;
+	padding:5px;
+}
+ 
+.order-table-odd-row{
+	background:none repeat scroll 0 0 #FFFFFFF;
+	border-top:1px solid #BBBBBB;
+        padding:5px;
+}
+ 
+.order-table-even-row{
+	background:none repeat scroll 0 0 #E5E5E5;
+	border-top:1px solid #BBBBBB;
+        padding:5px;
+}
+
 #header {
     background-color:black;
     color:white;

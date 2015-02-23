@@ -7,5 +7,4 @@
     <jta-data-source>jdbc/asdb</jta-data-source>
     <exclude-unlisted-classes>false</exclude-unlisted-classes>
   </persistence-unit>
-  
 </persistence>
