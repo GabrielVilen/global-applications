@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="UTF-8"?>
+
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" 
     "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml"   
@@ -11,71 +11,71 @@
     <h:body>
         <ui:composition template="/template/layout.xhtml">
             <ui:define name="content">
-                <div id="content">
 
-                    <h:outputLabel><b>Register as:</b><br/></h:outputLabel>
                     <h:form id="registration_form" onsubmit="return validateRegister()">
-                        <input type="radio" name="role" id="applicant" onclick="radio_button_check(this.id)"/> Applicant
-                        <input type="radio" name="role" id="recruiter" onclick="radio_button_check(this.id)"/> Recruiter <br/><br/>
                         <div id="application_div">
                             <h:messages styleClass="errorMessage"/>
                             <h3>Personal information</h3>
                             <p/> 
                             <table>
                                 <tr>
-                                    <td><h:outputLabel value="First name"/></td>
-                                    <td> <h:inputText value="#{registerBean.firstname}" styleClass="" p:required="true">
+                                    <td><h:outputLabel value="#{msg.firstname}"/></td>
+                                    <td> <h:inputText value="#{registerBean.firstname}" p:required="true">
                                             <f:validator validatorId="nameValidator"/>
                                         </h:inputText><br/></td>
                                 </tr>
                                 <tr>
-                                    <td> <h:outputLabel value="Last Name"/></td>
+                                    <td> <h:outputLabel value="#{msg.lastname}"/></td>
                                     <td><h:inputText value="#{registerBean.lastname}" p:required="true">
                                             <f:validator validatorId="nameValidator"/>
                                         </h:inputText><br/></td>
                                 </tr>
                                 <tr>
-                                    <td><h:outputLabel value="Social security number" p:required="true"/></td>
+                                    <td><h:outputLabel value="#{msg.ssn}" p:required="true"/></td>
                                     <td><h:inputText value="#{registerBean.ssn}" p:required="true">
                                             <f:validator validatorId="ssnValidator" />
                                         </h:inputText>
                                         <br/></td>
                                 </tr>
                                 <tr>
-                                    <td><h:outputLabel value="Email"/></td>
+                                    <td><h:outputLabel value="#{msg.email}"/></td>
                                     <td><h:inputText p:type="email" value="#{registerBean.email}" p:required="true"/><br/></td>
                                 </tr>
                                 <tr>
-                                    <td><h:outputLabel value="Date of birth"/></td>
-                                    <td><h:inputText p:type="date" value="#{registerBean.birth}" p:required="true"/><br/><br/></td>
+                                    <td><h:outputLabel value="#{msg.dateofbirth}"/></td>
+                                    <td><h:inputText p:type="date" value="#{registerBean.birth}" p:required="true">
+                                            <f:validator validatorId="dateValidator"/>
+                                        </h:inputText><br/><br/></td>
                                 </tr>
                             </table>
 
                             <div id="comp_prof">
-                                <h3> Competence Profile </h3>
+                                <h3> <h:outputText value="#{msg.compprofile}"/> </h3>
                                 <table>
                                     <tr>
-                                        <td><h:outputLabel value="Career Role" /></td>
-                                        <td><h:inputText value="#{registerBean.role}" p:required="true"/><br/></td>
+                                        <td><h:outputLabel value="#{msg.careerrole}" /></td>
+                                        <td><h:inputText value="#{registerBean.role}" p:required="true">
+                                                <f:validator validatorId="nameValidator"/>
+                                            </h:inputText><br/></td>
                                     </tr>
                                     <tr>
-                                        <td><h:outputLabel value="Competence:"/></td>
+                                        <td><h:outputLabel value="#{msg.competence}"/></td>
                                         <td><h:selectOneMenu p:id="competenceList">
                                                 <f:selectItem itemValue="java" itemLabel="Java"/>
                                                 <f:selectItem itemValue="html" itemLabel="HTML"/>
                                                 <f:selectItem itemValue="xml" itemLabel="XML"/>
                                                 <f:selectItem itemValue="dotnet" itemLabel=".NET"/>
                                             </h:selectOneMenu></td>                          
-                                        <td><h:outputLabel value="Years of experience"/></td>
+                                        <td><h:outputLabel value="#{msg.yearsofexperience}"/></td>
                                         <td><h:inputText p:id="competenceYears" p:type="number"/></td>
                                         <br/>
                                     </tr>
                                     <tr>
-                                        <td><input type="button" value="Add" onClick="addCompetence()"/></td>
+                                        <td><input type="button" value="#{msg.add}" onClick="addCompetence()"/></td>
                                     </tr>
                                 </table>
                                 <br/>
-                                <strong>Compteneces</strong>
+                                <strong>#{msg.competences}</strong>
                                 <br/>
                                 <div id="competenceDiv">
                                     <table id="competenceTable">
@@ -88,21 +88,20 @@
                                 </div>
                                 <br/>
                             </div>
-                            <h3> Availability (date and time)</h3>
-                            <h:outputLabel value="From"/>
+                            <h3> #{msg.availability} (#{msg.dateandtime})</h3>
+                            <h:outputLabel value="#{msg.from}"/>
                             <h:inputText p:type="datetime-local" value="#{registerBean.fromtime}" p:required="true">
                                 <f:validator validatorId="dateValidator"/>
                             </h:inputText>
                             <br/>
-                            <h:outputLabel value="To"/>
+                            <h:outputLabel value="#{msg.to}"/>
                             <h:inputText p:type="datetime-local" value="#{registerBean.totime}" p:required="true"> 
                                 <f:validator validatorId="dateValidator"/>
                             </h:inputText>
                             <br/>
-                            <h:commandButton type="submit" value="Submit"/>
+                            <h:commandButton type="#{msg.submit}" value="Submit"/>
                         </div>
                     </h:form>
-                </div>
             </ui:define>
         </ui:composition>
     </h:body>

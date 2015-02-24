@@ -4,14 +4,6 @@
  * and open the template in the editor.
  */
 
-function radio_button_check(id) {
-        document.getElementById("application_div").style.display='block';
-    if (id === 'recruiter') {
-        document.getElementById("comp_prof").style.display = 'none';
-    } else {
-        document.getElementById("comp_prof").style.display = 'block';
-    }
-}
 
 function addCompetence(){
     var skill = $("#competenceList option:selected").text();
