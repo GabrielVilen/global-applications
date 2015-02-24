@@ -8,6 +8,7 @@ package MockitoTests;
 
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javax.ejb.EJB;
 import org.junit.Assert;
 import static org.junit.Assert.fail;
 import org.junit.Ignore;
@@ -28,19 +29,25 @@ import se.kth.iv1201projekt.util.LoginErrorException;
 public class IntegrationLayerTest {
 
     @Mock ASJPADatabaseImpl databaseMock;
-    @Mock Person person;
+    //@Mock Person person;
+    //@EJB ASJPADatabaseImpl db;
     
-    @Ignore
     @Test
     public void testCorrectLogin() {
         try {
-            Person p = null;
-            Mockito.when(databaseMock.login("borg", "pass")).thenReturn(p = new Person());
+            Person p = new Person();
+            Mockito.when(databaseMock.login("borg", "pass")).thenReturn(p);
             Assert.assertNotNull(p);  
         } catch (LoginErrorException ex) {
             Mockito.doThrow(ex);
         }
-        //person = null;
+         
+        /*try {
+            db.login("borg", "pass");
+            //person = null;
+        } catch (LoginErrorException ex) {
+            Logger.getLogger(IntegrationLayerTest.class.getName()).log(Level.SEVERE, null, ex);
+        }*/
     }
     
     @Ignore
@@ -49,7 +56,7 @@ public class IntegrationLayerTest {
         LoginErrorException leexception = null;
         Person p = null;
         try {
-            Mockito.when(databaseMock.login("borg", "wrongpass")).thenReturn(p = new Person());
+            Mockito.when(databaseMock.login("borg", "wrongpass")).thenReturn(p);
         } catch (LoginErrorException ex) {
             leexception = ex;
         }

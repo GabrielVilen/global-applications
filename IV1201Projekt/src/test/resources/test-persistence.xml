@@ -13,18 +13,9 @@
         <class>se.kth.iv1201projekt.integration.model.CompetenceProfile</class>
         <class>se.kth.iv1201projekt.integration.model.Job</class>
         <class>se.kth.iv1201projekt.integration.model.Role</class>
-        
-        <!--jta-data-source>jdbc/asdb</jta-data-source-->
+
         <jta-data-source>jdbc/arquillian</jta-data-source>
-        <!-- properties>
-            <property name="hibernate.hbm2ddl.auto" value="create-drop"/>
-            <property name="hibernate.show_sql" value="true"/>
-        </properties-->
         <properties>
-            <property name="javax.persistence.jdbc.driver"
-                value="org.apache.derby.jdbc.EmbeddedDriver"/>
-            <property name="javax.persistence.jdbc.url"
-                value="jdbc:derby:target/databases/derby;create=true"/>
             <property name="eclipselink.ddl-generation" value="drop-and-create-tables"/>
             <property name="eclipselink.logging.level.sql" value="FINE"/>
             <property name="eclipselink.logging.parameters" value="true"/>
