@@ -38,35 +38,29 @@ public class ASJPADatabaseImpl implements Serializable {
      * wasn't correct password or if the account was inactive.
      */
     public Person login(String username, String password) throws LoginErrorException {
+        
+        User user = entityManager.find(User.class, username);
 
-        try {
-            User user = entityManager.find(User.class, username);
-   
-            if(user == null){
-                throw new LoginErrorException();
-            }
-            
-            StrongPasswordEncryptor passwordEncryptor = new StrongPasswordEncryptor();
-            boolean hasCorrectPassword = passwordEncryptor.checkPassword(user.getPassword(), password);
+        if(user == null){
+            throw new LoginErrorException("1");
+        }
 
-            if(!hasCorrectPassword){
-                throw new LoginErrorException();
-            }
+        StrongPasswordEncryptor passwordEncryptor = new StrongPasswordEncryptor();
+        boolean hasCorrectPassword = passwordEncryptor.checkPassword(user.getPassword(), password);
 
-            if(!user.getActive()){
-                throw new LoginErrorException();
-            }
+        if(!hasCorrectPassword){
+            throw new LoginErrorException("2");
+        }
 
-            Query personQuery = entityManager.createNamedQuery("Person.findByUsername", Person.class);
-            personQuery.setParameter("username", user);
-            Person person = (Person) personQuery.getSingleResult();
+        if(!user.getActive()){
+            throw new LoginErrorException("3");
+        }
 
-            return person;
-        } catch(Exception e) {
-            LoginErrorException lee = new LoginErrorException();
-            lee.addSuppressed(e);
-            throw lee;
-        } 
+        Query personQuery = entityManager.createNamedQuery("Person.findByUsername", Person.class);
+        personQuery.setParameter("username", user);
+        Person person = (Person) personQuery.getSingleResult();
+
+        return person;
     }
     
     /**

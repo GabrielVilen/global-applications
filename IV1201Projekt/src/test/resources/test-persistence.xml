@@ -4,8 +4,10 @@
     xsi:schemaLocation="
         http://java.sun.com/xml/ns/persistence
         http://java.sun.com/xml/ns/persistence/persistence_2_0.xsd">
-    
-    <persistence-unit name="test">
+
+    <persistence-unit name="se.kth_IV1201Projekt" transaction-type="JTA">
+        <jta-data-source>jdbc/asdb</jta-data-source>
+        <!-- exclude-unlisted-classes>false</exclude-unlisted-classes -->
         <class>se.kth.iv1201projekt.integration.model.Person</class>
         <class>se.kth.iv1201projekt.integration.model.User</class>
         <class>se.kth.iv1201projekt.integration.model.Availability</class>
@@ -13,13 +15,5 @@
         <class>se.kth.iv1201projekt.integration.model.CompetenceProfile</class>
         <class>se.kth.iv1201projekt.integration.model.Job</class>
         <class>se.kth.iv1201projekt.integration.model.Role</class>
-
-        <jta-data-source>jdbc/arquillian</jta-data-source>
-        <properties>
-            <property name="eclipselink.ddl-generation" value="drop-and-create-tables"/>
-            <property name="eclipselink.logging.level.sql" value="FINE"/>
-            <property name="eclipselink.logging.parameters" value="true"/>
-        </properties>
     </persistence-unit>
-    
 </persistence>
