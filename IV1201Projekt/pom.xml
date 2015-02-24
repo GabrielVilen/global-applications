@@ -27,7 +27,7 @@
     </dependencyManagement>
 
     <dependencies>
-        <!--dependency>
+        <dependency>
             <groupId>org.jboss.arquillian.protocol</groupId>
             <artifactId>arquillian-protocol-servlet</artifactId>
             <scope>test</scope>
@@ -35,25 +35,13 @@
         <dependency>
             <groupId>org.jboss.arquillian.container</groupId>
             <artifactId>arquillian-glassfish-embedded-3.1</artifactId>
-            <version>1.0.0.CR3</version> <1.0.0.CR2>
+            <version>1.0.0.CR3</version>
         </dependency>
-        <dependency> < error source?>
+        <dependency>
             <groupId>org.glassfish.main.extras</groupId>
             <artifactId>glassfish-embedded-web</artifactId>
             <version>4.1</version>
-        </dependency -->
-        <!--dependency>
-   <groupId>org.jboss.weld.arquillian.container</groupId>
-   <artifactId>arquillian-weld-ee-embedded-1.1</artifactId>
-   <version>1.1.0.Final</version>
-   <scope>test</scope>
-  </dependency>
-        < dependency> 
-            <groupId>org.jboss.arquillian.container</groupId> 
-            <artifactId>arquillian-glassfish-common</artifactId>
-            <version>1.0.0.CR4</version>
-            <scope>test</scope>
-        </dependency -->
+        </dependency>
         <dependency>
             <groupId>org.jboss.arquillian.junit</groupId>
             <artifactId>arquillian-junit-container</artifactId>
@@ -104,6 +92,21 @@
 
     <build>
         <plugins>
+            <!-- plugin>
+                <artifactId>maven-surefire-plugin</artifactId>
+                <version>2.12</version>   
+                <configuration>
+                   <forkMode>always</forkMode>
+                   <classpathDependencyExcludes>
+                       <classpathDependencyExcludes>               
+                           javax.servlet:servlet-api
+                       </classpathDependencyExcludes>
+                       <classpathDependencyExcludes>
+                           org.apache.felix:javax.servlet
+                       </classpathDependencyExcludes>
+                  </classpathDependencyExcludes>
+                </configuration>
+            </plugin -->
             <!-- plugin>
                 <artifactId>maven-compiler-plugin</artifactId>
                 <version>2.3.2</version>

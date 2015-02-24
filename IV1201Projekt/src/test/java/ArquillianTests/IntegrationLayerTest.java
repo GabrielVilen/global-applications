@@ -28,10 +28,9 @@ import se.kth.iv1201projekt.util.LoginErrorException;
  *
  * @author Kim
  */
-@Ignore
 @RunWith(Arquillian.class)
 public class IntegrationLayerTest {
-    @Ignore
+
     @Deployment
     public static Archive<?> createDeployment() {
         WebArchive war = ShrinkWrap.create(WebArchive.class)
@@ -51,11 +50,10 @@ public class IntegrationLayerTest {
     public static final String WEBAPP_SRC = "src/main/webapp";
     public static final String USERNAME_TEST = "borg";
     public static final String PASSWORD_TEST = "pass";
-    //@EJB private ASJPADatabaseImpl db;
+    @EJB private ASJPADatabaseImpl db;
     
-    @Ignore
     @Test
-    public void loginTest() {/*
+    public void loginTest() {
         try {
             Person person = db.login(USERNAME_TEST, PASSWORD_TEST);
             if (person == null) {
@@ -64,7 +62,8 @@ public class IntegrationLayerTest {
         } catch (LoginErrorException ex) {
             Assert.fail("A login attempt failed. Error: " + ex.getMessage());
         }
-
+        
+        /*
         try {
             Person person = db.login("noneExistingUser", "pass");
             Assert.fail("A failed attempt to login should throw an "
