@@ -12,6 +12,7 @@ import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import javax.persistence.Query;
+import javax.persistence.TypedQuery;
 import org.jasypt.util.password.StrongPasswordEncryptor;
 import se.kth.iv1201projekt.integration.model.*;
 import se.kth.iv1201projekt.util.LoginErrorException;
@@ -72,9 +73,15 @@ public class ASJPADatabaseImpl implements Serializable {
      * Fetches all jobs.
      * @return A list of jobs.
      */
-    public List<Job> getAllJobs() {
-        Query jobQuery = entityManager.createNamedQuery("Job.findAll", Job.class);
-        return jobQuery.getResultList();
+     public List<Job> getAllJobs() {
+        List jobList;
+        try {
+            TypedQuery<Job[]> q = (TypedQuery<Job[]>) entityManager.createNamedQuery("Job.findAll");
+            jobList = q.getResultList();
+        } catch (Exception e) {
+            throw e;
+        }
+        return jobList;
     }
     
     /**

@@ -44,7 +44,7 @@ public class JobBean implements Serializable {
     }
 
     public List<Job> getJobList() {
-        controller.getAllJobs();
+        jobList = controller.getAllJobs();
         return jobList;
     }
 

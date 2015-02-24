@@ -55,4 +55,8 @@ public class ASDBController implements Serializable {
     public List<Job> getJobs(List<String> typeList) {
         return db.getJobs(typeList);
     }
+
+    public void applyForJob(int id) {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
 }

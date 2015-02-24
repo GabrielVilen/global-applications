@@ -11,10 +11,8 @@ import javax.enterprise.context.SessionScoped;
 import javax.inject.Named;
 import org.jasypt.util.password.StrongPasswordEncryptor;
 import se.kth.iv1201projekt.integration.ASDBController;
-import se.kth.iv1201projekt.integration.model.Job;
 import se.kth.iv1201projekt.integration.model.Person;
 import se.kth.iv1201projekt.util.LoggerUtil;
-import se.kth.iv1201projekt.util.LoginErrorException;
 
 /**
  *
@@ -45,6 +43,10 @@ public class UserBean implements Serializable {
             LoggerUtil.logSevere(e, this);
             return "fail_2";
         }
+    }
+    
+    public void applyForJob(int id) {
+        controller.applyForJob(id);
     }
   
     public String logout() {
