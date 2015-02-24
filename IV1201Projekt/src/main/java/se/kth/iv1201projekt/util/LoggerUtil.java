@@ -19,6 +19,7 @@ public class LoggerUtil implements Serializable {
     
     private static final String logDir="../GasakiLogs";
     private static final String exceptionFile = "/exceptionLog%g.log";
+    private static final String testExceptionFile = "/testexceptionLog%g.log";
     private static final String methodFile ="/methodLog%g.log";
     
     /**
@@ -43,6 +44,17 @@ public class LoggerUtil implements Serializable {
        logger.log(Level.FINE, stackTraceToString(e), e);
    }
    
+     /**
+     * Logs exceptions created in an automated test
+     * @param e the exception itself
+     * @param exceptionClass the class the exception was called from
+     */
+   public static void logTest(Exception e, Object exceptionClass){
+       Logger logger = Logger.getLogger(exceptionClass.getClass().getName());
+       logger.addHandler(getHandler(testExceptionFile));
+       logger.log(Level.FINE, stackTraceToString(e), e);
+   }
+   
    /**
     * Logs parameters when a method annotated @Aroundinvoke is called and exited
     * @param method Class of where the method is called
@@ -57,6 +69,14 @@ public class LoggerUtil implements Serializable {
        else
            logger.log(Level.OFF, "After " + method.getName() + formattedParams.toString());
    }
+   
+
+   /**
+    * creates the file handler and a directory for the filehandler to be in.
+    * Can't log this exception because if it exists the logger can't log.
+    * @param filename name of the file the filehandler should write too.
+    * @return the Filehandler
+    */
    
    private static Handler getHandler(String filename){
        Handler handler=null;
