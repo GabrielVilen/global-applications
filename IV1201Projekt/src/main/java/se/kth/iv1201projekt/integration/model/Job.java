@@ -37,7 +37,10 @@ import javax.xml.bind.annotation.XmlRootElement;
     @NamedQuery(name = "Job.findByInformation", query = "SELECT j FROM Job j WHERE j.information = :information"),
     @NamedQuery(name = "Job.findByStartDate", query = "SELECT j FROM Job j WHERE j.startDate = :startDate"),
     @NamedQuery(name = "Job.findByEndDate", query = "SELECT j FROM Job j WHERE j.endDate = :endDate"),
-    @NamedQuery(name = "Job.findByName", query = "SELECT j FROM Job j WHERE j.name = :name")})
+    @NamedQuery(name = "Job.findByName", query = "SELECT j FROM Job j WHERE j.name = :name"),
+    @NamedQuery(name = "Job.deleteJobById", query = "DELETE FROM Job j WHERE j.id = :id")
+    //@NamedQuery(name = "Job.placeJob", query = "INSERT INTO Job VALUES (:jobName, :information, :startDate, :endDate, :recruiterId, :type, :version, :type)")
+})
 public class Job implements Serializable {
     private static final long serialVersionUID = 1L;
     @Id
@@ -84,13 +87,14 @@ public class Job implements Serializable {
         this.id = id;
     }
 
-    public Job(Integer id, String type, String information, Date startDate, Date endDate, String name) {
+    public Job(Integer id, String type, String information, Date startDate, Date endDate, String name, Recruiter recruiter) {
         this.id = id;
         this.type = type;
         this.information = information;
         this.startDate = startDate;
         this.endDate = endDate;
         this.name = name;
+        //this.recruiterPersonId = recruiter.getId();
     }
 
     public Integer getId() {

@@ -5,11 +5,19 @@ import javax.interceptor.AroundInvoke;
 import javax.interceptor.InvocationContext;
 
 /**
- *
+ * an interceptor called when certain methods are entered and exited
  * @author Samy
  */
 public class LoggingInterceptor implements Serializable{
-
+    
+    /**
+     * Handles the interception of before and after the method annotated 
+     * @AroundInvoke is called
+     * 
+     * @param context
+     * @return
+     * @throws Exception 
+     */
     @AroundInvoke
     public static Object intercept(InvocationContext context) throws Exception{
         Object[] params = context.getParameters();
@@ -17,9 +25,9 @@ public class LoggingInterceptor implements Serializable{
         for(int i=0; i<params.length; i++){
             formattedParams[i] = params[i].toString();
         }
-        LoggerUtil.logMethod(context.getTarget().getClass().getName(),context.getMethod().getName() , formattedParams,true);
+        LoggerUtil.logMethod(context.getMethod(), formattedParams,true);
         Object obj = context.proceed();
-        LoggerUtil.logMethod(context.getTarget().getClass().getName(), context.getMethod().getName(),formattedParams,false);
+        LoggerUtil.logMethod(context.getMethod(), formattedParams,false);
         return obj;
     }
 }

@@ -11,7 +11,10 @@ import javax.enterprise.context.SessionScoped;
 import javax.inject.Named;
 import org.jasypt.util.password.StrongPasswordEncryptor;
 import se.kth.iv1201projekt.integration.ASDBController;
+import se.kth.iv1201projekt.integration.model.Job;
 import se.kth.iv1201projekt.integration.model.Person;
+import se.kth.iv1201projekt.util.LoggerUtil;
+import se.kth.iv1201projekt.util.LoginErrorException;
 
 /**
  *
@@ -30,13 +33,16 @@ public class UserBean implements Serializable {
 
     public String login() {
         System.out.println("controller=" + controller + "username=" + username + "password=" + password);
-        if(username == null || password == null) return "fail_1";
-        
+        if (username == null || password == null) {
+            return "fail_1";
+        }
+
         try {
             person = controller.login(username, password);
             String role = person.getRoleId().getName();
             return "success_" + role;
         } catch (Exception e) {
+            LoggerUtil.logSevere(e, this);
             return "fail_2";
         }
     }
@@ -71,7 +77,5 @@ public class UserBean implements Serializable {
     public Person getPerson() {
         return person;
     }
-    
-    
 
 }
