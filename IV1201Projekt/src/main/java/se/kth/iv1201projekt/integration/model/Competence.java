@@ -6,7 +6,7 @@
 package se.kth.iv1201projekt.integration.model;
 
 import java.io.Serializable;
-import java.util.List;
+import java.util.Collection;
 import javax.persistence.Basic;
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -15,7 +15,6 @@ import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
-import javax.persistence.Version;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 import javax.xml.bind.annotation.XmlRootElement;
@@ -31,7 +30,8 @@ import javax.xml.bind.annotation.XmlTransient;
 @NamedQueries({
     @NamedQuery(name = "Competence.findAll", query = "SELECT c FROM Competence c"),
     @NamedQuery(name = "Competence.findByCompetenceId", query = "SELECT c FROM Competence c WHERE c.competenceId = :competenceId"),
-    @NamedQuery(name = "Competence.findByName", query = "SELECT c FROM Competence c WHERE c.name = :name")})
+    @NamedQuery(name = "Competence.findByName", query = "SELECT c FROM Competence c WHERE c.name = :name"),
+    @NamedQuery(name = "Competence.findByVersion", query = "SELECT c FROM Competence c WHERE c.version = :version")})
 public class Competence implements Serializable {
     private static final long serialVersionUID = 1L;
     @Id
@@ -42,17 +42,23 @@ public class Competence implements Serializable {
     @Size(max = 255)
     @Column(name = "name")
     private String name;
+    @Basic(optional = false)
+    @NotNull
+    @Column(name = "version")
+    private int version;
     @OneToMany(mappedBy = "competenceId")
-    private List<CompetenceProfile> competenceProfileList;
+    private Collection<CompetenceProfile> competenceProfileCollection;
 
-    @Version
-    private long version;
-    
     public Competence() {
     }
 
     public Competence(Long competenceId) {
         this.competenceId = competenceId;
+    }
+
+    public Competence(Long competenceId, int version) {
+        this.competenceId = competenceId;
+        this.version = version;
     }
 
     public Long getCompetenceId() {
@@ -71,13 +77,21 @@ public class Competence implements Serializable {
         this.name = name;
     }
 
-    @XmlTransient
-    public List<CompetenceProfile> getCompetenceProfileList() {
-        return competenceProfileList;
+    public int getVersion() {
+        return version;
     }
 
-    public void setCompetenceProfileList(List<CompetenceProfile> competenceProfileList) {
-        this.competenceProfileList = competenceProfileList;
+    public void setVersion(int version) {
+        this.version = version;
+    }
+
+    @XmlTransient
+    public Collection<CompetenceProfile> getCompetenceProfileCollection() {
+        return competenceProfileCollection;
+    }
+
+    public void setCompetenceProfileCollection(Collection<CompetenceProfile> competenceProfileCollection) {
+        this.competenceProfileCollection = competenceProfileCollection;
     }
 
     @Override

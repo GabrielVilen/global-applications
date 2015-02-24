@@ -18,7 +18,6 @@ import javax.persistence.NamedQuery;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
-import javax.persistence.Version;
 import javax.validation.constraints.NotNull;
 import javax.xml.bind.annotation.XmlRootElement;
 
@@ -33,7 +32,8 @@ import javax.xml.bind.annotation.XmlRootElement;
     @NamedQuery(name = "Availability.findAll", query = "SELECT a FROM Availability a"),
     @NamedQuery(name = "Availability.findByAvailabilityId", query = "SELECT a FROM Availability a WHERE a.availabilityId = :availabilityId"),
     @NamedQuery(name = "Availability.findByFromDate", query = "SELECT a FROM Availability a WHERE a.fromDate = :fromDate"),
-    @NamedQuery(name = "Availability.findByToDate", query = "SELECT a FROM Availability a WHERE a.toDate = :toDate")})
+    @NamedQuery(name = "Availability.findByToDate", query = "SELECT a FROM Availability a WHERE a.toDate = :toDate"),
+    @NamedQuery(name = "Availability.findByVersion", query = "SELECT a FROM Availability a WHERE a.version = :version")})
 public class Availability implements Serializable {
     private static final long serialVersionUID = 1L;
     @Id
@@ -47,18 +47,24 @@ public class Availability implements Serializable {
     @Column(name = "to_date")
     @Temporal(TemporalType.DATE)
     private Date toDate;
+    @Basic(optional = false)
+    @NotNull
+    @Column(name = "version")
+    private int version;
     @JoinColumn(name = "person_id", referencedColumnName = "person_id")
     @ManyToOne
     private Person personId;
-    
-    @Version
-    private long version;
 
     public Availability() {
     }
 
     public Availability(Long availabilityId) {
         this.availabilityId = availabilityId;
+    }
+
+    public Availability(Long availabilityId, int version) {
+        this.availabilityId = availabilityId;
+        this.version = version;
     }
 
     public Long getAvailabilityId() {
@@ -83,6 +89,14 @@ public class Availability implements Serializable {
 
     public void setToDate(Date toDate) {
         this.toDate = toDate;
+    }
+
+    public int getVersion() {
+        return version;
+    }
+
+    public void setVersion(int version) {
+        this.version = version;
     }
 
     public Person getPersonId() {

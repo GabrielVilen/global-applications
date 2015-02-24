@@ -16,7 +16,6 @@ import javax.persistence.ManyToOne;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
 import javax.persistence.Table;
-import javax.persistence.Version;
 import javax.validation.constraints.NotNull;
 import javax.xml.bind.annotation.XmlRootElement;
 
@@ -30,7 +29,8 @@ import javax.xml.bind.annotation.XmlRootElement;
 @NamedQueries({
     @NamedQuery(name = "CompetenceProfile.findAll", query = "SELECT c FROM CompetenceProfile c"),
     @NamedQuery(name = "CompetenceProfile.findByCompetenceProfileId", query = "SELECT c FROM CompetenceProfile c WHERE c.competenceProfileId = :competenceProfileId"),
-    @NamedQuery(name = "CompetenceProfile.findByYearsOfExperience", query = "SELECT c FROM CompetenceProfile c WHERE c.yearsOfExperience = :yearsOfExperience")})
+    @NamedQuery(name = "CompetenceProfile.findByYearsOfExperience", query = "SELECT c FROM CompetenceProfile c WHERE c.yearsOfExperience = :yearsOfExperience"),
+    @NamedQuery(name = "CompetenceProfile.findByVersion", query = "SELECT c FROM CompetenceProfile c WHERE c.version = :version")})
 public class CompetenceProfile implements Serializable {
     private static final long serialVersionUID = 1L;
     @Id
@@ -41,6 +41,10 @@ public class CompetenceProfile implements Serializable {
     // @Max(value=?)  @Min(value=?)//if you know range of your decimal fields consider using these annotations to enforce field validation
     @Column(name = "years_of_experience")
     private BigDecimal yearsOfExperience;
+    @Basic(optional = false)
+    @NotNull
+    @Column(name = "version")
+    private int version;
     @JoinColumn(name = "competence_id", referencedColumnName = "competence_id")
     @ManyToOne
     private Competence competenceId;
@@ -48,14 +52,16 @@ public class CompetenceProfile implements Serializable {
     @ManyToOne
     private Person personId;
 
-    @Version
-    private long version;
-    
     public CompetenceProfile() {
     }
 
     public CompetenceProfile(Long competenceProfileId) {
         this.competenceProfileId = competenceProfileId;
+    }
+
+    public CompetenceProfile(Long competenceProfileId, int version) {
+        this.competenceProfileId = competenceProfileId;
+        this.version = version;
     }
 
     public Long getCompetenceProfileId() {
@@ -72,6 +78,14 @@ public class CompetenceProfile implements Serializable {
 
     public void setYearsOfExperience(BigDecimal yearsOfExperience) {
         this.yearsOfExperience = yearsOfExperience;
+    }
+
+    public int getVersion() {
+        return version;
+    }
+
+    public void setVersion(int version) {
+        this.version = version;
     }
 
     public Competence getCompetenceId() {

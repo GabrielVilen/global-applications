@@ -28,9 +28,10 @@ import se.kth.iv1201projekt.util.LoginErrorException;
  *
  * @author Kim
  */
+@Ignore
 @RunWith(Arquillian.class)
 public class IntegrationLayerTest {
-
+    @Ignore
     @Deployment
     public static Archive<?> createDeployment() {
         WebArchive war = ShrinkWrap.create(WebArchive.class)
@@ -52,7 +53,7 @@ public class IntegrationLayerTest {
     public static final String PASSWORD_TEST = "pass";
     //@EJB private ASJPADatabaseImpl db;
     
-    //@Ignore
+    @Ignore
     @Test
     public void loginTest() {/*
         try {

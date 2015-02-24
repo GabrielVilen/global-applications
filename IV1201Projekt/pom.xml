@@ -27,7 +27,7 @@
     </dependencyManagement>
 
     <dependencies>
-        <dependency>
+        <!--dependency>
             <groupId>org.jboss.arquillian.protocol</groupId>
             <artifactId>arquillian-protocol-servlet</artifactId>
             <scope>test</scope>
@@ -35,13 +35,13 @@
         <dependency>
             <groupId>org.jboss.arquillian.container</groupId>
             <artifactId>arquillian-glassfish-embedded-3.1</artifactId>
-            <version>1.0.0.CR3</version> <!-- 1.0.0.CR2 -->
+            <version>1.0.0.CR3</version> <1.0.0.CR2>
         </dependency>
-        <dependency> <!-- error source? -->
+        <dependency> < error source?>
             <groupId>org.glassfish.main.extras</groupId>
             <artifactId>glassfish-embedded-web</artifactId>
             <version>4.1</version>
-        </dependency>
+        </dependency -->
         <!--dependency>
    <groupId>org.jboss.weld.arquillian.container</groupId>
    <artifactId>arquillian-weld-ee-embedded-1.1</artifactId>

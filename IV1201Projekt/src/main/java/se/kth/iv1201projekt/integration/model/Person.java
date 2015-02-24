@@ -6,7 +6,7 @@
 package se.kth.iv1201projekt.integration.model;
 
 import java.io.Serializable;
-import java.util.List;
+import java.util.Collection;
 import javax.persistence.Basic;
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
@@ -18,7 +18,6 @@ import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
-import javax.persistence.Version;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 import javax.xml.bind.annotation.XmlRootElement;
@@ -38,6 +37,7 @@ import javax.xml.bind.annotation.XmlTransient;
     @NamedQuery(name = "Person.findBySurname", query = "SELECT p FROM Person p WHERE p.surname = :surname"),
     @NamedQuery(name = "Person.findBySsn", query = "SELECT p FROM Person p WHERE p.ssn = :ssn"),
     @NamedQuery(name = "Person.findByEmail", query = "SELECT p FROM Person p WHERE p.email = :email"),
+    @NamedQuery(name = "Person.findByVersion", query = "SELECT p FROM Person p WHERE p.version = :version"),
     @NamedQuery(name = "Person.findByUsername", query = "SELECT p FROM Person p WHERE p.username = :username")})
 public class Person implements Serializable {
     private static final long serialVersionUID = 1L;
@@ -67,6 +67,10 @@ public class Person implements Serializable {
     @Size(min = 1, max = 255)
     @Column(name = "email")
     private String email;
+    @Basic(optional = false)
+    @NotNull
+    @Column(name = "version")
+    private int version;
     @JoinColumn(name = "role_id", referencedColumnName = "role_id")
     @ManyToOne(optional = false)
     private Role roleId;
@@ -74,16 +78,12 @@ public class Person implements Serializable {
     @ManyToOne(optional = false)
     private User username;
     @OneToMany(mappedBy = "personId")
-    private List<CompetenceProfile> competenceProfileList;
+    private Collection<CompetenceProfile> competenceProfileCollection;
     @OneToMany(mappedBy = "personId")
-    private List<Availability> availabilityList;
+    private Collection<Availability> availabilityCollection;
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "recruiterPersonId")
-    private List<Job> jobList;
+    private Collection<Job> jobCollection;
 
-    @Version
-    @Column(name = "version", columnDefinition = "integer DEFAULT 1", nullable = false)
-    private long version;
-    
     public Person() {
     }
 
@@ -91,12 +91,13 @@ public class Person implements Serializable {
         this.personId = personId;
     }
 
-    public Person(Long personId, String name, String surname, String ssn, String email) {
+    public Person(Long personId, String name, String surname, String ssn, String email, int version) {
         this.personId = personId;
         this.name = name;
         this.surname = surname;
         this.ssn = ssn;
         this.email = email;
+        this.version = version;
     }
 
     public Long getPersonId() {
@@ -139,6 +140,14 @@ public class Person implements Serializable {
         this.email = email;
     }
 
+    public int getVersion() {
+        return version;
+    }
+
+    public void setVersion(int version) {
+        this.version = version;
+    }
+
     public Role getRoleId() {
         return roleId;
     }
@@ -156,30 +165,30 @@ public class Person implements Serializable {
     }
 
     @XmlTransient
-    public List<CompetenceProfile> getCompetenceProfileList() {
-        return competenceProfileList;
+    public Collection<CompetenceProfile> getCompetenceProfileCollection() {
+        return competenceProfileCollection;
     }
 
-    public void setCompetenceProfileList(List<CompetenceProfile> competenceProfileList) {
-        this.competenceProfileList = competenceProfileList;
-    }
-
-    @XmlTransient
-    public List<Availability> getAvailabilityList() {
-        return availabilityList;
-    }
-
-    public void setAvailabilityList(List<Availability> availabilityList) {
-        this.availabilityList = availabilityList;
+    public void setCompetenceProfileCollection(Collection<CompetenceProfile> competenceProfileCollection) {
+        this.competenceProfileCollection = competenceProfileCollection;
     }
 
     @XmlTransient
-    public List<Job> getJobList() {
-        return jobList;
+    public Collection<Availability> getAvailabilityCollection() {
+        return availabilityCollection;
     }
 
-    public void setJobList(List<Job> jobList) {
-        this.jobList = jobList;
+    public void setAvailabilityCollection(Collection<Availability> availabilityCollection) {
+        this.availabilityCollection = availabilityCollection;
+    }
+
+    @XmlTransient
+    public Collection<Job> getJobCollection() {
+        return jobCollection;
+    }
+
+    public void setJobCollection(Collection<Job> jobCollection) {
+        this.jobCollection = jobCollection;
     }
 
     @Override

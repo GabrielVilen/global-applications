@@ -18,7 +18,6 @@ import javax.persistence.NamedQuery;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
-import javax.persistence.Version;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 import javax.xml.bind.annotation.XmlRootElement;
@@ -38,9 +37,7 @@ import javax.xml.bind.annotation.XmlRootElement;
     @NamedQuery(name = "Job.findByStartDate", query = "SELECT j FROM Job j WHERE j.startDate = :startDate"),
     @NamedQuery(name = "Job.findByEndDate", query = "SELECT j FROM Job j WHERE j.endDate = :endDate"),
     @NamedQuery(name = "Job.findByName", query = "SELECT j FROM Job j WHERE j.name = :name"),
-    @NamedQuery(name = "Job.deleteJobById", query = "DELETE FROM Job j WHERE j.id = :id")
-    //@NamedQuery(name = "Job.placeJob", query = "INSERT INTO Job VALUES (:jobName, :information, :startDate, :endDate, :recruiterId, :type, :version, :type)")
-})
+    @NamedQuery(name = "Job.findByVersion", query = "SELECT j FROM Job j WHERE j.version = :version")})
 public class Job implements Serializable {
     private static final long serialVersionUID = 1L;
     @Id
@@ -73,13 +70,14 @@ public class Job implements Serializable {
     @Size(min = 1, max = 45)
     @Column(name = "name")
     private String name;
+    @Basic(optional = false)
+    @NotNull
+    @Column(name = "version")
+    private int version;
     @JoinColumn(name = "recruiter_person_id", referencedColumnName = "person_id")
     @ManyToOne(optional = false)
     private Person recruiterPersonId;
 
-    @Version
-    private long version;
-    
     public Job() {
     }
 
@@ -87,14 +85,14 @@ public class Job implements Serializable {
         this.id = id;
     }
 
-    public Job(Integer id, String type, String information, Date startDate, Date endDate, String name, Recruiter recruiter) {
+    public Job(Integer id, String type, String information, Date startDate, Date endDate, String name, int version) {
         this.id = id;
         this.type = type;
         this.information = information;
         this.startDate = startDate;
         this.endDate = endDate;
         this.name = name;
-        //this.recruiterPersonId = recruiter.getId();
+        this.version = version;
     }
 
     public Integer getId() {
@@ -143,6 +141,14 @@ public class Job implements Serializable {
 
     public void setName(String name) {
         this.name = name;
+    }
+
+    public int getVersion() {
+        return version;
+    }
+
+    public void setVersion(int version) {
+        this.version = version;
     }
 
     public Person getRecruiterPersonId() {

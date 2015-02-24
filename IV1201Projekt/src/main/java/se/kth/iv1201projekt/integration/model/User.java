@@ -6,7 +6,7 @@
 package se.kth.iv1201projekt.integration.model;
 
 import java.io.Serializable;
-import java.util.List;
+import java.util.Collection;
 import javax.persistence.Basic;
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
@@ -16,7 +16,6 @@ import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
-import javax.persistence.Version;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 import javax.xml.bind.annotation.XmlRootElement;
@@ -33,12 +32,9 @@ import javax.xml.bind.annotation.XmlTransient;
     @NamedQuery(name = "User.findAll", query = "SELECT u FROM User u"),
     @NamedQuery(name = "User.findByUsername", query = "SELECT u FROM User u WHERE u.username = :username"),
     @NamedQuery(name = "User.findByPassword", query = "SELECT u FROM User u WHERE u.password = :password"),
-    @NamedQuery(name = "User.findByActive", query = "SELECT u FROM User u WHERE u.active = :active")})
+    @NamedQuery(name = "User.findByActive", query = "SELECT u FROM User u WHERE u.active = :active"),
+    @NamedQuery(name = "User.findByVersion", query = "SELECT u FROM User u WHERE u.version = :version")})
 public class User implements Serializable {
-    @Basic(optional = false)
-    @NotNull
-    @Column(name = "version")
-    private int version;
     private static final long serialVersionUID = 1L;
     @Id
     @Basic(optional = false)
@@ -55,10 +51,13 @@ public class User implements Serializable {
     @NotNull
     @Column(name = "active")
     private boolean active;
+    @Basic(optional = false)
+    @NotNull
+    @Column(name = "version")
+    private int version;
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "username")
-    private List<Person> personList;
+    private Collection<Person> personCollection;
 
-    
     public User() {
     }
 
@@ -66,10 +65,11 @@ public class User implements Serializable {
         this.username = username;
     }
 
-    public User(String username, String password, boolean active) {
+    public User(String username, String password, boolean active, int version) {
         this.username = username;
         this.password = password;
         this.active = active;
+        this.version = version;
     }
 
     public String getUsername() {
@@ -96,13 +96,21 @@ public class User implements Serializable {
         this.active = active;
     }
 
-    @XmlTransient
-    public List<Person> getPersonList() {
-        return personList;
+    public int getVersion() {
+        return version;
     }
 
-    public void setPersonList(List<Person> personList) {
-        this.personList = personList;
+    public void setVersion(int version) {
+        this.version = version;
+    }
+
+    @XmlTransient
+    public Collection<Person> getPersonCollection() {
+        return personCollection;
+    }
+
+    public void setPersonCollection(Collection<Person> personCollection) {
+        this.personCollection = personCollection;
     }
 
     @Override
@@ -128,14 +136,6 @@ public class User implements Serializable {
     @Override
     public String toString() {
         return "se.kth.iv1201projekt.integration.model.User[ username=" + username + " ]";
-    }
-
-    public int getVersion() {
-        return version;
-    }
-
-    public void setVersion(int version) {
-        this.version = version;
     }
     
 }

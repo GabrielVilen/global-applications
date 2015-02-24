@@ -6,7 +6,7 @@
 package se.kth.iv1201projekt.integration.model;
 
 import java.io.Serializable;
-import java.util.List;
+import java.util.Collection;
 import javax.persistence.Basic;
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
@@ -16,7 +16,6 @@ import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
-import javax.persistence.Version;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 import javax.xml.bind.annotation.XmlRootElement;
@@ -32,7 +31,8 @@ import javax.xml.bind.annotation.XmlTransient;
 @NamedQueries({
     @NamedQuery(name = "Role.findAll", query = "SELECT r FROM Role r"),
     @NamedQuery(name = "Role.findByRoleId", query = "SELECT r FROM Role r WHERE r.roleId = :roleId"),
-    @NamedQuery(name = "Role.findByName", query = "SELECT r FROM Role r WHERE r.name = :name")})
+    @NamedQuery(name = "Role.findByName", query = "SELECT r FROM Role r WHERE r.name = :name"),
+    @NamedQuery(name = "Role.findByVersion", query = "SELECT r FROM Role r WHERE r.version = :version")})
 public class Role implements Serializable {
     private static final long serialVersionUID = 1L;
     @Id
@@ -43,17 +43,23 @@ public class Role implements Serializable {
     @Size(max = 255)
     @Column(name = "name")
     private String name;
+    @Basic(optional = false)
+    @NotNull
+    @Column(name = "version")
+    private int version;
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "roleId")
-    private List<Person> personList;
+    private Collection<Person> personCollection;
 
-    @Version
-    private long version;
-    
     public Role() {
     }
 
     public Role(Long roleId) {
         this.roleId = roleId;
+    }
+
+    public Role(Long roleId, int version) {
+        this.roleId = roleId;
+        this.version = version;
     }
 
     public Long getRoleId() {
@@ -72,13 +78,21 @@ public class Role implements Serializable {
         this.name = name;
     }
 
-    @XmlTransient
-    public List<Person> getPersonList() {
-        return personList;
+    public int getVersion() {
+        return version;
     }
 
-    public void setPersonList(List<Person> personList) {
-        this.personList = personList;
+    public void setVersion(int version) {
+        this.version = version;
+    }
+
+    @XmlTransient
+    public Collection<Person> getPersonCollection() {
+        return personCollection;
+    }
+
+    public void setPersonCollection(Collection<Person> personCollection) {
+        this.personCollection = personCollection;
     }
 
     @Override
