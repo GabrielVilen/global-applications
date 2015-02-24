@@ -1,16 +1,28 @@
-<?xml version="1.0" encoding="UTF-8"?>
+
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" 
     "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml"   
       xmlns:ui="http://java.sun.com/jsf/facelets"
-      >
+      xmlns:h="http://xmlns.jcp.org/jsf/html">
     <body>
         <ui:composition>
             <div id="nav">
-                <a href="../../IV1201Projekt/jsf/index.xhtml"> Home </a><br/>
-                <a href="../../IV1201Projekt/jsf/login.xhtml"> Login </a><br/>
-                <a href="../../IV1201Projekt/jsf/register.xhtml"> Register </a><br/>
-                <a href="../../IV1201Projekt/jsf/placejob.xhtml"> Place a job </a><br/>
+                <h:outputLink value="../../IV1201Projekt/jsf/index.xhtml">
+                    <h:outputLabel value="#{msg.home}"/>
+                </h:outputLink>
+                <br/>
+                <h:outputLink value="../../IV1201Projekt/jsf/login.xhtml">
+                    <h:outputLabel value="#{msg.login}"/>
+                </h:outputLink>
+                <br/>
+                <h:outputLink value="../../IV1201Projekt/jsf/register.xhtml">
+                    <h:outputLabel value="#{msg.register}"/>
+                </h:outputLink>
+                <br/>
+                <h:outputLink value="../../IV1201Projekt/jsf/placejob.xhtml">
+                    <h:outputLabel value="#{msg.placejob}"/>
+                </h:outputLink>
+                <br/>
             </div>
         </ui:composition>
     </body>

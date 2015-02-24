@@ -1,14 +1,22 @@
-<?xml version="1.0" encoding="UTF-8"?>
+
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" 
     "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
-<html xmlns="http://www.w3.org/1999/xhtml"   
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
       xmlns:ui="http://java.sun.com/jsf/facelets"
-      >
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
     <body>
         <ui:composition>
 
-            <h1> <a href="../../IV1201Projekt/jsf/index.xhtml">Application Station</a></h1>
-
+            <h1> <h:outputLink value="../../IV1201Projekt/jsf/index.xhtml">
+                    <h:outputText value="#{msg.websitename}"/>
+                </h:outputLink></h1>
+            <h:form>
+                <h:selectOneMenu value="#{generalBean.locale}" onchange="submit()" 
+                             id="languagelist" valueChangeListener="#{generalBean.localeChanged}">
+                    <f:selectItems value="#{generalBean.languages}"/>
+            </h:selectOneMenu>
+            </h:form>
         </ui:composition>
     </body>
 </html>

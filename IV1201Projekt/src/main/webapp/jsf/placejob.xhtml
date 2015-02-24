@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="UTF-8"?>
+
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" 
     "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml"   
@@ -11,39 +11,39 @@
         <ui:composition template="/template/layout.xhtml">
 
             <ui:define name="content">
-                <h3>Job information</h3>
+                <h3><h:outputText value="#{msg.jobinfo}"/></h3>
                 <div>
                     <h:form>
                         <table>
                             <tr>
-                                <td><label>Job name</label></td>
+                                <td><h:outputLabel value="#{msg.jobname}"/></td>
                                 <td><h:inputText value="#{jobBean.name}" p:required="true" >
                                         <f:validator validatorId="jobNameValidator"/>
                                     </h:inputText><br/></td>
                             </tr>
                             <tr>
-                                <td><label> Job type </label></td>
+                                <td><h:outputLabel value="#{msg.jobtype}"/></td>
                                 <td><h:inputText value="#{jobBean.type}" p:required="true" >
                                         <f:validator validatorId="jobTypeValidator" />
                                     </h:inputText><br/></td>
                             </tr>
                             <tr>
-                                <td><label> Job information</label></td>
+                                <td><h:outputLabel value="#{msg.jobinfo}"/></td>
                                 <td><h:inputText value="#{jobBean.information}" p:required="true" >
                                         <f:validator validatorId="jobInfoValidator"/>
                                     </h:inputText><br/></td>
                             </tr>
                         </table>
-                        <b><br/>Duration<br/></b>
-                        <label>Start date</label>
+                        <b><br/><h:outputText value="#{msg.duration}"/><br/></b>
+                        <h:outputLabel value="#{msg.startdate}"/>
                         <h:inputText value="#{jobBean.fromDate}" p:required="true">
                             <f:convertDateTime pattern="yyyy-mm-dd" />
                         </h:inputText>
-                        <label>End date</label>
+                        <h:outputLabel value="#{msg.endDate}"/>
                         <h:inputText  value="#{jobBean.toDate}" p:required="true">
                             <f:convertDateTime pattern="yyyy-mm-dd" />                    
                         </h:inputText><br/><br/>
-                        <h:commandButton value="submit" type="submit" action="#{jobBean.registerJob}" />
+                        <h:commandButton value="#{msg.submit}" type="submit" action="#{jobBean.registerJob}" />
                     </h:form>
                 </div>
             </ui:define>

@@ -1,4 +1,3 @@
-<?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" 
     "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml"   
@@ -14,30 +13,32 @@
             <ui:define name="content">
 
                 <h:form>  
-                    <b><br/>Log in as: <br/></b>
-                    <label> Applicant </label> <input type="radio" name="role" p:reqruited="true"/>  
-                    <label> Recruiter </label> <input type="radio" name="role" p:reqruited="true"/> <br/><br/>
+                    <b><br/>#{msg.loginas}<br/></b>
+                    <label> #{msg.applicant} </label> <input type="radio" name="role" p:required="true"/>  
+                    <label> #{msg.recruiter} </label> <input type="radio" name="role" p:required="true"/> <br/><br/>
                     <table>
                         <tr>
-                            <td><h:outputLabel value="Username" /></td>
+                            <td><h:outputLabel value="#{msg.username}" /></td>
                             <td><h:inputText value="#{userBean.username}" p:required="true" >
                                     <f:validator validatorId="usernameValidator"/>
                                 </h:inputText></td>
                         </tr>
                         <tr>
-                            <td><h:outputLabel value="Password" /></td>
-                            <td><h:inputSecret  value="#{userBean.password}" p:requried="true" >
+                            <td><h:outputLabel value="#{msg.password}" /></td>
+                            <td><h:inputSecret  value="#{userBean.password}" p:required="true" >
                                     <f:validator validatorId="passwordValidator" />
                                 </h:inputSecret>
                             </td>
                         </tr>
                         <tr><!-- userBean.login -->
-                            <td colspan="2"><h:commandButton value="submit" type="submit" action="#{userBean.login}" /></td>
+                            <td colspan="2"><h:commandButton value="#{msg.submit}" type="submit" action="#{userBean.login}" /></td>
                         </tr>
                     </table>
                 </h:form> 
                 <br/>
-                <a href="../jsf/register.xhtml"> No account? Register here </a><br/>
+                <h:outputLink value="../jsf/register.xhtml">
+                    <h:outputText value="#{msg.reghere}" />
+                </h:outputLink><br/>
             </ui:define>
         </ui:composition>
 
