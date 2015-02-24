@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<persistence version="2.0" xmlns="http://java.sun.com/xml/ns/persistence"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="
+        http://java.sun.com/xml/ns/persistence
+        http://java.sun.com/xml/ns/persistence/persistence_2_0.xsd">
+    
+    <persistence-unit name="test">
+        <class>se.kth.iv1201projekt.integration.model.Person</class>
+        <class>se.kth.iv1201projekt.integration.model.User</class>
+        <class>se.kth.iv1201projekt.integration.model.Availability</class>
+        <class>se.kth.iv1201projekt.integration.model.Competence</class>
+        <class>se.kth.iv1201projekt.integration.model.CompetenceProfile</class>
+        <class>se.kth.iv1201projekt.integration.model.Job</class>
+        <class>se.kth.iv1201projekt.integration.model.Role</class>
+        
+        <!--jta-data-source>jdbc/asdb</jta-data-source-->
+        <jta-data-source>jdbc/arquillian</jta-data-source>
+        <!-- properties>
+            <property name="hibernate.hbm2ddl.auto" value="create-drop"/>
+            <property name="hibernate.show_sql" value="true"/>
+        </properties-->
+        <properties>
+            <property name="javax.persistence.jdbc.driver"
+                value="org.apache.derby.jdbc.EmbeddedDriver"/>
+            <property name="javax.persistence.jdbc.url"
+                value="jdbc:derby:target/databases/derby;create=true"/>
+            <property name="eclipselink.ddl-generation" value="drop-and-create-tables"/>
+            <property name="eclipselink.logging.level.sql" value="FINE"/>
+            <property name="eclipselink.logging.parameters" value="true"/>
+        </properties>
+    </persistence-unit>
+    
+</persistence>
