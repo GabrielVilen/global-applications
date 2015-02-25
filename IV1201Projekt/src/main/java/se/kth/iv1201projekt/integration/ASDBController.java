@@ -60,6 +60,6 @@ public class ASDBController implements Serializable {
     }
 
     public void applyForJob(int id) {
-        db.deleteJob(id);
+        //db.deleteJob(id);
     }
 }
