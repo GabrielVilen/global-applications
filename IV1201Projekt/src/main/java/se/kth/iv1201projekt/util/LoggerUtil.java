@@ -5,6 +5,8 @@ import java.io.File;
 import java.io.IOException;
 import java.io.Serializable;
 import java.lang.reflect.Method;
+import java.nio.file.Paths;
+import java.util.Arrays;
 import java.util.logging.FileHandler;
 import java.util.logging.Handler;
 import java.util.logging.Level;
@@ -17,7 +19,8 @@ import java.util.logging.SimpleFormatter;
  */
 public class LoggerUtil implements Serializable {
     
-    private static final String logDir="../GasakiLogs";
+    private static final String homeDir = System.getProperty("user.home");
+    private static final String logDir="/GasakiLogs";
     private static final String exceptionFile = "/exceptionLog%g.log";
     private static final String testExceptionFile = "/testexceptionLog%g.log";
     private static final String methodFile ="/methodLog%g.log";
@@ -64,10 +67,11 @@ public class LoggerUtil implements Serializable {
    public static void logMethod(Method method, String[] formattedParams ,boolean before){
        Logger logger = Logger.getLogger(method.getClass().getName());
        logger.addHandler(getHandler(methodFile));
+       String paramString = Arrays.toString(formattedParams);
        if(before)
-           logger.log(Level.OFF, "Before " + method.getName() + formattedParams.toString());
+           logger.log(Level.OFF, "Before Method:" + method.getName()+ "\n" + paramString);
        else
-           logger.log(Level.OFF, "After " + method.getName() + formattedParams.toString());
+           logger.log(Level.OFF, "After Method:" + method.getName() +"\n"+ paramString);
    }
    
 
@@ -81,8 +85,8 @@ public class LoggerUtil implements Serializable {
    private static Handler getHandler(String filename){
        Handler handler=null;
        try {
-           new File(logDir).mkdir();
-           handler = new FileHandler(logDir + filename , 1024,10);
+           new File(homeDir+logDir).mkdir();
+           handler = new FileHandler(homeDir+logDir + filename , 1024,10,true);
            handler.setFormatter(new SimpleFormatter());
        } catch (IOException | SecurityException ex) {
            ex.printStackTrace();
