@@ -6,16 +6,17 @@ package MockitoTests;
  * and open the template in the editor.
  */
 
-import java.util.logging.Level;
-import java.util.logging.Logger;
-import javax.ejb.EJB;
+import javax.persistence.EntityManager;
+import javax.persistence.PersistenceContext;
 import org.junit.Assert;
-import static org.junit.Assert.fail;
-import org.junit.Ignore;
+import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
+import org.mockito.InjectMocks;
+import static org.mockito.Matchers.any;
 import org.mockito.Mock;
 import org.mockito.Mockito;
+import org.mockito.MockitoAnnotations;
 import org.mockito.runners.MockitoJUnitRunner;
 import se.kth.iv1201projekt.integration.ASJPADatabaseImpl;
 import se.kth.iv1201projekt.integration.model.Person;
@@ -29,39 +30,34 @@ import se.kth.iv1201projekt.util.LoginErrorException;
 public class IntegrationLayerTest {
 
     @Mock ASJPADatabaseImpl databaseMock;
-    //@Mock Person person;
-    //@EJB ASJPADatabaseImpl db;
+    @InjectMocks ASJPADatabaseImpl databaseInjectedMock = new ASJPADatabaseImpl();
+    @PersistenceContext(unitName = "se.kth_IV1201Projekt")
+    private EntityManager entityManager;
     
-    @Test
-    public void testCorrectLogin() {
-        try {
-            Person p = new Person();
-            Mockito.when(databaseMock.login("borg", "pass")).thenReturn(p);
-            Assert.assertNotNull(p);  
-        } catch (LoginErrorException ex) {
-            Mockito.doThrow(ex);
-        }
-         
-        /*try {
-            db.login("borg", "pass");
-            //person = null;
-        } catch (LoginErrorException ex) {
-            Logger.getLogger(IntegrationLayerTest.class.getName()).log(Level.SEVERE, null, ex);
-        }*/
+    @Before
+    public void init() {
+        MockitoAnnotations.initMocks(this);
     }
     
-    @Ignore
     @Test
-    public void testWrongLogin() {
-        LoginErrorException leexception = null;
-        Person p = null;
-        try {
-            Mockito.when(databaseMock.login("borg", "wrongpass")).thenReturn(p);
-        } catch (LoginErrorException ex) {
-            leexception = ex;
-        }
+    public void testLogin() throws LoginErrorException {
+
+        Person expected = new Person();
+        Mockito.when(databaseMock.login("borg", "pass")).thenReturn(expected);
         
-        Assert.assertNull(leexception); 
-        Assert.assertNull(p);
+        Person p1 = databaseMock.login("borg", "pass");
+        Assert.assertEquals(p1, expected);
+        Mockito.verify(databaseMock, Mockito.times(1)).login("borg", "pass");
+        
+        Person p2 = null;
+        Mockito.when(databaseMock.login(any(String.class), any(String.class)))
+                .thenThrow(new LoginErrorException("Failed to login."));
+        try {
+            p2 = databaseMock.login("notAnAccount", "pass");
+            Assert.fail("A failed login attempt should throw an exception.");
+        } catch (LoginErrorException ex) {
+            //Success
+        }
     }
+    
 }
