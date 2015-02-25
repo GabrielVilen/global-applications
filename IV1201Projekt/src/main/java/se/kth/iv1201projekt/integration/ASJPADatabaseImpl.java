@@ -9,12 +9,14 @@ import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 import javax.ejb.Stateless;
+import javax.interceptor.Interceptors;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import javax.persistence.Query;
 import javax.persistence.TypedQuery;
 import org.jasypt.util.password.StrongPasswordEncryptor;
 import se.kth.iv1201projekt.integration.model.*;
+import se.kth.iv1201projekt.util.LoggingInterceptor;
 import se.kth.iv1201projekt.util.LoginErrorException;
 
 /**
@@ -37,6 +39,7 @@ public class ASJPADatabaseImpl implements Serializable {
      * @throws LoginErrorException Is thrown if it wasn't found or 
      * wasn't correct password or if the account was inactive.
      */
+    @Interceptors(LoggingInterceptor.class)
     public Person login(String username, String password) throws LoginErrorException {
         
         User user = entityManager.find(User.class, username);
