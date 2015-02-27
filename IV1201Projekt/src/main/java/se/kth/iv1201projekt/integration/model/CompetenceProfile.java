@@ -20,7 +20,7 @@ import javax.validation.constraints.NotNull;
 import javax.xml.bind.annotation.XmlRootElement;
 
 /**
- *
+ * Represents the CompetenceProfile table in the database.
  * @author Kim
  */
 @Entity

@@ -6,7 +6,7 @@
 package se.kth.iv1201projekt.util;
 
 /**
- *
+ * This exception is used to represent a failed attempt to login.
  * @author Kim
  */
 public class LoginErrorException extends Exception {

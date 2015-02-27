@@ -6,7 +6,7 @@
 package se.kth.iv1201projekt.util;
 
 /**
- * This exception shoud be thrown if an error occurred during registeration.
+ * This exception should be thrown if an error occurred during registration.
  * @author Kim
  */
 public class RegisterErrorException extends Exception {
