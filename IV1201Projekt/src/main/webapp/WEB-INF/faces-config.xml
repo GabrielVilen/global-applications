@@ -10,8 +10,12 @@
             <supported-locale>sv</supported-locale>
         </locale-config>
         <resource-bundle>
-            <base-name>language.properties.Website</base-name>
+            <base-name>language.properties.website</base-name>
             <var>msg</var>
+        </resource-bundle>
+        <resource-bundle>
+            <base-name>language.properties.errors</base-name>
+            <var>error</var>
         </resource-bundle>
     </application>
     <managed-bean>

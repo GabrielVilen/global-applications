@@ -12,9 +12,9 @@
                     <h:outputText value="#{msg.websitename}"/>
                 </h:outputLink></h1>
             <h:form>
-                <h:selectOneMenu value="#{generalBean.locale}" onchange="submit()" 
-                             id="languagelist" valueChangeListener="#{generalBean.localeChanged}">
-                    <f:selectItems value="#{generalBean.languages}"/>
+                <h:selectOneMenu value="#{languageBean.locale}" onchange="submit()" 
+                             id="languagelist" valueChangeListener="#{languageBean.localeChanged}">
+                    <f:selectItems value="#{languageBean.languages}"/>
             </h:selectOneMenu>
             </h:form>
         </ui:composition>
