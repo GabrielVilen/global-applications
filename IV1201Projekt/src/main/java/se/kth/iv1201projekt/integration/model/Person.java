@@ -24,7 +24,7 @@ import javax.xml.bind.annotation.XmlRootElement;
 import javax.xml.bind.annotation.XmlTransient;
 
 /**
- *
+ * Represents the Person table in the database.
  * @author Kim
  */
 @Entity

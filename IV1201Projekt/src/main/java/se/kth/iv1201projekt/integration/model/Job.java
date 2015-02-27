@@ -23,7 +23,7 @@ import javax.validation.constraints.Size;
 import javax.xml.bind.annotation.XmlRootElement;
 
 /**
- *
+ * Represents the Job table in the database.
  * @author Kim
  */
 @Entity

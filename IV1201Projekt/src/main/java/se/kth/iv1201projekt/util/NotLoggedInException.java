@@ -6,7 +6,8 @@
 package se.kth.iv1201projekt.util;
 
 /**
- *
+ * This exception is used to show that an operation needs the user to be logged 
+ * in to be called.
  * @author Kim
  */
 public class NotLoggedInException extends Exception {
