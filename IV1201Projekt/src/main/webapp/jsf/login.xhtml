@@ -13,9 +13,6 @@
             <ui:define name="content">
 
                 <h:form>  
-                    <b><br/>#{msg.loginas}<br/></b>
-                    <label> #{msg.applicant} </label> <input type="radio" name="role" p:required="true"/>  
-                    <label> #{msg.recruiter} </label> <input type="radio" name="role" p:required="true"/> <br/><br/>
                     <table>
                         <tr>
                             <td><h:outputLabel value="#{msg.username}" /></td>
@@ -39,6 +36,7 @@
                 <h:outputLink value="../jsf/register.xhtml">
                     <h:outputText value="#{msg.reghere}" />
                 </h:outputLink><br/>
+                <h:messages styleClass="errorMessage"/>
             </ui:define>
         </ui:composition>
 
