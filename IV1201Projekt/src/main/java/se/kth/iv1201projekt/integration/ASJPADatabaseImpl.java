@@ -34,7 +34,8 @@ public class ASJPADatabaseImpl implements Serializable {
     /**
      * Logins the user by giving a reference to the user's information.
      * @param username The username to match.
-     * @param password The password to match.
+     * @param password The password to match. Must be encrypted using
+     * org.jasypt.util.password.StrongPasswordEncryptor. 
      * @return The user's information.
      * @throws LoginErrorException Is thrown if it wasn't found or 
      * wasn't correct password or if the account was inactive.
