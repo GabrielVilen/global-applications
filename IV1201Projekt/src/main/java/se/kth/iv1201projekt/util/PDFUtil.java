@@ -14,25 +14,27 @@ import se.kth.iv1201projekt.integration.model.Person;
 
 /**
  * A class for creation of PDF forms
+ *
  * @author Samy
  */
 public class PDFUtil {
+
     ;
     private static final PDRectangle pageSize = PDPage.PAGE_SIZE_A4;
-    private static final int newLineSpace= -15;
-    
-    public static File createPDF(Job job, Person person) throws IOException, COSVisitorException{
+    private static final int newLineSpace = -15;
+
+    public static File createPDF(Job job, Person person) throws IOException, COSVisitorException {
         try (PDDocument document = new PDDocument()) {
             PDPage page = new PDPage(pageSize);
             float width = pageSize.getWidth();
             float height = pageSize.getHeight();
             document.addPage(page);
-            
-            PDPageContentStream contentStream = new PDPageContentStream(document,page);
-            
+
+            PDPageContentStream contentStream = new PDPageContentStream(document, page);
+
             contentStream.beginText();
-            contentStream.moveTextPositionByAmount(width-9*(width/10), height-height/7);
-            
+            contentStream.moveTextPositionByAmount(width - 9 * (width / 10), height - height / 7);
+
             //Job info
             contentStream.setFont(PDType1Font.HELVETICA_BOLD, 18);
             contentStream.drawString("Job application form");
@@ -40,19 +42,21 @@ public class PDFUtil {
             contentStream.setFont(PDType1Font.COURIER, 14);
             contentStream.drawString("Job name: " + job.getName());
             newLine(contentStream);
-            contentStream.drawString("Job Information: " + job.getInformation());
+            contentStream.drawString("Job type: " + job.getType());
+            newLine(contentStream);
+            contentStream.drawString("Job information: " + job.getInformation());
             newLine(contentStream);
             contentStream.drawString("Start Date: " + job.getStartDate());
             newLine(contentStream);
             contentStream.drawString("End Date: " + job.getEndDate());
-            
+
             //Applicant Info
-            newLine(contentStream,3);
+            newLine(contentStream, 3);
             contentStream.setFont(PDType1Font.HELVETICA_BOLD, 18);
             contentStream.drawString("Applicant Information");
             newLine(contentStream);
             contentStream.setFont(PDType1Font.COURIER, 14);
-            contentStream.drawString("Name: " + person.getName()+ " " + person.getSurname());
+            contentStream.drawString("Name: " + person.getName() + " " + person.getSurname());
             newLine(contentStream);
             contentStream.drawString("Email: " + person.getEmail());
             newLine(contentStream);
@@ -60,18 +64,18 @@ public class PDFUtil {
             newLine(contentStream);
             contentStream.endText();
             contentStream.close();
-            
+
             File file = File.createTempFile("JobApplication", ".pdf").getAbsoluteFile();
             document.save(file);
             return file;
         }
     }
-    
-    private static void newLine(PDPageContentStream content) throws IOException{
+
+    private static void newLine(PDPageContentStream content) throws IOException {
         content.moveTextPositionByAmount(0, newLineSpace);
     }
-    
-    private static void newLine(PDPageContentStream content, int multiplier) throws IOException{
-        content.moveTextPositionByAmount(0, newLineSpace*multiplier);
+
+    private static void newLine(PDPageContentStream content, int multiplier) throws IOException {
+        content.moveTextPositionByAmount(0, newLineSpace * multiplier);
     }
 }
