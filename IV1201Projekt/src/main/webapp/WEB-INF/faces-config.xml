@@ -29,13 +29,13 @@
     <navigation-rule>
         <navigation-case> 
             <from-action>#{userBean.login}</from-action>
-            <from-outcome>success_recruit</from-outcome>
-            <to-view-id>jsf/success.xhtml</to-view-id>
+            <from-outcome>success</from-outcome>
+            <to-view-id>jsf/logout.xhtml</to-view-id>
         </navigation-case>
         <navigation-case> 
-            <from-action>#{userBean.login}</from-action>
-            <from-outcome>success_applicant</from-outcome>
-            <to-view-id>jsf/register.xhtml</to-view-id>
+            <from-action>#{userBean.logout}</from-action>
+            <from-outcome>success</from-outcome>
+            <to-view-id>jsf/login.xhtml</to-view-id>
         </navigation-case>
     </navigation-rule>
 

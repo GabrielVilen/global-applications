@@ -43,7 +43,7 @@ public class UserBean implements Serializable {
         try {
             person = controller.login(username, password);
             String role = person.getRoleId().getName();
-            return "success_" + role;
+            return "success";
         } catch (Exception ex) {
             logExceptionAndShowError(ex,"wronglogin");
             return null;
@@ -76,7 +76,7 @@ public class UserBean implements Serializable {
         person = null;
         username = null;
         password = null;
-        return "index.xhtml";
+        return "success";
     }
 
     /**
@@ -85,6 +85,10 @@ public class UserBean implements Serializable {
      */
     public boolean isLoggedIn() {
         return person != null;
+    }
+    
+    public boolean isRecruiter(){
+        return person.getRoleId().getName().equals("recruit");
     }
 
     public String getUsername() {
