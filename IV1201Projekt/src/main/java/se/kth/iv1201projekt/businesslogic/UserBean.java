@@ -1,17 +1,22 @@
 package se.kth.iv1201projekt.businesslogic;
 
+import java.io.File;
+import java.io.IOException;
 import java.io.Serializable;
 import javax.ejb.EJB;
 import javax.enterprise.context.SessionScoped;
 import javax.faces.application.FacesMessage;
 import javax.faces.context.FacesContext;
-import javax.faces.validator.ValidatorException;
 import javax.inject.Named;
+import org.apache.pdfbox.exceptions.COSVisitorException;
 import org.jasypt.util.password.StrongPasswordEncryptor;
 import se.kth.iv1201projekt.integration.ASDBController;
+import se.kth.iv1201projekt.integration.model.Job;
 import se.kth.iv1201projekt.integration.model.Person;
 import se.kth.iv1201projekt.util.ErrorMessageFactory;
+import se.kth.iv1201projekt.util.FileDownloader;
 import se.kth.iv1201projekt.util.LoggerUtil;
+import se.kth.iv1201projekt.util.PDFUtil;
 
 /**
  * This bean is used for logging in service and to store the user's personal
@@ -39,11 +44,8 @@ public class UserBean implements Serializable {
             person = controller.login(username, password);
             String role = person.getRoleId().getName();
             return "success_" + role;
-        } catch (Exception e) {
-            LoggerUtil.logSevere(e, this);
-            FacesMessage msg = new FacesMessage(ErrorMessageFactory.getErrorMessage("wronglogin"));
-            msg.setSeverity(FacesMessage.SEVERITY_ERROR);
-            FacesContext.getCurrentInstance().addMessage(null, msg);
+        } catch (Exception ex) {
+            logExceptionAndShowError(ex,"wronglogin");
             return null;
         }
     }
@@ -55,6 +57,15 @@ public class UserBean implements Serializable {
      */
     public void applyForJob(int id) {
         controller.applyForJob(id);
+    }
+    
+     public void jobPDF(Job job) {
+        try {
+            File pdfFile = PDFUtil.createPDF(job, person);
+            FileDownloader.startDownload(pdfFile);
+        } catch (IOException|COSVisitorException ex) {
+            logExceptionAndShowError(ex,"invalidPdf");
+        }
     }
   
     /**
@@ -106,5 +117,12 @@ public class UserBean implements Serializable {
     public Person getPerson() {
         return person;
     }
-
+    
+    private void logExceptionAndShowError(Exception e,String errorKey){
+            LoggerUtil.logSevere(e, this);
+            FacesMessage msg = new FacesMessage(ErrorMessageFactory.getErrorMessage(errorKey));
+            msg.setSeverity(FacesMessage.SEVERITY_ERROR);
+            FacesContext.getCurrentInstance().addMessage(null, msg);
+    }
+    
 }
