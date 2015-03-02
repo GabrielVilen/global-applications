@@ -5,7 +5,8 @@
       xmlns:h="http://xmlns.jcp.org/jsf/html"
       xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
       xmlns:f="http://xmlns.jcp.org/jsf/core"
-      xmlns:p="http://xmlns.jcp.org/jsf/passthrough">
+      xmlns:p="http://xmlns.jcp.org/jsf/passthrough"
+      xmlns:c="http://java.sun.com/jsp/jstl/core">
 
     <h:body>
 
@@ -37,6 +38,13 @@
                             <h:commandButton value="#{msg.apply}" type="submit" action="#{userBean.applyForJob(job.id)}" />
                         </h:form>
                     </h:column>
+                    <c:if test="#{userBean.loggedIn}">
+                        <h:column>
+                            <h:form>
+                                <h:commandButton value="#{msg.getPdf}" type="submit" action="#{userBean.jobPDF(job)}" />
+                            </h:form>
+                        </h:column>
+                    </c:if>
                 </h:dataTable>
             </ui:define>
         </ui:composition>

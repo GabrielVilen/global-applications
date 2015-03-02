@@ -11,12 +11,11 @@ import javax.interceptor.InvocationContext;
 public class LoggingInterceptor implements Serializable{
     
     /**
-     * Handles the interception of before and after the method annotated 
+     * Handles the interception of before and after the method annotated
      * @AroundInvoke is called
      * 
      * @param context
      * @return
-     * @throws Exception 
      */
     @AroundInvoke
     public static Object intercept(InvocationContext context) throws Exception{
@@ -26,7 +25,7 @@ public class LoggingInterceptor implements Serializable{
             formattedParams[i] = params[i].toString();
         }
         LoggerUtil.logMethod(context.getMethod(), formattedParams,true);
-        Object obj = context.proceed();
+        Object obj = context.proceed(); //Let's method to be executed
         LoggerUtil.logMethod(context.getMethod(), formattedParams,false);
         return obj;
     }

@@ -7,9 +7,10 @@ import javax.faces.context.FacesContext;
 import javax.faces.validator.FacesValidator;
 import javax.faces.validator.Validator;
 import javax.faces.validator.ValidatorException;
+import se.kth.iv1201projekt.util.ErrorMessageFactory;
 
 /**
- * Validator that checks if username is more than 4 character or does not contain a blank space
+ * Validator that checks if username is more than 3 character or does not contain a blank space
  * 
  * @author Gabriel
  */
@@ -24,7 +25,8 @@ public class UsernameValidator implements Validator {
        String param = value.toString();
        
        if(param.matches(numberRegex)||param.length()<3){
-           FacesMessage msg = new FacesMessage("Invalid username: cannot be less than 3 char or contain a blank space");
+           FacesMessage msg = new FacesMessage
+                    (ErrorMessageFactory.getErrorMessage("invalidusername"));
            msg.setSeverity(FacesMessage.SEVERITY_ERROR);
            throw new ValidatorException(msg);
        }

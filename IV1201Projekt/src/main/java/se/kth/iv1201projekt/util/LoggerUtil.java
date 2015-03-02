@@ -59,7 +59,7 @@ public class LoggerUtil implements Serializable {
    }
    
    /**
-    * Logs parameters when a method annotated @Aroundinvoke is called and exited
+    * Logsparameters when a method annotated @Aroundinvoke is called and exited
     * @param method Class of where the method is called
     * @param formattedParams the parameters invoked
     * @param before if it's before it's called or after it has exited.
@@ -68,10 +68,13 @@ public class LoggerUtil implements Serializable {
        Logger logger = Logger.getLogger(method.getClass().getName());
        logger.addHandler(getHandler(methodFile));
        String paramString = Arrays.toString(formattedParams);
-       if(before)
-           logger.log(Level.OFF, "Before Method:" + method.getName()+ "\n" + paramString);
+       if(before){
+           logger.log(Level.OFF, "Logging method: " + method.getName() + " in class: "
+                  + method.getDeclaringClass().getName());
+           logger.log(Level.OFF, "Parameters before\n", paramString);
+       }
        else
-           logger.log(Level.OFF, "After Method:" + method.getName() +"\n"+ paramString);
+           logger.log(Level.OFF, "Parameters after\n" +paramString);
    }
    
 

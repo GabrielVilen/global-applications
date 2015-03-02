@@ -6,6 +6,7 @@ import javax.faces.context.FacesContext;
 import javax.faces.validator.FacesValidator;
 import javax.faces.validator.Validator;
 import javax.faces.validator.ValidatorException;
+import se.kth.iv1201projekt.util.ErrorMessageFactory;
 
 /**
  * Validator that checks if password is more than 4 characters
@@ -20,7 +21,7 @@ public class PasswordValidator implements Validator {
         String param = value.toString();
 
         if (param.length() < 4) {
-            FacesMessage msg = new FacesMessage("Invalid password: must be more than 4 characters");
+            FacesMessage msg = new FacesMessage(ErrorMessageFactory.getErrorMessage("invalidpassword"));
             msg.setSeverity(FacesMessage.SEVERITY_ERROR);
             throw new ValidatorException(msg);
         }
