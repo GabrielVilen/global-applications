@@ -30,7 +30,6 @@ public class UserBean implements Serializable {
      * @return A status text which will be handled by the JSF.
      */
     public String login() {
-        System.out.println("controller=" + controller + "username=" + username + "password=" + password);
         if (username == null || password == null) {
             return "fail_1";
         }
