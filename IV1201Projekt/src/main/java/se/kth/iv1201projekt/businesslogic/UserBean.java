@@ -34,7 +34,6 @@ public class UserBean implements Serializable {
     private String password;
     private Person person;
 
-    @EJB
     public void setASDBController(ASDBController controller) {
         this.controller = controller;
     }
@@ -42,6 +41,7 @@ public class UserBean implements Serializable {
     /**
      * Logs in the user and fetches the user's information.
      * Username and password need to be set before calling this method.
+     * This method will also clear the password after the database call.
      * @return A status text which will be handled by the JSF.
      */
     public String login() {
@@ -51,7 +51,7 @@ public class UserBean implements Serializable {
 
         try {
             person = controller.login(username, password);
-            String role = person.getRoleId().getName();
+            password = null;
             return "success";
         } catch (Exception ex) {
             logExceptionAndShowError(ex,"wronglogin");
@@ -117,14 +117,11 @@ public class UserBean implements Serializable {
     }
 
     /**
-     * Store the password as an encrypted password for further use.
-     * @param password The password to use for operations. This method will 
-     * encrypt the password.
+     * Store the password for further use.
+     * @param password The password to use for operations.
      */
     public void setPassword(String password) {
-        StrongPasswordEncryptor passwordEncryptor = new StrongPasswordEncryptor();
-        String encryptedPassword = passwordEncryptor.encryptPassword(password);
-        this.password = encryptedPassword;
+        this.password = password;
     }
 
     public Person getPerson() {

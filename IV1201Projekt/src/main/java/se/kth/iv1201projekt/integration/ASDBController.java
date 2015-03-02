@@ -9,7 +9,6 @@ import java.io.Serializable;
 import java.util.List;
 import javax.ejb.EJB;
 import javax.ejb.Stateless;
-import javax.inject.Inject;
 import se.kth.iv1201projekt.integration.model.Job;
 import se.kth.iv1201projekt.integration.model.Person;
 import se.kth.iv1201projekt.util.LoginErrorException;
@@ -26,11 +25,6 @@ public class ASDBController implements Serializable {
 
     @EJB
     private ASJPADatabaseImpl db;
-    
-    @Inject
-    public void setASJPADatabaseImpl(ASJPADatabaseImpl db) {
-        this.db = db;
-    }
 
     /**
      * Logins the user by giving a reference to the user's information.

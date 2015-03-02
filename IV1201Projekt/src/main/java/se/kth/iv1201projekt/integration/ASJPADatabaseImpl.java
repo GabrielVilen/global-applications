@@ -9,6 +9,7 @@ import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 import javax.ejb.Stateless;
+import javax.enterprise.inject.Produces;
 import javax.inject.Inject;
 import javax.interceptor.Interceptors;
 import javax.persistence.EntityManager;
@@ -24,7 +25,6 @@ import se.kth.iv1201projekt.util.LoginErrorException;
  * This class will handle the connection to the database and the sending of
  * queries.
  * @author Kim
- * TODO: Fixa exceptions i BEANS
  */
 @Stateless(name = "ASJPADatabaseImpl")
 public class ASJPADatabaseImpl implements Serializable {
@@ -33,43 +33,48 @@ public class ASJPADatabaseImpl implements Serializable {
     protected EntityManager entityManager;
     private Query personQuery = null;
     
-    @Inject
+    /**
+     * This class should only be used for testing.
+     * @param entityManager The mocked entity manager.
+     */
     public void setEntityManager(EntityManager entityManager) {
         this.entityManager = entityManager;
     }
     
-    @Inject
+    /**
+     * This class should only be used for testing.
+     * @param personQuery The mocked query for fetching a person.
+     */
     public void setPersonQuery(Query personQuery) {
         this.personQuery = personQuery;
     }
-    
+
     /**
      * Logins the user by giving a reference to the user's information.
      * @param username The username to match.
-     * @param password The password to match. Must be encrypted using
-     * org.jasypt.util.password.StrongPasswordEncryptor. 
+     * @param password The password to match. Must be plain text.
      * @return The user's information.
      * @throws LoginErrorException Is thrown if it wasn't found or 
      * wasn't correct password or if the account was inactive.
      */
     @Interceptors(LoggingInterceptor.class)
     public Person login(String username, String password) throws LoginErrorException {
-        
+
         User user = entityManager.find(User.class, username);
 
         if(user == null){
-            throw new LoginErrorException("1");
+            throw new LoginErrorException("The user could not be fetched.");
         }
 
         StrongPasswordEncryptor passwordEncryptor = new StrongPasswordEncryptor();
-        boolean hasCorrectPassword = passwordEncryptor.checkPassword(user.getPassword(), password);
+        boolean hasCorrectPassword = passwordEncryptor.checkPassword(password, user.getPassword());
 
         if(!hasCorrectPassword){
-            throw new LoginErrorException("2");
+            throw new LoginErrorException("Incorrect user-password combination.");
         }
 
         if(!user.getActive()){
-            throw new LoginErrorException("3");
+            throw new LoginErrorException("Inactivated user.");
         }
 
         Person person;

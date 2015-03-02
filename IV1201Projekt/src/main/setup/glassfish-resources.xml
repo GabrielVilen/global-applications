@@ -23,6 +23,4 @@
         <property name="driverClass" value="com.mysql.jdbc.Driver"/>
     </jdbc-connection-pool>
     <jdbc-resource enabled="true" jndi-name="jdbc/asdb" object-type="user" pool-name="asdbpool"/>
-    <!-- pool-name="mysql_iv1201gasakiproject_rootPool"/ -->
-    <!-- jdbc-resource enabled="true" jndi-name="asdb" object-type="user" pool-name="mysql_iv1201gasakiproject_rootPool"/ -->
 </resources>
