@@ -7,6 +7,7 @@ import javax.ejb.EJB;
 import javax.enterprise.context.SessionScoped;
 import javax.faces.application.FacesMessage;
 import javax.faces.context.FacesContext;
+import javax.inject.Inject;
 import javax.inject.Named;
 import org.apache.pdfbox.exceptions.COSVisitorException;
 import org.jasypt.util.password.StrongPasswordEncryptor;
@@ -33,20 +34,21 @@ public class UserBean implements Serializable {
     private String password;
     private Person person;
 
+    @EJB
+    public void setASDBController(ASDBController controller) {
+        this.controller = controller;
+    }
+    
     /**
      * Logs in the user and fetches the user's information.
      * Username and password need to be set before calling this method.
      * @return A status text which will be handled by the JSF.
      */
     public String login() {
-<<<<<<< HEAD
         if (username == null || password == null) {
             return "fail_1";
         }
 
-=======
-        System.out.println("controller=" + controller + "username=" + username + "password=" + password);
->>>>>>> 64eb743b1caf1c2a2fae0cfe6c07a3b15bca4f5c
         try {
             person = controller.login(username, password);
             String role = person.getRoleId().getName();
@@ -130,10 +132,10 @@ public class UserBean implements Serializable {
     }
     
     private void logExceptionAndShowError(Exception e,String errorKey){
-            LoggerUtil.logSevere(e, this);
-            FacesMessage msg = new FacesMessage(ErrorMessageFactory.getErrorMessage(errorKey));
-            msg.setSeverity(FacesMessage.SEVERITY_ERROR);
-            FacesContext.getCurrentInstance().addMessage(null, msg);
+        LoggerUtil.logSevere(e, this);
+        FacesMessage msg = new FacesMessage(ErrorMessageFactory.getErrorMessage(errorKey));
+        msg.setSeverity(FacesMessage.SEVERITY_ERROR);
+        FacesContext.getCurrentInstance().addMessage(null, msg);
     }
     
 }

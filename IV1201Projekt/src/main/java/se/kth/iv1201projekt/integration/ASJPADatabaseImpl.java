@@ -9,6 +9,7 @@ import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 import javax.ejb.Stateless;
+import javax.inject.Inject;
 import javax.interceptor.Interceptors;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
@@ -30,6 +31,17 @@ public class ASJPADatabaseImpl implements Serializable {
 
     @PersistenceContext(unitName = "se.kth_IV1201Projekt")
     protected EntityManager entityManager;
+    private Query personQuery = null;
+    
+    @Inject
+    public void setEntityManager(EntityManager entityManager) {
+        this.entityManager = entityManager;
+    }
+    
+    @Inject
+    public void setPersonQuery(Query personQuery) {
+        this.personQuery = personQuery;
+    }
     
     /**
      * Logins the user by giving a reference to the user's information.
@@ -60,9 +72,14 @@ public class ASJPADatabaseImpl implements Serializable {
             throw new LoginErrorException("3");
         }
 
-        Query personQuery = entityManager.createNamedQuery("Person.findByUsername", Person.class);
-        personQuery.setParameter("username", user);
-        Person person = (Person) personQuery.getSingleResult();
+        Person person;
+        if(personQuery == null) {
+            Query personQuery = entityManager.createNamedQuery("Person.findByUsername", Person.class);
+            personQuery.setParameter("username", user);
+            person = (Person) personQuery.getSingleResult();
+        } else {
+            person = (Person) personQuery.getSingleResult();
+        }
 
         return person;
     }

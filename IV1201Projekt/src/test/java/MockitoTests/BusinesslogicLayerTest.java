@@ -4,7 +4,6 @@ import junit.framework.Assert;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
-import org.mockito.InjectMocks;
 import static org.mockito.Matchers.any;
 import org.mockito.Mock;
 import org.mockito.Mockito;
@@ -18,54 +17,101 @@ import se.kth.iv1201projekt.util.LoggerUtil;
 import se.kth.iv1201projekt.util.LoginErrorException;
 
 /**
- * 
+ * This class will test the business logic layer. Any database call are 
+ * simulated and therefore not affecting the actual data in the database.
  * @author Kim
  */
 @RunWith(MockitoJUnitRunner.class)
 public class BusinesslogicLayerTest {
     
-    @InjectMocks UserBean userBean;
-    @Mock ASDBController controller;
+    private final UserBean userBean = new UserBean();
+    @Mock private ASDBController controller;
     
+    /**
+     * Defines the simulated data in the database. It also sets the mocked 
+     * objects to appropriate test objects.
+     */
     @Before
     public void setUp() {
-        User borgUser = new User("borg", "pass", true, 1);
-        Person person = new Person(1l, "Per", "Strand", "19671212-1211", "per@strand.kth.se", 1);
-        person.setRoleId(new Role(2l));
-        person.setUsername(borgUser);
         try {
-            Mockito.when(controller.login(any(String.class), any(String.class)))
-                    .thenReturn(person)
-                    .thenThrow(new LoginErrorException());
-        } catch (LoginErrorException ex) {
-            LoggerUtil.logTest(ex, this);
+            User borgUser = new User("borg", "pass", true, 1);
+            Person person = new Person(1l, "Per", "Strand", "19671212-1211", "per@strand.kth.se", 1);
+            person.setRoleId(new Role(2l));
+            person.setUsername(borgUser);
+            try {
+                Mockito.when(controller.login(any(String.class), any(String.class)))
+                        .thenReturn(person)
+                        .thenThrow(new LoginErrorException());
+            } catch (LoginErrorException ex) {
+                LoggerUtil.logTest(ex, this);
+            }
+            userBean.setASDBController(controller);
+        } catch(Exception e) {
+            LoggerUtil.logTest(e, this);
+            throw e;
         }
     }
     
+    /**
+     * Tests the login method.
+     */
     @Test
     public void testLoginCall() {
-        //Both null
+        //Both not set
         String s1 = userBean.login();
         Assert.assertEquals("fail_1", s1);
         Assert.assertNull(userBean.getPerson());
+        userBean.logout();
         
-        //Password is null
+        //Only password is not set
         userBean.setUsername("borg");
         String s2 = userBean.login();
         Assert.assertEquals("fail_1", s2);
         Assert.assertNull(userBean.getPerson());
+        userBean.logout();
         
-        //Nothing null
+        //Only username is not set
         userBean.setPassword("pass");
         String s3 = userBean.login();
-        Assert.assertTrue(s3.startsWith("success_"));
+        Assert.assertEquals("fail_1", s3);
+        Assert.assertNull(userBean.getPerson());
+        userBean.logout();
+        
+        //Correct login
+        userBean.setUsername("borg");
+        userBean.setPassword("pass");
+        String s4 = userBean.login();
+        Assert.assertTrue(s4.startsWith("success"));
         Assert.assertNotNull(userBean.getPerson());
+        userBean.logout();
         
         //Wrong login
+        userBean.setUsername("borg");
         userBean.setPassword("wrongpass");
-        String s4 = userBean.login();
-        Assert.assertEquals("fail_2", s4);
+        String s5 = null;
+        try{
+            s5 = userBean.login();
+            //Unhandled return value.
+        } catch(NullPointerException e) {
+            //Success
+        }
+        Assert.assertNull(s5);
         Assert.assertNull(userBean.getPerson());
+        userBean.logout();
+        
+        //Empty parameters
+        userBean.setUsername("");
+        userBean.setPassword("");
+        String s6 = null;
+        try{
+            s6 = userBean.login();
+            //Unhandled return value.
+        } catch(NullPointerException e) {
+            //Success
+        }
+        Assert.assertNull(s6);
+        Assert.assertNull(userBean.getPerson());
+        userBean.logout();
     }
 
 }

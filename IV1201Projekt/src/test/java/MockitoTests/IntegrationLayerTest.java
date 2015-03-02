@@ -17,6 +17,7 @@ import javax.persistence.TypedQuery;
 import org.jasypt.util.password.StrongPasswordEncryptor;
 import org.junit.Assert;
 import org.junit.Before;
+import org.junit.Ignore;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.mockito.InjectMocks;
@@ -42,33 +43,32 @@ import se.kth.iv1201projekt.util.LoginErrorException;
 @RunWith(MockitoJUnitRunner.class)
 public class IntegrationLayerTest {
 
-    @Mock private ASJPADatabaseImpl databaseMock;
     @Mock private EntityManager entityManager;
     @Mock private Query personQuery;
     private final StrongPasswordEncryptor passwordEncryptor = new StrongPasswordEncryptor();
-    
+    private ASJPADatabaseImpl databaseFacade = new ASJPADatabaseImpl(); // Class to be tested.
+
     /**
      * Defines the simulated data in the database and a few direct calls to the 
      * entity manager.
      */
     @Before
     public void setUp() {
-        Person borgPerson;
-        User borgUser;
-        borgUser = new User("borg", "pass", true, 1);
-        borgPerson = new Person(1l, "Per", "Strand", "19671212-1211", "per@strand.kth.se", 1);
-        borgPerson.setRoleId(new Role(2l));
-        borgPerson.setUsername(borgUser);
-        
-        Mockito.when(entityManager.find(User.class, "borg")).thenReturn(borgUser);
-        Mockito.when(entityManager.createNamedQuery("Person.findByUsername")).thenReturn(personQuery);
-        Mockito.when((Person) personQuery.getSingleResult()).thenReturn(borgPerson);
         try {
-            Mockito.when(databaseMock.login(any(String.class), any(String.class)))
-                    .thenReturn(borgPerson)
-                    .thenThrow(new LoginErrorException());
-        } catch (LoginErrorException ex) {
-            LoggerUtil.logTest(ex, this);
+            User borgUser = new User("borg", "pass", true, 1);
+            Person borgPerson = new Person(1l, "Per", "Strand", "19671212-1211", "per@strand.kth.se", 1);
+            borgPerson.setRoleId(new Role(2l));
+            borgPerson.setUsername(borgUser);
+
+            Mockito.when(entityManager.find(User.class, "borg")).thenReturn(borgUser);
+            Mockito.when(entityManager.createNamedQuery("Person.findByUsername")).thenReturn(personQuery);
+            Mockito.when((Person) personQuery.getSingleResult()).thenReturn(borgPerson);
+
+            databaseFacade.setEntityManager(entityManager);
+            databaseFacade.setPersonQuery(personQuery);
+        } catch(Exception e) {
+            LoggerUtil.logTest(e, this);
+            throw e;
         }
     }
  
@@ -79,60 +79,66 @@ public class IntegrationLayerTest {
      */
     @Test
     public void testLogin() throws LoginErrorException {
-        String pass = passwordEncryptor.encryptPassword("pass");
-        String wrongpass = passwordEncryptor.encryptPassword("wrongpass");
-        
-        //Test correct login
-        Person person = databaseMock.login("borg", pass);
-        Mockito.verify(databaseMock, Mockito.times(1)).login("borg", pass);
-        Assert.assertNotNull(person);
-        
-        //Test incorrect login
-        Person person2 = null;
         try {
-            person2 = databaseMock.login("borg", wrongpass); 
-            Assert.fail("A failed login attempt should throw an exception.");
-        } catch(LoginErrorException e) {
-            //success
+            String pass = passwordEncryptor.encryptPassword("pass");
+            String wrongpass = passwordEncryptor.encryptPassword("wrongpass");
+
+            //Test correct login
+            Person person = databaseFacade.login("borg", pass);
+            Assert.assertNotNull(person);
+
+            //Test incorrect login
+            Person person2 = null;
+            try {
+                person2 = databaseFacade.login("borg", wrongpass); 
+                Assert.fail("A failed login attempt should throw an exception.");
+            } catch(LoginErrorException e) {
+                //success
+            }
+            Assert.assertNull(person2);
+
+            //Test with other parameters
+            Person person3 = null;
+            try {
+                person3 = databaseFacade.login("borg", null); 
+                Assert.fail("A failed login attempt should throw an exception.");
+            } catch(LoginErrorException e) {
+                //success
+            }
+            Assert.assertNull(person3);
+
+            Person person4 = null;
+            try {
+                person4 = databaseFacade.login(null, pass); 
+                Assert.fail("A failed login attempt should throw an exception.");
+            } catch(LoginErrorException e) {
+                //success
+            }
+            Assert.assertNull(person4);
+
+            Person person5 = null;
+            String longPass = passwordEncryptor.encryptPassword("wlnkb2d435ty334%%&\"%%&&&&{{##!!!sfgdhfgfafsfdgfdsf");
+            try {
+                person5 = databaseFacade.login("borg", longPass); 
+                Assert.fail("A failed login attempt should throw an exception.");
+            } catch(LoginErrorException e) {
+                //success
+            }
+            Assert.assertNull(person5);
+
+            Person person6 = null;
+            String shortPass = passwordEncryptor.encryptPassword("a");
+            try {
+                person6 = databaseFacade.login("borg", shortPass); 
+                Assert.fail("A failed login attempt should throw an exception.");
+            } catch(LoginErrorException e) {
+                //success
+            }
+            Assert.assertNull(person5);
+        } catch(Exception e) {
             LoggerUtil.logTest(e, this);
+            throw e;
         }
-        Mockito.verify(databaseMock, Mockito.times(1)).login("borg", wrongpass);
-        Assert.assertNull(person2);
-        
-        //Test with other parameters
-        Person person3 = null;
-        try {
-            person3 = databaseMock.login("borg", null); 
-            Assert.fail("A failed login attempt should throw an exception.");
-        } catch(LoginErrorException e) {
-            //success
-            LoggerUtil.logTest(e, this);
-        }
-        Mockito.verify(databaseMock, Mockito.times(1)).login("borg", null);
-        Assert.assertNull(person3);
-        
-        Person person4 = null;
-        try {
-            person4 = databaseMock.login(null, pass); 
-            Assert.fail("A failed login attempt should throw an exception.");
-        } catch(LoginErrorException e) {
-            //success
-            LoggerUtil.logTest(e, this);
-        }
-        Mockito.verify(databaseMock, Mockito.times(1)).login(null, pass);
-        Assert.assertNull(person4);
-        
-        Person person5 = null;
-        String longPass = passwordEncryptor.encryptPassword("wlnkb2d435ty334%%&\"%%&&&&{{##!!!sfgdhfgfafsfdgfdsf");
-        try {
-            person5 = databaseMock.login("borg", longPass); 
-            Assert.fail("A failed login attempt should throw an exception.");
-        } catch(LoginErrorException e) {
-            //success
-            LoggerUtil.logTest(e, this);
-        }
-        Mockito.verify(databaseMock, Mockito.times(1)).login("borg", longPass);
-        Assert.assertNull(person5);
     }
     
 }
