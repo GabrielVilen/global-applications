@@ -33,8 +33,7 @@ public class NotLoggedInFilter implements Filter{
         HttpServletResponse response = (HttpServletResponse) resp;
         HttpServletRequest request = (HttpServletRequest) req;
         HttpSession session = request.getSession(false);
-        String attribute = (String) session.getAttribute("user");
-        if(attribute == null){
+        if(session == null  || session.getAttribute("user") == null ){
             chain.doFilter(req, resp);
         }
         else{
