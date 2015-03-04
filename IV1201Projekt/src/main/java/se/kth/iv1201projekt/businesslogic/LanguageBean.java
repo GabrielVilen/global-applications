@@ -24,7 +24,7 @@ import javax.faces.event.ValueChangeEvent;
 @SessionScoped
 public class LanguageBean implements Serializable{
     
-    private String localeTag;
+    private String localeTag = "en";
     private static Map<String, Object> languages;
     
     /**

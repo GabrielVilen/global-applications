@@ -4,7 +4,8 @@
 <html xmlns="http://www.w3.org/1999/xhtml"
       xmlns:h="http://java.sun.com/jsf/html"
       xmlns:ui="http://java.sun.com/jsf/facelets"
-      xmlns:f="http://xmlns.jcp.org/jsf/core">
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:c="http://java.sun.com/jsp/jstl/core">
     <body>
         <ui:composition>
 
@@ -13,9 +14,9 @@
                 </h:outputLink></h1>
             <h:form>
                 <h:selectOneMenu value="#{languageBean.locale}" onchange="submit()" 
-                             id="languagelist" valueChangeListener="#{languageBean.localeChanged}">
+                                 id="languagelist" valueChangeListener="#{languageBean.localeChanged}">
                     <f:selectItems value="#{languageBean.languages}"/>
-            </h:selectOneMenu>
+                </h:selectOneMenu>
             </h:form>
         </ui:composition>
     </body>

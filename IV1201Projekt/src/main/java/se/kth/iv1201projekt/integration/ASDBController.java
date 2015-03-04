@@ -46,8 +46,8 @@ public class ASDBController implements Serializable {
      *
      * @return A list of jobs.
      */
-    public List<Job> getAllJobs() {
-        return db.getAllJobs();
+    public List<Job> getAllJobs(String language) {
+        return db.getAllJobs(language);
     }
 
     /**
@@ -63,4 +63,8 @@ public class ASDBController implements Serializable {
     public void applyForJob(int id) {
         //db.deleteJob(id);
     }
+
+//    public void placeJob(Person recruiter, Job job) {
+//        db.placeJob(recruiter, job);
+//    }
 }

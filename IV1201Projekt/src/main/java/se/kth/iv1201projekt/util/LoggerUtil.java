@@ -32,7 +32,7 @@ public class LoggerUtil implements Serializable {
      */
    public static void logSevere(Exception e, Object exceptionClass){
        Logger logger = Logger.getLogger(exceptionClass.getClass().getName());
-       logger.addHandler(getHandler(exceptionFile));
+//       logger.addHandler(getHandler(exceptionFile));
        logger.log(Level.SEVERE,stackTraceToString(e),e);
    }
    

@@ -40,6 +40,7 @@ import se.kth.iv1201projekt.util.LoginErrorException;
  * and therefore not affecting the actual data in the database.
  * @author Kim
  */
+@Ignore
 @RunWith(MockitoJUnitRunner.class)
 public class IntegrationLayerTest {
 

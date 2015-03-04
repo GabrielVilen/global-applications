@@ -1,8 +1,3 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package se.kth.iv1201projekt.integration.model;
 
 import java.io.Serializable;
@@ -22,10 +17,12 @@ import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 import javax.xml.bind.annotation.XmlRootElement;
 import javax.xml.bind.annotation.XmlTransient;
+import org.codehaus.jackson.annotate.JsonIgnore;
 
 /**
- * Represents the Person table in the database.
- * @author Kim
+ * This class represent the person table in the database.
+ *
+ * @author Gabriel
  */
 @Entity
 @Table(name = "person")
@@ -37,9 +34,9 @@ import javax.xml.bind.annotation.XmlTransient;
     @NamedQuery(name = "Person.findBySurname", query = "SELECT p FROM Person p WHERE p.surname = :surname"),
     @NamedQuery(name = "Person.findBySsn", query = "SELECT p FROM Person p WHERE p.ssn = :ssn"),
     @NamedQuery(name = "Person.findByEmail", query = "SELECT p FROM Person p WHERE p.email = :email"),
-    @NamedQuery(name = "Person.findByVersion", query = "SELECT p FROM Person p WHERE p.version = :version"),
-    @NamedQuery(name = "Person.findByUsername", query = "SELECT p FROM Person p WHERE p.username = :username")})
+    @NamedQuery(name = "Person.findByVersion", query = "SELECT p FROM Person p WHERE p.version = :version")})
 public class Person implements Serializable {
+
     private static final long serialVersionUID = 1L;
     @Id
     @Basic(optional = false)
@@ -165,6 +162,7 @@ public class Person implements Serializable {
     }
 
     @XmlTransient
+    @JsonIgnore
     public Collection<CompetenceProfile> getCompetenceProfileCollection() {
         return competenceProfileCollection;
     }
@@ -174,6 +172,7 @@ public class Person implements Serializable {
     }
 
     @XmlTransient
+    @JsonIgnore
     public Collection<Availability> getAvailabilityCollection() {
         return availabilityCollection;
     }
@@ -183,6 +182,7 @@ public class Person implements Serializable {
     }
 
     @XmlTransient
+    @JsonIgnore
     public Collection<Job> getJobCollection() {
         return jobCollection;
     }
@@ -215,5 +215,5 @@ public class Person implements Serializable {
     public String toString() {
         return "se.kth.iv1201projekt.integration.model.Person[ personId=" + personId + " ]";
     }
-    
+
 }

@@ -11,6 +11,7 @@ import java.util.List;
 import java.util.logging.Logger;
 import javax.ejb.EJB;
 import javax.enterprise.context.SessionScoped;
+import javax.inject.Inject;
 import javax.inject.Named;
 import se.kth.iv1201projekt.integration.ASDBController;
 import se.kth.iv1201projekt.integration.model.Job;
@@ -28,6 +29,9 @@ public class JobBean implements Serializable {
     private String information;
     private Date fromDate;
     private Date toDate;
+    
+    @Inject
+    private LanguageBean languageBean;
 
     @EJB
     private ASDBController controller;
@@ -42,9 +46,14 @@ public class JobBean implements Serializable {
 //        recruiter = new RecruiterDTO(1, "test", "test", "11", "test", "test", "test");
 //        controller.placeJob(recruiter, job);
     }
+    
+//    public void setLanguageBean(LanguageBean bean) {
+//        this.languageBean = bean;
+//    }
 
     public List<Job> getJobList() {
-        jobList = controller.getAllJobs();
+        System.out.println("locale = " + languageBean.getLocale());
+        jobList = controller.getAllJobs(languageBean.getLocale());
         return jobList;
     }
 

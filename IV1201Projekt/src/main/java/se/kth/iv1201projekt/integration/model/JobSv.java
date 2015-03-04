@@ -6,8 +6,6 @@ import javax.persistence.Basic;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.ManyToOne;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
 import javax.persistence.Table;
@@ -18,23 +16,24 @@ import javax.validation.constraints.Size;
 import javax.xml.bind.annotation.XmlRootElement;
 
 /**
- * This class represent the job table in the database.
+ * This class represent the job_sv table in the database.
  *
  * @author Gabriel
  */
 @Entity
-@Table(name = "job")
+@Table(name = "job_sv")
 @XmlRootElement
 @NamedQueries({
-    @NamedQuery(name = "Job.findAll", query = "SELECT j FROM Job j"),
-    @NamedQuery(name = "Job.findById", query = "SELECT j FROM Job j WHERE j.id = :id"),
-    @NamedQuery(name = "Job.findByType", query = "SELECT j FROM Job j WHERE j.type = :type"),
-    @NamedQuery(name = "Job.findByInformation", query = "SELECT j FROM Job j WHERE j.information = :information"),
-    @NamedQuery(name = "Job.findByStartDate", query = "SELECT j FROM Job j WHERE j.startDate = :startDate"),
-    @NamedQuery(name = "Job.findByEndDate", query = "SELECT j FROM Job j WHERE j.endDate = :endDate"),
-    @NamedQuery(name = "Job.findByName", query = "SELECT j FROM Job j WHERE j.name = :name"),
-    @NamedQuery(name = "Job.findByVersion", query = "SELECT j FROM Job j WHERE j.version = :version")})
-public class Job implements Serializable {
+    @NamedQuery(name = "JobSv.findAll", query = "SELECT j FROM JobSv j"),
+    @NamedQuery(name = "JobSv.findById", query = "SELECT j FROM JobSv j WHERE j.id = :id"),
+    @NamedQuery(name = "JobSv.findByType", query = "SELECT j FROM JobSv j WHERE j.type = :type"),
+    @NamedQuery(name = "JobSv.findByInformation", query = "SELECT j FROM JobSv j WHERE j.information = :information"),
+    @NamedQuery(name = "JobSv.findByStartDate", query = "SELECT j FROM JobSv j WHERE j.startDate = :startDate"),
+    @NamedQuery(name = "JobSv.findByEndDate", query = "SELECT j FROM JobSv j WHERE j.endDate = :endDate"),
+    @NamedQuery(name = "JobSv.findByRecruiterPersonId", query = "SELECT j FROM JobSv j WHERE j.recruiterPersonId = :recruiterPersonId"),
+    @NamedQuery(name = "JobSv.findByName", query = "SELECT j FROM JobSv j WHERE j.name = :name"),
+    @NamedQuery(name = "JobSv.findByVersion", query = "SELECT j FROM JobSv j WHERE j.version = :version")})
+public class JobSv implements Serializable {
 
     private static final long serialVersionUID = 1L;
     @Id
@@ -64,6 +63,10 @@ public class Job implements Serializable {
     private Date endDate;
     @Basic(optional = false)
     @NotNull
+    @Column(name = "recruiter_person_id")
+    private long recruiterPersonId;
+    @Basic(optional = false)
+    @NotNull
     @Size(min = 1, max = 45)
     @Column(name = "name")
     private String name;
@@ -71,23 +74,21 @@ public class Job implements Serializable {
     @NotNull
     @Column(name = "version")
     private int version;
-    @JoinColumn(name = "recruiter_person_id", referencedColumnName = "person_id")
-    @ManyToOne(optional = false)
-    private Person recruiterPersonId;
 
-    public Job() {
+    public JobSv() {
     }
 
-    public Job(Integer id) {
+    public JobSv(Integer id) {
         this.id = id;
     }
 
-    public Job(Integer id, String type, String information, Date startDate, Date endDate, String name, int version) {
+    public JobSv(Integer id, String type, String information, Date startDate, Date endDate, long recruiterPersonId, String name, int version) {
         this.id = id;
         this.type = type;
         this.information = information;
         this.startDate = startDate;
         this.endDate = endDate;
+        this.recruiterPersonId = recruiterPersonId;
         this.name = name;
         this.version = version;
     }
@@ -132,6 +133,14 @@ public class Job implements Serializable {
         this.endDate = endDate;
     }
 
+    public long getRecruiterPersonId() {
+        return recruiterPersonId;
+    }
+
+    public void setRecruiterPersonId(long recruiterPersonId) {
+        this.recruiterPersonId = recruiterPersonId;
+    }
+
     public String getName() {
         return name;
     }
@@ -148,14 +157,6 @@ public class Job implements Serializable {
         this.version = version;
     }
 
-    public Person getRecruiterPersonId() {
-        return recruiterPersonId;
-    }
-
-    public void setRecruiterPersonId(Person recruiterPersonId) {
-        this.recruiterPersonId = recruiterPersonId;
-    }
-
     @Override
     public int hashCode() {
         int hash = 0;
@@ -166,10 +167,10 @@ public class Job implements Serializable {
     @Override
     public boolean equals(Object object) {
         // TODO: Warning - this method won't work in the case the id fields are not set
-        if (!(object instanceof Job)) {
+        if (!(object instanceof JobSv)) {
             return false;
         }
-        Job other = (Job) object;
+        JobSv other = (JobSv) object;
         if ((this.id == null && other.id != null) || (this.id != null && !this.id.equals(other.id))) {
             return false;
         }
@@ -178,7 +179,7 @@ public class Job implements Serializable {
 
     @Override
     public String toString() {
-        return "se.kth.iv1201projekt.integration.model.Job[ id=" + id + " ]";
+        return "se.kth.iv1201projekt.integration.model.JobSv[ id=" + id + " ]";
     }
 
 }

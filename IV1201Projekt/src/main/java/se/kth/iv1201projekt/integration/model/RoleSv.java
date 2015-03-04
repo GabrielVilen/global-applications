@@ -13,26 +13,26 @@ import javax.validation.constraints.Size;
 import javax.xml.bind.annotation.XmlRootElement;
 
 /**
- * This class represent the competence table in the database.
+ * This class represent the role_sv table in the database.
  *
  * @author Gabriel
  */
 @Entity
-@Table(name = "competence")
+@Table(name = "role_sv")
 @XmlRootElement
 @NamedQueries({
-    @NamedQuery(name = "Competence.findAll", query = "SELECT c FROM Competence c"),
-    @NamedQuery(name = "Competence.findByCompetenceId", query = "SELECT c FROM Competence c WHERE c.competenceId = :competenceId"),
-    @NamedQuery(name = "Competence.findByName", query = "SELECT c FROM Competence c WHERE c.name = :name"),
-    @NamedQuery(name = "Competence.findByVersion", query = "SELECT c FROM Competence c WHERE c.version = :version")})
-public class Competence implements Serializable {
+    @NamedQuery(name = "RoleSv.findAll", query = "SELECT r FROM RoleSv r"),
+    @NamedQuery(name = "RoleSv.findById", query = "SELECT r FROM RoleSv r WHERE r.id = :id"),
+    @NamedQuery(name = "RoleSv.findByName", query = "SELECT r FROM RoleSv r WHERE r.name = :name"),
+    @NamedQuery(name = "RoleSv.findByVersion", query = "SELECT r FROM RoleSv r WHERE r.version = :version")})
+public class RoleSv implements Serializable {
 
     private static final long serialVersionUID = 1L;
     @Id
     @Basic(optional = false)
     @NotNull
-    @Column(name = "competence_id")
-    private Integer competenceId;
+    @Column(name = "id")
+    private Integer id;
     @Size(max = 255)
     @Column(name = "name")
     private String name;
@@ -41,24 +41,24 @@ public class Competence implements Serializable {
     @Column(name = "version")
     private int version;
 
-    public Competence() {
+    public RoleSv() {
     }
 
-    public Competence(Integer competenceId) {
-        this.competenceId = competenceId;
+    public RoleSv(Integer id) {
+        this.id = id;
     }
 
-    public Competence(Integer competenceId, int version) {
-        this.competenceId = competenceId;
+    public RoleSv(Integer id, int version) {
+        this.id = id;
         this.version = version;
     }
 
-    public Integer getCompetenceId() {
-        return competenceId;
+    public Integer getId() {
+        return id;
     }
 
-    public void setCompetenceId(Integer competenceId) {
-        this.competenceId = competenceId;
+    public void setId(Integer id) {
+        this.id = id;
     }
 
     public String getName() {
@@ -80,18 +80,18 @@ public class Competence implements Serializable {
     @Override
     public int hashCode() {
         int hash = 0;
-        hash += (competenceId != null ? competenceId.hashCode() : 0);
+        hash += (id != null ? id.hashCode() : 0);
         return hash;
     }
 
     @Override
     public boolean equals(Object object) {
         // TODO: Warning - this method won't work in the case the id fields are not set
-        if (!(object instanceof Competence)) {
+        if (!(object instanceof RoleSv)) {
             return false;
         }
-        Competence other = (Competence) object;
-        if ((this.competenceId == null && other.competenceId != null) || (this.competenceId != null && !this.competenceId.equals(other.competenceId))) {
+        RoleSv other = (RoleSv) object;
+        if ((this.id == null && other.id != null) || (this.id != null && !this.id.equals(other.id))) {
             return false;
         }
         return true;
@@ -99,7 +99,7 @@ public class Competence implements Serializable {
 
     @Override
     public String toString() {
-        return "se.kth.iv1201projekt.integration.model.Competence[ competenceId=" + competenceId + " ]";
+        return "se.kth.iv1201projekt.integration.model.RoleSv[ id=" + id + " ]";
     }
 
 }

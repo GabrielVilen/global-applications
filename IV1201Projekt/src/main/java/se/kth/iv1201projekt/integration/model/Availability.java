@@ -1,8 +1,3 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package se.kth.iv1201projekt.integration.model;
 
 import java.io.Serializable;
@@ -22,8 +17,9 @@ import javax.validation.constraints.NotNull;
 import javax.xml.bind.annotation.XmlRootElement;
 
 /**
- * Represents the Availability table in the database.
- * @author Kim
+ * This class represent the availability table in the database.
+ *
+ * @author Gabriel
  */
 @Entity
 @Table(name = "availability")
@@ -35,6 +31,7 @@ import javax.xml.bind.annotation.XmlRootElement;
     @NamedQuery(name = "Availability.findByToDate", query = "SELECT a FROM Availability a WHERE a.toDate = :toDate"),
     @NamedQuery(name = "Availability.findByVersion", query = "SELECT a FROM Availability a WHERE a.version = :version")})
 public class Availability implements Serializable {
+
     private static final long serialVersionUID = 1L;
     @Id
     @Basic(optional = false)
@@ -131,5 +128,5 @@ public class Availability implements Serializable {
     public String toString() {
         return "se.kth.iv1201projekt.integration.model.Availability[ availabilityId=" + availabilityId + " ]";
     }
-    
+
 }

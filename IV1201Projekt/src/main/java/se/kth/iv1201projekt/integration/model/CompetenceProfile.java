@@ -1,8 +1,3 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package se.kth.iv1201projekt.integration.model;
 
 import java.io.Serializable;
@@ -20,8 +15,9 @@ import javax.validation.constraints.NotNull;
 import javax.xml.bind.annotation.XmlRootElement;
 
 /**
- * Represents the CompetenceProfile table in the database.
- * @author Kim
+ * This class represent the competence_profile table in the database.
+ *
+ * @author Gabriel
  */
 @Entity
 @Table(name = "competence_profile")
@@ -32,6 +28,7 @@ import javax.xml.bind.annotation.XmlRootElement;
     @NamedQuery(name = "CompetenceProfile.findByYearsOfExperience", query = "SELECT c FROM CompetenceProfile c WHERE c.yearsOfExperience = :yearsOfExperience"),
     @NamedQuery(name = "CompetenceProfile.findByVersion", query = "SELECT c FROM CompetenceProfile c WHERE c.version = :version")})
 public class CompetenceProfile implements Serializable {
+
     private static final long serialVersionUID = 1L;
     @Id
     @Basic(optional = false)
@@ -47,7 +44,7 @@ public class CompetenceProfile implements Serializable {
     private int version;
     @JoinColumn(name = "competence_id", referencedColumnName = "competence_id")
     @ManyToOne
-    private Competence competenceId;
+    private CompetenceSv competenceId;
     @JoinColumn(name = "person_id", referencedColumnName = "person_id")
     @ManyToOne
     private Person personId;
@@ -88,11 +85,11 @@ public class CompetenceProfile implements Serializable {
         this.version = version;
     }
 
-    public Competence getCompetenceId() {
+    public CompetenceSv getCompetenceId() {
         return competenceId;
     }
 
-    public void setCompetenceId(Competence competenceId) {
+    public void setCompetenceId(CompetenceSv competenceId) {
         this.competenceId = competenceId;
     }
 
@@ -128,5 +125,5 @@ public class CompetenceProfile implements Serializable {
     public String toString() {
         return "se.kth.iv1201projekt.integration.model.CompetenceProfile[ competenceProfileId=" + competenceProfileId + " ]";
     }
-    
+
 }
