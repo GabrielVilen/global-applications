@@ -72,6 +72,11 @@ public class UserBean implements Serializable {
         controller.applyForJob(id);
     }
     
+    /**
+     * Generates PDF file and starts a file download for the user.
+     * @param job specified to print to pdf
+     */
+    
      public void jobPDF(Job job) {
         try {
             File pdfFile = PDFUtil.createPDF(job, person);
