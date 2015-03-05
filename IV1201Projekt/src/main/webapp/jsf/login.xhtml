@@ -16,13 +16,13 @@
                     <table>
                         <tr>
                             <td><h:outputLabel value="#{msg.username}" /></td>
-                            <td><h:inputText value="#{userBean.username}" p:required="true" >
+                            <td><h:inputText value="#{userBean.username}" p:pattern="/^[A-z]+$/{3,0}" p:title="#{error.invalidusername}" p:required="true" >
                                     <f:validator validatorId="usernameValidator"/>
                                 </h:inputText></td>
                         </tr>
                         <tr>
                             <td><h:outputLabel value="#{msg.password}" /></td>
-                            <td><h:inputSecret  value="#{userBean.password}" p:required="true" >
+                            <td><h:inputSecret  value="#{userBean.password}" p:pattern="^[^\s]{4,}$" p:title="#{error.invalidpassword}"  p:required="true" >
                                     <f:validator validatorId="passwordValidator" />
                                 </h:inputSecret>
                             </td>

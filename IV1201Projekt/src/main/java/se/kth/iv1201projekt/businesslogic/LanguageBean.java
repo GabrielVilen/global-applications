@@ -1,8 +1,3 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package se.kth.iv1201projekt.businesslogic;
 
 import java.io.Serializable;
@@ -17,7 +12,7 @@ import javax.faces.context.FacesContext;
 import javax.faces.event.ValueChangeEvent;
 
 /**
- * En generell bean som hanterar saker som kan ske på alla sidor. T.ex. byte av språk
+ * A bean that handles the changing of languages in the website
  * @author Samy
  */
 @Named(value = "languageBean")
@@ -28,8 +23,8 @@ public class LanguageBean implements Serializable{
     private static Map<String, Object> languages;
     
     /**
-     * Initialiserar denna en gång. Hämtar alla supportade Locales i Facesconfig 
-     * för att alla tillgängliga språk ska kunna visas.
+     * Initializes once. Gets all the supported locales from FacesConfig
+     * 
      */
     static{
         languages = new HashMap<>();
@@ -56,6 +51,11 @@ public class LanguageBean implements Serializable{
         return languages;
     }
     
+    /**
+     * Changing the locale in the facecontext instance to the one chosen by
+     * the user.
+     * @param ev 
+     */
     public void localeChanged(ValueChangeEvent ev){
         String newLocaleValue = ev.getNewValue().toString();
         for(Map.Entry<String,Object> entry : languages.entrySet()){

@@ -7,10 +7,9 @@ import javax.ejb.EJB;
 import javax.enterprise.context.SessionScoped;
 import javax.faces.application.FacesMessage;
 import javax.faces.context.FacesContext;
-import javax.inject.Inject;
 import javax.inject.Named;
+import javax.servlet.http.HttpSession;
 import org.apache.pdfbox.exceptions.COSVisitorException;
-import org.jasypt.util.password.StrongPasswordEncryptor;
 import se.kth.iv1201projekt.integration.ASDBController;
 import se.kth.iv1201projekt.integration.model.Job;
 import se.kth.iv1201projekt.integration.model.Person;
@@ -52,6 +51,11 @@ public class UserBean implements Serializable {
         try {
             person = controller.login(username, password);
             password = null;
+            HttpSession session = (HttpSession) FacesContext.getCurrentInstance().
+                    getExternalContext().getSession(true);
+            session.setAttribute("user", username);
+            session.setAttribute("role", person.getRoleId().getName());
+                    
             return "success";
         } catch (Exception ex) {
             logExceptionAndShowError(ex,"wronglogin");
@@ -67,6 +71,11 @@ public class UserBean implements Serializable {
     public void applyForJob(int id) {
         controller.applyForJob(id);
     }
+    
+    /**
+     * Generates PDF file and starts a file download for the user.
+     * @param job specified to print to pdf
+     */
     
      public void jobPDF(Job job) {
         try {
@@ -85,6 +94,10 @@ public class UserBean implements Serializable {
         person = null;
         username = null;
         password = null;
+        HttpSession session = (HttpSession) FacesContext.getCurrentInstance().
+                    getExternalContext().getSession(true);
+        session.removeAttribute("user");
+        session.removeAttribute("role");
         return "success";
     }
 

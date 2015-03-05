@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package se.kth.iv1201projekt.util;
+package se.kth.iv1201projekt.exception;
 
 /**
  * This exception is used to show that an operation needs the user to be logged 

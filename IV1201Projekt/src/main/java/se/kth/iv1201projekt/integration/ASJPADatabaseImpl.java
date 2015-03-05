@@ -19,7 +19,7 @@ import javax.persistence.TypedQuery;
 import org.jasypt.util.password.StrongPasswordEncryptor;
 import se.kth.iv1201projekt.integration.model.*;
 import se.kth.iv1201projekt.util.LoggingInterceptor;
-import se.kth.iv1201projekt.util.LoginErrorException;
+import se.kth.iv1201projekt.exception.LoginErrorException;
 
 /**
  * This class will handle the connection to the database and the sending of
@@ -92,15 +92,14 @@ public class ASJPADatabaseImpl implements Serializable {
     /**
      * Fetches all jobs.
      * @return A list of jobs.
+     * @throws java.lang.Exception
      */
-     public List<Job> getAllJobs() {
+     public List<Job> getAllJobs() throws Exception{
         List jobList;
-        try {
+
             TypedQuery<Job[]> q = (TypedQuery<Job[]>) entityManager.createNamedQuery("Job.findAll");
             jobList = q.getResultList();
-        } catch (Exception e) {
-            throw e;
-        }
+     
         return jobList;
     }
     

@@ -36,12 +36,12 @@
                         </table>
                         <b><br/><h:outputText value="#{msg.duration}"/><br/></b>
                         <h:outputLabel value="#{msg.startdate}"/>
-                        <h:inputText value="#{jobBean.fromDate}" p:required="true">
-                            <f:convertDateTime pattern="yyyy-mm-dd" />
+                        <h:inputText p:type="date" value="#{jobBean.fromDate}" p:required="true">
+                            <f:validator validatorId="dateValidator" />
                         </h:inputText>
                         <h:outputLabel value="#{msg.endDate}"/>
-                        <h:inputText  value="#{jobBean.toDate}" p:required="true">
-                            <f:convertDateTime pattern="yyyy-mm-dd" />                    
+                        <h:inputText p:type="date" value="#{jobBean.toDate}" p:required="true">
+                            <f:validator validatorId="dateValidator" />                  
                         </h:inputText><br/><br/>
                         <h:commandButton value="#{msg.submit}" type="submit" action="#{jobBean.registerJob}" />
                     </h:form>
