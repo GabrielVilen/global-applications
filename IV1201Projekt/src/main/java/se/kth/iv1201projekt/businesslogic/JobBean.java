@@ -5,21 +5,25 @@
  */
 package se.kth.iv1201projekt.businesslogic;
 
+import java.io.File;
+import java.io.IOException;
 import java.io.Serializable;
 import java.util.Date;
 import java.util.List;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import javax.ejb.EJB;
 import javax.enterprise.context.SessionScoped;
 import javax.inject.Inject;
 import javax.faces.application.FacesMessage;
 import javax.faces.context.FacesContext;
 import javax.inject.Named;
+import org.apache.pdfbox.exceptions.COSVisitorException;
 import se.kth.iv1201projekt.integration.ASDBController;
 import se.kth.iv1201projekt.integration.model.Job;
+import se.kth.iv1201projekt.integration.model.JobInterface;
 import se.kth.iv1201projekt.util.ErrorMessageFactory;
+import se.kth.iv1201projekt.util.FileDownloader;
 import se.kth.iv1201projekt.util.LoggerUtil;
+import se.kth.iv1201projekt.util.PDFUtil;
 
 /**
  *
@@ -37,6 +41,8 @@ public class JobBean implements Serializable {
 
     @Inject
     private LanguageBean languageBean;
+    @Inject
+    private UserBean userBean;
 
     @EJB
     private ASDBController controller;
@@ -67,6 +73,20 @@ public class JobBean implements Serializable {
         }
         return null;
 
+    }
+    
+        /**
+     * Generates PDF file and starts a file download for the user.
+     * @param job specified to print to pdf
+     */
+    
+     public void jobPDF(JobInterface job) {
+        try {     
+            File pdfFile = PDFUtil.createPDF(job, userBean.getPerson());
+            FileDownloader.startDownload(pdfFile);
+        } catch (IOException|COSVisitorException ex) {
+            logExceptionAndShowError(ex,"invalidPdf");
+        }
     }
 
     public void setName(String name) {
@@ -103,6 +123,18 @@ public class JobBean implements Serializable {
 
     public void setToDate(Date toDate) {
         this.toDate = toDate;
+    }
+    
+        /**
+     * Logs the exception and shows the user an errormessage
+     * @param e exception
+     * @param errorKey key to the errormessage in error.property
+     */
+    private void logExceptionAndShowError(Exception e,String errorKey){
+        LoggerUtil.logSevere(e, this);
+        FacesMessage msg = new FacesMessage(ErrorMessageFactory.getErrorMessage(errorKey));
+        msg.setSeverity(FacesMessage.SEVERITY_ERROR);
+        FacesContext.getCurrentInstance().addMessage(null, msg);
     }
 
 }

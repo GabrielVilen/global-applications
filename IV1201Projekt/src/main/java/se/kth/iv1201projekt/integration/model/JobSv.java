@@ -33,7 +33,7 @@ import javax.xml.bind.annotation.XmlRootElement;
     @NamedQuery(name = "JobSv.findByRecruiterPersonId", query = "SELECT j FROM JobSv j WHERE j.recruiterPersonId = :recruiterPersonId"),
     @NamedQuery(name = "JobSv.findByName", query = "SELECT j FROM JobSv j WHERE j.name = :name"),
     @NamedQuery(name = "JobSv.findByVersion", query = "SELECT j FROM JobSv j WHERE j.version = :version")})
-public class JobSv implements Serializable {
+public class JobSv implements Serializable, JobInterface {
 
     private static final long serialVersionUID = 1L;
     @Id
@@ -93,42 +93,52 @@ public class JobSv implements Serializable {
         this.version = version;
     }
 
+    @Override
     public Integer getId() {
         return id;
     }
 
+    @Override
     public void setId(Integer id) {
         this.id = id;
     }
 
+    @Override
     public String getType() {
         return type;
     }
 
+    @Override
     public void setType(String type) {
         this.type = type;
     }
 
+    @Override
     public String getInformation() {
         return information;
     }
 
+    @Override
     public void setInformation(String information) {
         this.information = information;
     }
 
+    @Override
     public Date getStartDate() {
         return startDate;
     }
 
+    @Override
     public void setStartDate(Date startDate) {
         this.startDate = startDate;
     }
 
+    @Override
     public Date getEndDate() {
         return endDate;
     }
 
+    @Override
     public void setEndDate(Date endDate) {
         this.endDate = endDate;
     }
@@ -141,18 +151,22 @@ public class JobSv implements Serializable {
         this.recruiterPersonId = recruiterPersonId;
     }
 
+    @Override
     public String getName() {
         return name;
     }
 
+    @Override
     public void setName(String name) {
         this.name = name;
     }
 
+    @Override
     public int getVersion() {
         return version;
     }
 
+    @Override
     public void setVersion(int version) {
         this.version = version;
     }
