@@ -40,7 +40,7 @@ import se.kth.iv1201projekt.exception.LoginErrorException;
  *
  * @author Kim
  */
-@Ignore
+//@Ignore
 @RunWith(MockitoJUnitRunner.class)
 public class IntegrationLayerTest {
 

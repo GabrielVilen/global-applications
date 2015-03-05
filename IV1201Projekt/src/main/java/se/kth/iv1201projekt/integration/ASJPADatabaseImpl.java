@@ -95,6 +95,7 @@ public class ASJPADatabaseImpl implements Serializable {
     }
 
     /**
+     *
      * Fetches all jobs.
      *
      * @param language The language tag to use. For example "sv" for swedish.
@@ -145,6 +146,5 @@ public class ASJPADatabaseImpl implements Serializable {
         }
         return jobList;
     }
-
 
 }

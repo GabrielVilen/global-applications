@@ -22,7 +22,7 @@ import se.kth.iv1201projekt.exception.LoginErrorException;
  * simulated and therefore not affecting the actual data in the database.
  * @author Kim
  */
-@Ignore
+//@Ignore
 @RunWith(MockitoJUnitRunner.class)
 public class BusinesslogicLayerTest {
     
