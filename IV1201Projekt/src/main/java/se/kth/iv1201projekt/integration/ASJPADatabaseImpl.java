@@ -24,6 +24,7 @@ import se.kth.iv1201projekt.exception.LoginErrorException;
 /**
  * This class will handle the connection to the database and the sending of
  * queries.
+ *
  * @author Kim
  */
 @Stateless(name = "ASJPADatabaseImpl")
@@ -32,17 +33,19 @@ public class ASJPADatabaseImpl implements Serializable {
     @PersistenceContext(unitName = "se.kth_IV1201Projekt")
     protected EntityManager entityManager;
     private Query personQuery = null;
-    
+
     /**
      * This class should only be used for testing.
+     *
      * @param entityManager The mocked entity manager.
      */
     public void setEntityManager(EntityManager entityManager) {
         this.entityManager = entityManager;
     }
-    
+
     /**
      * This class should only be used for testing.
+     *
      * @param personQuery The mocked query for fetching a person.
      */
     public void setPersonQuery(Query personQuery) {
@@ -51,34 +54,36 @@ public class ASJPADatabaseImpl implements Serializable {
 
     /**
      * Logins the user by giving a reference to the user's information.
+     *
      * @param username The username to match.
      * @param password The password to match. Must be plain text.
      * @return The user's information.
-     * @throws LoginErrorException Is thrown if it wasn't found or 
-     * wasn't correct password or if the account was inactive.
+     * @throws LoginErrorException Is thrown if it wasn't found or wasn't
+     * correct password or if the account was inactive.
      */
-    @Interceptors(LoggingInterceptor.class)
+    //@Interceptors(LoggingInterceptor.class)
     public Person login(String username, String password) throws LoginErrorException {
 
+        System.out.println("username = " + username + " password: " + password);
         User user = entityManager.find(User.class, username);
 
-        if(user == null){
+        if (user == null) {
             throw new LoginErrorException("The user could not be fetched.");
         }
 
         StrongPasswordEncryptor passwordEncryptor = new StrongPasswordEncryptor();
         boolean hasCorrectPassword = passwordEncryptor.checkPassword(password, user.getPassword());
 
-        if(!hasCorrectPassword){
+        if (!hasCorrectPassword) {
             throw new LoginErrorException("Incorrect user-password combination.");
         }
 
-        if(!user.getActive()){
+        if (!user.getActive()) {
             throw new LoginErrorException("Inactivated user.");
         }
 
         Person person;
-        if(personQuery == null) {
+        if (personQuery == null) {
             Query personQuery = entityManager.createNamedQuery("Person.findByUsername", Person.class);
             personQuery.setParameter("username", user);
             person = (Person) personQuery.getSingleResult();
@@ -88,38 +93,50 @@ public class ASJPADatabaseImpl implements Serializable {
 
         return person;
     }
-    
+
     /**
      * Fetches all jobs.
+     *
      * @return A list of jobs.
-     * @throws java.lang.Exception
      */
-     public List<Job> getAllJobs() throws Exception{
-        List jobList;
-
-            TypedQuery<Job[]> q = (TypedQuery<Job[]>) entityManager.createNamedQuery("Job.findAll");
+    public List<Job> getAllJobs(String language) {
+        List jobList = new ArrayList();
+        String query;
+        try {
+            if (language.equals("sv")) {
+                query = "JobSv.findAll";
+            } else {
+                query = "Job.findAll";
+            }
+            TypedQuery<Job[]> q = (TypedQuery<Job[]>) entityManager.createNamedQuery(query);
             jobList = q.getResultList();
-     
+        } catch (Exception e) {
+            throw e;
+        }
         return jobList;
     }
-    
+
     /**
      * Fetches all jobs that match any of the specified types.
+     *
      * @param typeList The types (of job) to search for.
      * @return A list of jobs.
      */
     public List<Job> getJobs(List<String> typeList) {
         List<Job> jobList = new ArrayList<>();
-        for(String type : typeList) {
+        for (String type : typeList) {
             Query jobByTypeQuery = entityManager.createNamedQuery("Job.findByType", Job.class);
             jobByTypeQuery.setParameter("type", type);
             List<Job> jlist = jobByTypeQuery.getResultList();
             for (Job j : jlist) {
-                if(jobList.contains(j)) continue;
+                if (jobList.contains(j)) {
+                    continue;
+                }
                 jobList.add(j);
             }
         }
         return jobList;
     }
+
 
 }

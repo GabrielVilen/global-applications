@@ -15,7 +15,7 @@ import se.kth.iv1201projekt.integration.model.Person;
 import se.kth.iv1201projekt.integration.model.Role;
 import se.kth.iv1201projekt.integration.model.User;
 import se.kth.iv1201projekt.util.LoggerUtil;
-import se.kth.iv1201projekt.util.LoginErrorException;
+import se.kth.iv1201projekt.exception.LoginErrorException;
 
 /**
  * This class will test the business logic layer. Any database call are 

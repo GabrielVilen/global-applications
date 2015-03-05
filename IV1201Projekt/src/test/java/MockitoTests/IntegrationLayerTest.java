@@ -5,7 +5,6 @@ package MockitoTests;
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.persistence.EntityManager;
@@ -33,24 +32,27 @@ import se.kth.iv1201projekt.integration.model.Person;
 import se.kth.iv1201projekt.integration.model.Role;
 import se.kth.iv1201projekt.integration.model.User;
 import se.kth.iv1201projekt.util.LoggerUtil;
-import se.kth.iv1201projekt.util.LoginErrorException;
+import se.kth.iv1201projekt.exception.LoginErrorException;
 
 /**
  * This class will test the integration layer. Any database call are simulated
  * and therefore not affecting the actual data in the database.
+ *
  * @author Kim
  */
 @Ignore
 @RunWith(MockitoJUnitRunner.class)
 public class IntegrationLayerTest {
 
-    @Mock private EntityManager entityManager;
-    @Mock private Query personQuery;
+    @Mock
+    private EntityManager entityManager;
+    @Mock
+    private Query personQuery;
     private final StrongPasswordEncryptor passwordEncryptor = new StrongPasswordEncryptor();
     private ASJPADatabaseImpl databaseFacade = new ASJPADatabaseImpl(); // Class to be tested.
 
     /**
-     * Defines the simulated data in the database and a few direct calls to the 
+     * Defines the simulated data in the database and a few direct calls to the
      * entity manager.
      */
     @Before
@@ -67,15 +69,16 @@ public class IntegrationLayerTest {
 
             databaseFacade.setEntityManager(entityManager);
             databaseFacade.setPersonQuery(personQuery);
-        } catch(Exception e) {
+        } catch (Exception e) {
             LoggerUtil.logTest(e, this);
             throw e;
         }
     }
- 
+
     /**
      * Tests the login method.
-     * @throws LoginErrorException Thrown if a method call that isn't supposed 
+     *
+     * @throws LoginErrorException Thrown if a method call that isn't supposed
      * to throw the exception, do so.
      */
     @Test
@@ -91,9 +94,9 @@ public class IntegrationLayerTest {
             //Test incorrect login
             Person person2 = null;
             try {
-                person2 = databaseFacade.login("borg", wrongpass); 
+                person2 = databaseFacade.login("borg", wrongpass);
                 Assert.fail("A failed login attempt should throw an exception.");
-            } catch(LoginErrorException e) {
+            } catch (LoginErrorException e) {
                 //success
             }
             Assert.assertNull(person2);
@@ -101,18 +104,18 @@ public class IntegrationLayerTest {
             //Test with other parameters
             Person person3 = null;
             try {
-                person3 = databaseFacade.login("borg", null); 
+                person3 = databaseFacade.login("borg", null);
                 Assert.fail("A failed login attempt should throw an exception.");
-            } catch(LoginErrorException e) {
+            } catch (LoginErrorException e) {
                 //success
             }
             Assert.assertNull(person3);
 
             Person person4 = null;
             try {
-                person4 = databaseFacade.login(null, pass); 
+                person4 = databaseFacade.login(null, pass);
                 Assert.fail("A failed login attempt should throw an exception.");
-            } catch(LoginErrorException e) {
+            } catch (LoginErrorException e) {
                 //success
             }
             Assert.assertNull(person4);
@@ -120,9 +123,9 @@ public class IntegrationLayerTest {
             Person person5 = null;
             String longPass = passwordEncryptor.encryptPassword("wlnkb2d435ty334%%&\"%%&&&&{{##!!!sfgdhfgfafsfdgfdsf");
             try {
-                person5 = databaseFacade.login("borg", longPass); 
+                person5 = databaseFacade.login("borg", longPass);
                 Assert.fail("A failed login attempt should throw an exception.");
-            } catch(LoginErrorException e) {
+            } catch (LoginErrorException e) {
                 //success
             }
             Assert.assertNull(person5);
@@ -130,16 +133,16 @@ public class IntegrationLayerTest {
             Person person6 = null;
             String shortPass = passwordEncryptor.encryptPassword("a");
             try {
-                person6 = databaseFacade.login("borg", shortPass); 
+                person6 = databaseFacade.login("borg", shortPass);
                 Assert.fail("A failed login attempt should throw an exception.");
-            } catch(LoginErrorException e) {
+            } catch (LoginErrorException e) {
                 //success
             }
             Assert.assertNull(person5);
-        } catch(Exception e) {
+        } catch (Exception e) {
             LoggerUtil.logTest(e, this);
             throw e;
         }
     }
-    
+
 }
