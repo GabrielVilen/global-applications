@@ -97,16 +97,24 @@ public class ASJPADatabaseImpl implements Serializable {
     /**
      * Fetches all jobs.
      *
+     * @param language The language tag to use. For example "sv" for swedish.
      * @return A list of jobs.
      */
     public List<Job> getAllJobs(String language) {
         List jobList = new ArrayList();
         String query;
         try {
-            if (language.equals("sv")) {
-                query = "JobSv.findAll";
-            } else {
+            char c = language.charAt(0);
+            if(c >= 97 || c <= 122) {
+                String upperCase = c + "";
+                upperCase = upperCase.toUpperCase();
+                language = upperCase + language.substring(1);
+            }
+            
+            if (language.equals("en")) {
                 query = "Job.findAll";
+            } else {
+                query = "Job" + language + ".findAll";
             }
             TypedQuery<Job[]> q = (TypedQuery<Job[]>) entityManager.createNamedQuery(query);
             jobList = q.getResultList();
