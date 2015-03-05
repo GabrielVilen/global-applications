@@ -3,6 +3,7 @@ package se.kth.iv1201projekt.businesslogic;
 import java.io.File;
 import java.io.IOException;
 import java.io.Serializable;
+import java.util.Locale;
 import javax.ejb.EJB;
 import javax.enterprise.context.SessionScoped;
 import javax.faces.application.FacesMessage;
@@ -72,19 +73,7 @@ public class UserBean implements Serializable {
         controller.applyForJob(id);
     }
     
-    /**
-     * Generates PDF file and starts a file download for the user.
-     * @param job specified to print to pdf
-     */
-    
-     public void jobPDF(Job job) {
-        try {
-            File pdfFile = PDFUtil.createPDF(job, person);
-            FileDownloader.startDownload(pdfFile);
-        } catch (IOException|COSVisitorException ex) {
-            logExceptionAndShowError(ex,"invalidPdf");
-        }
-    }
+
   
     /**
      * Logouts the user by resetting the beans state.
@@ -141,6 +130,11 @@ public class UserBean implements Serializable {
         return person;
     }
     
+    /**
+     * Logs the exception and shows the user an errormessage
+     * @param e exception
+     * @param errorKey key to the errormessage in error.property
+     */
     private void logExceptionAndShowError(Exception e,String errorKey){
         LoggerUtil.logSevere(e, this);
         FacesMessage msg = new FacesMessage(ErrorMessageFactory.getErrorMessage(errorKey));

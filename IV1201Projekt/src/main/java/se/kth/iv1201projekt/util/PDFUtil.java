@@ -7,9 +7,8 @@ import org.apache.pdfbox.pdmodel.PDDocument;
 import org.apache.pdfbox.pdmodel.PDPage;
 import org.apache.pdfbox.pdmodel.common.PDRectangle;
 import org.apache.pdfbox.pdmodel.edit.PDPageContentStream;
-import org.apache.pdfbox.pdmodel.font.PDType0Font;
 import org.apache.pdfbox.pdmodel.font.PDType1Font;
-import se.kth.iv1201projekt.integration.model.Job;
+import se.kth.iv1201projekt.integration.model.JobInterface;
 import se.kth.iv1201projekt.integration.model.Person;
 
 /**
@@ -22,7 +21,7 @@ public class PDFUtil {
     private static final PDRectangle pageSize = PDPage.PAGE_SIZE_A4;
     private static final int newLineSpace = -15;
 
-    public static File createPDF(Job job, Person person) throws IOException, COSVisitorException {
+    public static File createPDF(JobInterface job, Person person) throws IOException, COSVisitorException {
         try (PDDocument document = new PDDocument()) {
             PDPage page = new PDPage(pageSize);
             float width = pageSize.getWidth();
