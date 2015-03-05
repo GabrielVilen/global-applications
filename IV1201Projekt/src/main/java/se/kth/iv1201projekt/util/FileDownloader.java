@@ -18,28 +18,28 @@ import javax.faces.context.FacesContext;
  * @author Samy
  */
 public class FileDownloader {
-    
-    public static void startDownload(File file) throws IOException{
+
+    public static void startDownload(File file) throws IOException {
         FacesContext fc = FacesContext.getCurrentInstance();
         ExternalContext ec = fc.getExternalContext();
-        
+
         ec.responseReset();
         ec.setResponseContentType(ec.getMimeType(file.getName()));
         ec.setResponseContentLength((int) Math.ceil(file.length()));
-        ec.setResponseHeader("Content-Disposition", "attachment; filename=\""+ file.getName() + "\"");
-        
+        ec.setResponseHeader("Content-Disposition", "attachment; filename=\"" + file.getName() + "\"");
+
         OutputStream out = ec.getResponseOutputStream();
         InputStream in = new FileInputStream(file);
         byte[] bytesBuffer = new byte[2048];
         int bytesRead;
-        while((bytesRead = in.read(bytesBuffer))>0){
-            out.write(bytesBuffer,0,bytesRead);
+        while ((bytesRead = in.read(bytesBuffer)) > 0) {
+            out.write(bytesBuffer, 0, bytesRead);
         }
-        
+
         out.flush();
         in.close();
         out.close();
         fc.responseComplete();
     }
-    
+
 }

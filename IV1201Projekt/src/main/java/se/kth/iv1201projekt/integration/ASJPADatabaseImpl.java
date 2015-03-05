@@ -95,6 +95,7 @@ public class ASJPADatabaseImpl implements Serializable {
     }
 
     /**
+     *
      * Fetches all jobs.
      *
      * @return A list of jobs.
@@ -137,6 +138,5 @@ public class ASJPADatabaseImpl implements Serializable {
         }
         return jobList;
     }
-
 
 }

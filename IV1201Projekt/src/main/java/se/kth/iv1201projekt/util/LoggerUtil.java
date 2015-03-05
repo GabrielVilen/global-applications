@@ -33,9 +33,9 @@ public class LoggerUtil implements Serializable {
      * @param exceptionClass the class the exception was called from
      */
     public static void logSevere(Exception e, Object exceptionClass) {
-//        Logger logger = Logger.getLogger(exceptionClass.getClass().getName());
-//        logger.addHandler(getHandler(exceptionFile));
-//        logger.log(Level.SEVERE, stackTraceToString(e), e);
+        Logger logger = Logger.getLogger(exceptionClass.getClass().getName());
+        logger.addHandler(getHandler(exceptionFile));
+        logger.log(Level.SEVERE, stackTraceToString(e), e);
     }
 
     /**

@@ -22,6 +22,7 @@ import se.kth.iv1201projekt.util.ErrorMessageFactory;
 import se.kth.iv1201projekt.util.LoggerUtil;
 
 /**
+ * The job bean which contains method related to the job.
  *
  * @author Gabriel
  */

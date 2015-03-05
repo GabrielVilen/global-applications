@@ -19,7 +19,6 @@ import se.kth.iv1201projekt.integration.model.Person;
  */
 public class PDFUtil {
 
-    ;
     private static final PDRectangle pageSize = PDPage.PAGE_SIZE_A4;
     private static final int newLineSpace = -15;
 
