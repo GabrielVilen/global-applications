@@ -1,4 +1,4 @@
-package MockitoTests;
+package MockitoTests.IntegrationTests;
 
 /*
  * To change this license header, choose License Headers in Project Properties.
@@ -40,14 +40,13 @@ import se.kth.iv1201projekt.exception.LoginErrorException;
  *
  * @author Kim
  */
-//@Ignore
 @RunWith(MockitoJUnitRunner.class)
-public class IntegrationLayerTest {
+public class ASJPADatabaseImplTest {
 
     @Mock
-    private EntityManager entityManager;
+    private EntityManager entityManagerMock;
     @Mock
-    private Query personQuery;
+    private Query personQueryMock;
     private final StrongPasswordEncryptor passwordEncryptor = new StrongPasswordEncryptor();
     private ASJPADatabaseImpl databaseFacade = new ASJPADatabaseImpl(); // Class to be tested.
 
@@ -58,17 +57,17 @@ public class IntegrationLayerTest {
     @Before
     public void setUp() {
         try {
-            User borgUser = new User("borg", "pass", true, 1);
+            User borgUser = new User("borg", passwordEncryptor.encryptPassword("pass"), true, 1);
             Person borgPerson = new Person(1l, "Per", "Strand", "19671212-1211", "per@strand.kth.se", 1);
             borgPerson.setRoleId(new Role(2l));
             borgPerson.setUsername(borgUser);
 
-            Mockito.when(entityManager.find(User.class, "borg")).thenReturn(borgUser);
-            Mockito.when(entityManager.createNamedQuery("Person.findByUsername")).thenReturn(personQuery);
-            Mockito.when((Person) personQuery.getSingleResult()).thenReturn(borgPerson);
+            Mockito.when(entityManagerMock.find(User.class, "borg")).thenReturn(borgUser);
+            Mockito.when(entityManagerMock.createNamedQuery("Person.findByUsername")).thenReturn(personQueryMock);
+            Mockito.when((Person) personQueryMock.getSingleResult()).thenReturn(borgPerson);
 
-            databaseFacade.setEntityManager(entityManager);
-            databaseFacade.setPersonQuery(personQuery);
+            databaseFacade.setEntityManager(entityManagerMock);
+            databaseFacade.setPersonQuery(personQueryMock);
         } catch (Exception e) {
             LoggerUtil.logTest(e, this);
             throw e;
@@ -76,7 +75,7 @@ public class IntegrationLayerTest {
     }
 
     /**
-     * Tests the login method.
+     * Tests the login method. 
      *
      * @throws LoginErrorException Thrown if a method call that isn't supposed
      * to throw the exception, do so.
@@ -84,8 +83,8 @@ public class IntegrationLayerTest {
     @Test
     public void testLogin() throws LoginErrorException {
         try {
-            String pass = passwordEncryptor.encryptPassword("pass");
-            String wrongpass = passwordEncryptor.encryptPassword("wrongpass");
+            String pass = "pass";
+            String wrongpass = "wrongpass";
 
             //Test correct login
             Person person = databaseFacade.login("borg", pass);
@@ -121,7 +120,7 @@ public class IntegrationLayerTest {
             Assert.assertNull(person4);
 
             Person person5 = null;
-            String longPass = passwordEncryptor.encryptPassword("wlnkb2d435ty334%%&\"%%&&&&{{##!!!sfgdhfgfafsfdgfdsf");
+            String longPass = "wlnkb2d435ty334%%&\"%%&&&&{{##!!!sfgdhfgfafsfdgfdsf";
             try {
                 person5 = databaseFacade.login("borg", longPass);
                 Assert.fail("A failed login attempt should throw an exception.");
@@ -131,7 +130,7 @@ public class IntegrationLayerTest {
             Assert.assertNull(person5);
 
             Person person6 = null;
-            String shortPass = passwordEncryptor.encryptPassword("a");
+            String shortPass = "a";
             try {
                 person6 = databaseFacade.login("borg", shortPass);
                 Assert.fail("A failed login attempt should throw an exception.");
@@ -145,4 +144,5 @@ public class IntegrationLayerTest {
         }
     }
 
+    
 }

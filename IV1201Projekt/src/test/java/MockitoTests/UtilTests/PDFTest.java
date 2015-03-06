@@ -1,4 +1,4 @@
-package MockitoTests;
+package MockitoTests.UtilTests;
 
 import java.io.File;
 import java.io.IOException;

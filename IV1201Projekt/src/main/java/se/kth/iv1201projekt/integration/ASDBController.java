@@ -27,6 +27,15 @@ public class ASDBController implements Serializable {
     private ASJPADatabaseImpl db;
 
     /**
+     * This method should only be used for testing.
+     *
+     * @param db The mocked ASJPADatabaseImpl instance.
+     */
+    public void setASJPADatabaseImpl(ASJPADatabaseImpl db) {
+        this.db = db;
+    }
+    
+    /**
      * Logins the user by giving a reference to the user's information.
      *
      * @param username The username to match.

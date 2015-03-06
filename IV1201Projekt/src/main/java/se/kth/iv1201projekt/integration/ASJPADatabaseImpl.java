@@ -35,18 +35,18 @@ public class ASJPADatabaseImpl implements Serializable {
     private Query personQuery = null;
 
     /**
-     * This class should only be used for testing.
+     * This method should only be used for testing.
      *
-     * @param entityManager The mocked entity manager.
+     * @param entityManager The mocked entity manager instance.
      */
     public void setEntityManager(EntityManager entityManager) {
         this.entityManager = entityManager;
     }
 
     /**
-     * This class should only be used for testing.
+     * This method should only be used for testing.
      *
-     * @param personQuery The mocked query for fetching a person.
+     * @param personQuery The mocked query instance for fetching a person.
      */
     public void setPersonQuery(Query personQuery) {
         this.personQuery = personQuery;
@@ -61,7 +61,7 @@ public class ASJPADatabaseImpl implements Serializable {
      * @throws LoginErrorException Is thrown if it wasn't found or wasn't
      * correct password or if the account was inactive.
      */
-    //@Interceptors(LoggingInterceptor.class)
+    @Interceptors(LoggingInterceptor.class)
     public Person login(String username, String password) throws LoginErrorException {
 
         System.out.println("username = " + username + " password: " + password);
@@ -112,7 +112,7 @@ public class ASJPADatabaseImpl implements Serializable {
                 language = upperCase + language.substring(1);
             }
             
-            if (language.equals("en")) {
+            if (language.equalsIgnoreCase("en")) {
                 query = "Job.findAll";
             } else {
                 query = "Job" + language + ".findAll";

@@ -1,4 +1,4 @@
-package MockitoTests;
+package MockitoTests.BusinesslogicTests;
 
 import junit.framework.Assert;
 import org.junit.Before;
@@ -55,7 +55,8 @@ public class BusinesslogicLayerTest {
     }
     
     /**
-     * Tests the login method.
+     * Tests the login method. This method is also dependant on the logout 
+     * method because it is called after every login attempt.
      */
     @Test
     public void testLoginCall() {
