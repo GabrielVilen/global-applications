@@ -1,16 +1,20 @@
 package se.kth.iv1201projekt.integration.model;
 
 import java.io.Serializable;
+import java.util.Collection;
 import javax.persistence.Basic;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 import javax.xml.bind.annotation.XmlRootElement;
+import javax.xml.bind.annotation.XmlTransient;
+import org.codehaus.jackson.annotate.JsonIgnore;
 
 /**
  * This class represent the competence table in the database.
@@ -26,6 +30,8 @@ import javax.xml.bind.annotation.XmlRootElement;
     @NamedQuery(name = "Competence.findByName", query = "SELECT c FROM Competence c WHERE c.name = :name"),
     @NamedQuery(name = "Competence.findByVersion", query = "SELECT c FROM Competence c WHERE c.version = :version")})
 public class Competence implements Serializable {
+    @OneToMany(mappedBy = "competenceId")
+    private Collection<CompetenceProfile> competenceProfileCollection;
 
     private static final long serialVersionUID = 1L;
     @Id
@@ -100,6 +106,16 @@ public class Competence implements Serializable {
     @Override
     public String toString() {
         return "se.kth.iv1201projekt.integration.model.Competence[ competenceId=" + competenceId + " ]";
+    }
+
+    @XmlTransient
+    @JsonIgnore
+    public Collection<CompetenceProfile> getCompetenceProfileCollection() {
+        return competenceProfileCollection;
+    }
+
+    public void setCompetenceProfileCollection(Collection<CompetenceProfile> competenceProfileCollection) {
+        this.competenceProfileCollection = competenceProfileCollection;
     }
 
 }

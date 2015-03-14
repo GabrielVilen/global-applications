@@ -37,6 +37,8 @@ import org.codehaus.jackson.annotate.JsonIgnore;
     @NamedQuery(name = "Person.findByVersion", query = "SELECT p FROM Person p WHERE p.version = :version"),
     @NamedQuery(name = "Person.findByUsername", query = "SELECT p FROM Person p WHERE p.username = :username")})
 public class Person implements Serializable {
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "recruiterPersonId")
+    private Collection<JobSv> jobSvCollection;
 
     private static final long serialVersionUID = 1L;
     @Id
@@ -215,6 +217,16 @@ public class Person implements Serializable {
     @Override
     public String toString() {
         return "se.kth.iv1201projekt.integration.model.Person[ personId=" + personId + " ]";
+    }
+
+    @XmlTransient
+    @JsonIgnore
+    public Collection<JobSv> getJobSvCollection() {
+        return jobSvCollection;
+    }
+
+    public void setJobSvCollection(Collection<JobSv> jobSvCollection) {
+        this.jobSvCollection = jobSvCollection;
     }
 
 }
