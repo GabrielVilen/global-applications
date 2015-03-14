@@ -1,11 +1,8 @@
 package MockitoTests.BusinesslogicTests;
 
-import MockitoTests.UtilTests.ContextMocker;
-import javax.faces.application.FacesMessage;
-import javax.faces.context.FacesContext;
-import javax.servlet.http.HttpSession;
 import junit.framework.Assert;
 import org.junit.Before;
+import org.junit.Ignore;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import static org.mockito.Matchers.any;
@@ -43,16 +40,10 @@ public class UserBeanTest {
             Person person = new Person(1l, "Per", "Strand", "19671212-1211", "per@strand.kth.se", 1);
             person.setRoleId(new Role(2l));
             person.setUsername(borgUser);
-            FacesContext context = ContextMocker.mockFacesContext();
-            HttpSession session = Mockito.mock(HttpSession.class);
-            
             try {
                 Mockito.when(controller.login(any(String.class), any(String.class)))
                         .thenReturn(person)
                         .thenThrow(new LoginErrorException());
-                 Mockito.when(context.getExternalContext().getSession(true)).thenReturn(session);
-                 
-                
             } catch (LoginErrorException ex) {
                 LoggerUtil.logTest(ex, this);
             }
@@ -106,7 +97,7 @@ public class UserBeanTest {
         //Wrong login
         userBean.setUsername("borg");
         userBean.setPassword("wrongpass");
-        Object s5 = null;
+        String s5 = null;
         try{
             s5 = userBean.login();
             //Unhandled return value.
@@ -120,7 +111,7 @@ public class UserBeanTest {
         //Empty parameters
         userBean.setUsername("");
         userBean.setPassword("");
-        Object s6 = null;
+        String s6 = null;
         try{
             s6 = userBean.login();
             //Unhandled return value.
