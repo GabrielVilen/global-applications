@@ -1,3 +1,8 @@
+/*
+ * To change this license header, choose License Headers in Project Properties.
+ * To change this template file, choose Tools | Templates
+ * and open the template in the editor.
+ */
 package se.kth.iv1201projekt.integration.model;
 
 import java.io.Serializable;
@@ -6,6 +11,8 @@ import javax.persistence.Basic;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
 import javax.persistence.Table;
@@ -16,9 +23,8 @@ import javax.validation.constraints.Size;
 import javax.xml.bind.annotation.XmlRootElement;
 
 /**
- * This class represent the job_sv table in the database.
  *
- * @author Gabriel
+ * @author Kim
  */
 @Entity
 @Table(name = "job_sv")
@@ -33,8 +39,7 @@ import javax.xml.bind.annotation.XmlRootElement;
     @NamedQuery(name = "JobSv.findByRecruiterPersonId", query = "SELECT j FROM JobSv j WHERE j.recruiterPersonId = :recruiterPersonId"),
     @NamedQuery(name = "JobSv.findByName", query = "SELECT j FROM JobSv j WHERE j.name = :name"),
     @NamedQuery(name = "JobSv.findByVersion", query = "SELECT j FROM JobSv j WHERE j.version = :version")})
-public class JobSv implements Serializable, JobInterface {
-
+public class JobSv implements Serializable {
     private static final long serialVersionUID = 1L;
     @Id
     @Basic(optional = false)
@@ -63,10 +68,6 @@ public class JobSv implements Serializable, JobInterface {
     private Date endDate;
     @Basic(optional = false)
     @NotNull
-    @Column(name = "recruiter_person_id")
-    private long recruiterPersonId;
-    @Basic(optional = false)
-    @NotNull
     @Size(min = 1, max = 45)
     @Column(name = "name")
     private String name;
@@ -74,6 +75,9 @@ public class JobSv implements Serializable, JobInterface {
     @NotNull
     @Column(name = "version")
     private int version;
+    @JoinColumn(name = "recruiter_person_id", referencedColumnName = "person_id")
+    @ManyToOne(optional = false)
+    private Person recruiterPersonId;
 
     public JobSv() {
     }
@@ -82,93 +86,78 @@ public class JobSv implements Serializable, JobInterface {
         this.id = id;
     }
 
-    public JobSv(Integer id, String type, String information, Date startDate, Date endDate, long recruiterPersonId, String name, int version) {
+    public JobSv(Integer id, String type, String information, Date startDate, Date endDate, String name, int version) {
         this.id = id;
         this.type = type;
         this.information = information;
         this.startDate = startDate;
         this.endDate = endDate;
-        this.recruiterPersonId = recruiterPersonId;
         this.name = name;
         this.version = version;
     }
 
-    @Override
     public Integer getId() {
         return id;
     }
 
-    @Override
     public void setId(Integer id) {
         this.id = id;
     }
 
-    @Override
     public String getType() {
         return type;
     }
 
-    @Override
     public void setType(String type) {
         this.type = type;
     }
 
-    @Override
     public String getInformation() {
         return information;
     }
 
-    @Override
     public void setInformation(String information) {
         this.information = information;
     }
 
-    @Override
     public Date getStartDate() {
         return startDate;
     }
 
-    @Override
     public void setStartDate(Date startDate) {
         this.startDate = startDate;
     }
 
-    @Override
     public Date getEndDate() {
         return endDate;
     }
 
-    @Override
     public void setEndDate(Date endDate) {
         this.endDate = endDate;
     }
 
-    public long getRecruiterPersonId() {
-        return recruiterPersonId;
-    }
-
-    public void setRecruiterPersonId(long recruiterPersonId) {
-        this.recruiterPersonId = recruiterPersonId;
-    }
-
-    @Override
     public String getName() {
         return name;
     }
 
-    @Override
     public void setName(String name) {
         this.name = name;
     }
 
-    @Override
     public int getVersion() {
         return version;
     }
 
-    @Override
     public void setVersion(int version) {
         this.version = version;
+    }
+
+    public Person getRecruiterPersonId() {
+        return recruiterPersonId;
+    }
+
+    public void setRecruiterPersonId(Person recruiterPersonId) {
+        this.recruiterPersonId = recruiterPersonId;
     }
 
     @Override
@@ -195,5 +184,5 @@ public class JobSv implements Serializable, JobInterface {
     public String toString() {
         return "se.kth.iv1201projekt.integration.model.JobSv[ id=" + id + " ]";
     }
-
+    
 }
