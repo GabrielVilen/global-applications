@@ -5,9 +5,7 @@
  */
 package MockitoTests.UtilTests;
 
-import java.util.ArrayList;
 import java.util.Iterator;
-import java.util.Locale;
 import javax.faces.application.Application;
 import javax.faces.application.FacesMessage;
 import javax.faces.component.UIViewRoot;
@@ -17,9 +15,11 @@ import javax.faces.context.ResponseStream;
 import javax.faces.context.ResponseWriter;
 import javax.faces.render.RenderKit;
 import org.mockito.Mockito;
+import org.mockito.invocation.InvocationOnMock;
+import org.mockito.stubbing.Answer;
 
 /**
- *
+ * A mocker creating a Facescontext for testing purposes
  * @author Samy
  */
 public class ContextMocker extends FacesContext{
@@ -27,14 +27,26 @@ public class ContextMocker extends FacesContext{
     public ContextMocker() {
     }
     
+  private static final Release RELEASE = new Release();
+
+  private static class Release implements Answer<Void> {
+    @Override
+    public Void answer(InvocationOnMock invocation) throws Throwable {
+      setCurrentInstance(null);
+      return null;
+    }
+  }
+    /**
+     * Creates a mock of the faces context.
+     * Also releasing the context when release is called after the tests.
+     * @return 
+     */
     public static FacesContext mockFacesContext(){
         FacesContext context = Mockito.mock(FacesContext.class, Mockito.RETURNS_DEEP_STUBS);
-        /*context.getApplication().setDefaultLocale(Locale.ENGLISH);
-        ArrayList<Locale> supLocales = new ArrayList();
-        supLocales.add(new Locale("sv",""));
-        context.getApplication().setSupportedLocales(supLocales);
-                */
         setCurrentInstance(context);
+        Mockito.doAnswer(RELEASE)
+        .when(context)
+        .release();
         return context;
     }
     
