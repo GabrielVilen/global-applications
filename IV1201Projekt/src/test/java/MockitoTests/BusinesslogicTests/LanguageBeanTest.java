@@ -1,14 +1,20 @@
 package MockitoTests.BusinesslogicTests;
 
+import MockitoTests.UtilTests.ContextMocker;
+import java.util.ArrayList;
 import java.util.List;
+import java.util.Locale;
 import java.util.Map;
+import javax.faces.component.UIComponent;
+import javax.faces.context.FacesContext;
 import javax.faces.event.ValueChangeEvent;
 import org.junit.Assert;
 import org.junit.Before;
-import org.junit.Ignore;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.mockito.Mock;
+import org.mockito.Mockito;
+import static org.mockito.Mockito.when;
 import org.mockito.runners.MockitoJUnitRunner;
 import se.kth.iv1201projekt.businesslogic.LanguageBean;
 import se.kth.iv1201projekt.integration.ASDBController;
@@ -20,7 +26,7 @@ import se.kth.iv1201projekt.util.LoggerUtil;
  *
  * @author Gabriel
  */
-@Ignore
+//@Ignore
 @RunWith(MockitoJUnitRunner.class)
 public class LanguageBeanTest {
 
@@ -31,7 +37,7 @@ public class LanguageBeanTest {
 //        }
 //    }
 
-    private final static LanguageBean languageBean = new LanguageBean();
+    private static LanguageBean languageBean;
     private final static String EN = "en";
     private final static String SV = "sv";
     private int itemsInList;
@@ -50,20 +56,23 @@ public class LanguageBeanTest {
     public void setUp() {
         System.out.println("seTUp running");
         try {
-            LanguageBean.staticInit(); // TODO: FIX ERROR HERE
+            ArrayList<Locale> locList = new ArrayList();
+            locList.add(new Locale(SV,""));
+            FacesContext context = ContextMocker.mockFacesContext();
+            when(context.getApplication().getDefaultLocale()).thenReturn(Locale.ENGLISH);
+            when(context.getApplication().getSupportedLocales()).thenReturn(locList.iterator());
+            languageBean = new LanguageBean();
             itemsInList = 2;
-            languageBean.setLocale(SV);
-            languageBean.setLocale(EN);
         } catch (Exception e) {
             LoggerUtil.logTest(e, this);
-            Assert.fail("Failed setting locale");
         }
     }
 
     @Test
     public void testChangeLocale() {
-        languageBean.localeChanged(new ValueChangeEvent(null, EN, SV));
-        if (languageBean.getLocale() != SV) {
+        UIComponent component = Mockito.mock(UIComponent.class);
+        languageBean.localeChanged(new ValueChangeEvent(component, EN, SV));
+        if (!(languageBean.getLocale().equals(SV))) {
             Assert.fail("Locale is not equal to 'sv'");
         }
 
@@ -89,7 +98,7 @@ public class LanguageBeanTest {
         Map langs = languageBean.getLanguages();
         Assert.assertNotNull(langs);
 
-        if (!(langs.containsKey(SV) || langs.containsKey(EN))) {
+        if (!(langs.containsKey(new Locale(SV,"").getDisplayLanguage()) || langs.containsKey((Locale.ENGLISH).getDisplayLanguage()))) {
             Assert.fail("language map does not contain 'sv' or 'en");
         }
         if (langs.size() != itemsInList) {
