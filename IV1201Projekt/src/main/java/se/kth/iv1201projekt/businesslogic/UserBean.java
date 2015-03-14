@@ -1,23 +1,16 @@
 package se.kth.iv1201projekt.businesslogic;
 
-import java.io.File;
-import java.io.IOException;
 import java.io.Serializable;
-import java.util.Locale;
 import javax.ejb.EJB;
 import javax.enterprise.context.SessionScoped;
 import javax.faces.application.FacesMessage;
 import javax.faces.context.FacesContext;
 import javax.inject.Named;
 import javax.servlet.http.HttpSession;
-import org.apache.pdfbox.exceptions.COSVisitorException;
 import se.kth.iv1201projekt.integration.ASDBController;
-import se.kth.iv1201projekt.integration.model.Job;
 import se.kth.iv1201projekt.integration.model.Person;
 import se.kth.iv1201projekt.util.ErrorMessageFactory;
-import se.kth.iv1201projekt.util.FileDownloader;
 import se.kth.iv1201projekt.util.LoggerUtil;
-import se.kth.iv1201projekt.util.PDFUtil;
 
 /**
  * This bean is used for logging in service and to store the user's personal
@@ -33,9 +26,22 @@ public class UserBean implements Serializable {
     private String username;
     private String password;
     private Person person;
+    private boolean isTest = false;
 
+    /**
+     * This method is only used during testing to set a mocked controller.
+     * @param controller is the mocked controller for testing.
+     */
     public void setASDBController(ASDBController controller) {
         this.controller = controller;
+    }
+    
+    /**
+     * Sets the state as test mode. This includes ignoring http session errors.
+     * @param isTest the state to set. True is for testing and false if not.
+     */
+    public void setTestMode(boolean isTest) {
+        this.isTest = isTest;
     }
     
     /**
@@ -52,11 +58,13 @@ public class UserBean implements Serializable {
         try {
             person = controller.login(username, password);
             password = null;
-            HttpSession session = (HttpSession) FacesContext.getCurrentInstance().
-                    getExternalContext().getSession(true);
-            session.setAttribute("user", username);
-            session.setAttribute("role", person.getRoleId().getName());
-                    
+            
+            if (!isTest) {
+                HttpSession session = (HttpSession) FacesContext.getCurrentInstance().
+                        getExternalContext().getSession(true);
+                session.setAttribute("user", username);
+                session.setAttribute("role", person.getRoleId().getName());
+            }     
             return "success";
         } catch (Exception ex) {
             logExceptionAndShowError(ex,"wronglogin");
@@ -73,8 +81,6 @@ public class UserBean implements Serializable {
         controller.applyForJob(id);
     }
     
-
-  
     /**
      * Logouts the user by resetting the beans state.
      * @return The page to redirect to.
@@ -83,10 +89,13 @@ public class UserBean implements Serializable {
         person = null;
         username = null;
         password = null;
-        HttpSession session = (HttpSession) FacesContext.getCurrentInstance().
-                    getExternalContext().getSession(true);
-        session.removeAttribute("user");
-        session.removeAttribute("role");
+
+        if (!isTest) {
+            HttpSession session = (HttpSession) FacesContext.getCurrentInstance().
+                        getExternalContext().getSession(true);
+            session.removeAttribute("user");
+            session.removeAttribute("role");
+        }
         return "success";
     }
 
@@ -98,7 +107,14 @@ public class UserBean implements Serializable {
         return person != null;
     }
     
+    /**
+     * Checks if the logged in user is a recruiter or a applicant.
+     * @return true if it's a recruiter and false if it's an applicant.
+     */
     public boolean isRecruiter(){
+        if(person == null) {
+            return false;
+        }
         return person.getRoleId().getName().equals("recruit");
     }
 
@@ -135,7 +151,7 @@ public class UserBean implements Serializable {
      * @param e exception
      * @param errorKey key to the errormessage in error.property
      */
-    private void logExceptionAndShowError(Exception e,String errorKey){
+    private void logExceptionAndShowError(Exception e,String errorKey) {
         LoggerUtil.logSevere(e, this);
         FacesMessage msg = new FacesMessage(ErrorMessageFactory.getErrorMessage(errorKey));
         msg.setSeverity(FacesMessage.SEVERITY_ERROR);

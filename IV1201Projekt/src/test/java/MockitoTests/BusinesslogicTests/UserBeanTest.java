@@ -26,7 +26,7 @@ import se.kth.iv1201projekt.exception.LoginErrorException;
 @RunWith(MockitoJUnitRunner.class)
 public class UserBeanTest {
     
-    private final UserBean userBean = new UserBean();
+    private UserBean userBean;
     @Mock private ASDBController controller;
     
     /**
@@ -47,16 +47,22 @@ public class UserBeanTest {
             } catch (LoginErrorException ex) {
                 LoggerUtil.logTest(ex, this);
             }
-            userBean.setASDBController(controller);
+            
+            initUserBean();
         } catch(Exception e) {
             LoggerUtil.logTest(e, this);
             throw e;
         }
     }
     
+    private void initUserBean() {
+        userBean = new UserBean();
+        userBean.setASDBController(controller);
+        userBean.setTestMode(true);
+    }
+    
     /**
-     * Tests the login method. This method is also dependant on the logout 
-     * method because it is called after every login attempt.
+     * Tests the login method. 
      */
     @Test
     public void testLoginCall() {
@@ -64,21 +70,21 @@ public class UserBeanTest {
         String s1 = userBean.login();
         Assert.assertEquals("fail_1", s1);
         Assert.assertNull(userBean.getPerson());
-        userBean.logout();
+        initUserBean();
         
         //Only password is not set
         userBean.setUsername("borg");
         String s2 = userBean.login();
         Assert.assertEquals("fail_1", s2);
         Assert.assertNull(userBean.getPerson());
-        userBean.logout();
+        initUserBean();
         
         //Only username is not set
         userBean.setPassword("pass");
         String s3 = userBean.login();
         Assert.assertEquals("fail_1", s3);
         Assert.assertNull(userBean.getPerson());
-        userBean.logout();
+        initUserBean();
         
         //Correct login
         userBean.setUsername("borg");
@@ -86,7 +92,7 @@ public class UserBeanTest {
         String s4 = userBean.login();
         Assert.assertTrue(s4.startsWith("success"));
         Assert.assertNotNull(userBean.getPerson());
-        userBean.logout();
+        initUserBean();
         
         //Wrong login
         userBean.setUsername("borg");
@@ -100,7 +106,7 @@ public class UserBeanTest {
         }
         Assert.assertNull(s5);
         Assert.assertNull(userBean.getPerson());
-        userBean.logout();
+        initUserBean();
         
         //Empty parameters
         userBean.setUsername("");
@@ -114,7 +120,27 @@ public class UserBeanTest {
         }
         Assert.assertNull(s6);
         Assert.assertNull(userBean.getPerson());
-        userBean.logout();
+        initUserBean();
     }
-
+    
+    /**
+     * Tests the logout method. 
+     */
+    @Test
+    public void testLogoutCall() {
+        userBean.setUsername("borg");
+        userBean.setPassword("pass");
+        String s4 = userBean.login();
+        Assert.assertTrue(s4.startsWith("success"));
+        Assert.assertNotNull(userBean.getPerson());
+        
+        String status = userBean.logout();
+        
+        Assert.assertNull(userBean.getPerson());
+        Assert.assertNull(userBean.getUsername());
+        Assert.assertNull(userBean.getPassword());
+        Assert.assertTrue(status.startsWith("success"));
+        
+        initUserBean();
+    }
 }
