@@ -12,9 +12,9 @@ import javax.interceptor.InvocationContext;
 public class LoggingInterceptor implements Serializable {
 
     /**
-     * Handles the interception of before and after the method annotated
-     * Logs parameters given to the method and the return value.
-     * 
+     * Handles the interception of before and after the method annotated Logs
+     * parameters given to the method and the return value.
+     *
      * @throws java.lang.Exception
      * @AroundInvoke is called
      * @param context

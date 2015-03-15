@@ -1,8 +1,3 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package se.kth.iv1201projekt.integration.model;
 
 import java.io.Serializable;
@@ -23,7 +18,8 @@ import javax.validation.constraints.Size;
 import javax.xml.bind.annotation.XmlRootElement;
 
 /**
- * This class represents the swedish version of the job 
+ * This class represents the swedish version of the job
+ *
  * @author Kim
  */
 @Entity
@@ -36,10 +32,10 @@ import javax.xml.bind.annotation.XmlRootElement;
     @NamedQuery(name = "JobSv.findByInformation", query = "SELECT j FROM JobSv j WHERE j.information = :information"),
     @NamedQuery(name = "JobSv.findByStartDate", query = "SELECT j FROM JobSv j WHERE j.startDate = :startDate"),
     @NamedQuery(name = "JobSv.findByEndDate", query = "SELECT j FROM JobSv j WHERE j.endDate = :endDate"),
-    @NamedQuery(name = "JobSv.findByRecruiterPersonId", query = "SELECT j FROM JobSv j WHERE j.recruiterPersonId = :recruiterPersonId"),
     @NamedQuery(name = "JobSv.findByName", query = "SELECT j FROM JobSv j WHERE j.name = :name"),
     @NamedQuery(name = "JobSv.findByVersion", query = "SELECT j FROM JobSv j WHERE j.version = :version")})
 public class JobSv implements Serializable {
+
     private static final long serialVersionUID = 1L;
     @Id
     @Basic(optional = false)
@@ -184,5 +180,5 @@ public class JobSv implements Serializable {
     public String toString() {
         return "se.kth.iv1201projekt.integration.model.JobSv[ id=" + id + " ]";
     }
-    
+
 }

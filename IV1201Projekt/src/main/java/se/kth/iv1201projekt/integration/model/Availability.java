@@ -17,9 +17,9 @@ import javax.validation.constraints.NotNull;
 import javax.xml.bind.annotation.XmlRootElement;
 
 /**
- * This class represent the availability table in the database.
+ * Represents the Availability table in the database.
  *
- * @author Gabriel
+ * @author Kim
  */
 @Entity
 @Table(name = "availability")

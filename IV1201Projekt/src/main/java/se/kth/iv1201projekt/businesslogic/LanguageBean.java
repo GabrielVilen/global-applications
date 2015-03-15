@@ -32,7 +32,7 @@ public class LanguageBean implements Serializable {
         //Application facesApp = FacesContext.getCurrentInstance().getApplication();
         Locale defLoc = FacesContext.getCurrentInstance().getApplication().getDefaultLocale();
         languages.put(defLoc.getDisplayLanguage(), defLoc);
-        
+
         Iterator<Locale> locales = FacesContext.getCurrentInstance().getApplication().getSupportedLocales();
         while (locales.hasNext()) {
             Locale loc = locales.next();
@@ -40,10 +40,13 @@ public class LanguageBean implements Serializable {
         }
     }
 
+    public void setLocale(String locale) {
+        this.localeTag = locale;
+    }
+
     public String getLocale() {
         return localeTag;
     }
-
 
     public Map<String, Object> getLanguages() {
         return languages;

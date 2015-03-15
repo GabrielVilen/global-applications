@@ -5,28 +5,16 @@ package MockitoTests.IntegrationTests;
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import javax.persistence.EntityManager;
-import javax.persistence.EntityManagerFactory;
-import javax.persistence.Persistence;
-import javax.persistence.PersistenceContext;
 import javax.persistence.Query;
-import javax.persistence.TypedQuery;
 import org.jasypt.util.password.StrongPasswordEncryptor;
 import org.junit.Assert;
 import org.junit.Before;
-import org.junit.Ignore;
 import org.junit.Test;
 import org.junit.runner.RunWith;
-import org.mockito.InjectMocks;
-import static org.mockito.Matchers.any;
 import org.mockito.Mock;
 import org.mockito.Mockito;
-import org.mockito.MockitoAnnotations;
-import org.mockito.Spy;
 import org.mockito.runners.MockitoJUnitRunner;
-import se.kth.iv1201projekt.integration.ASDBController;
 import se.kth.iv1201projekt.integration.ASJPADatabaseImpl;
 import se.kth.iv1201projekt.integration.model.Person;
 import se.kth.iv1201projekt.integration.model.Role;

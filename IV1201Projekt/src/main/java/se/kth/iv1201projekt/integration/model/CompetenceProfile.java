@@ -44,7 +44,7 @@ public class CompetenceProfile implements Serializable {
     private int version;
     @JoinColumn(name = "competence_id", referencedColumnName = "competence_id")
     @ManyToOne
-    private CompetenceSv competenceId;
+    private Competence competenceId;
     @JoinColumn(name = "person_id", referencedColumnName = "person_id")
     @ManyToOne
     private Person personId;
@@ -85,11 +85,11 @@ public class CompetenceProfile implements Serializable {
         this.version = version;
     }
 
-    public CompetenceSv getCompetenceId() {
+    public Competence getCompetenceId() {
         return competenceId;
     }
 
-    public void setCompetenceId(CompetenceSv competenceId) {
+    public void setCompetenceId(Competence competenceId) {
         this.competenceId = competenceId;
     }
 

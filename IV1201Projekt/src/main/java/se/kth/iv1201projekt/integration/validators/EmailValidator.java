@@ -9,22 +9,23 @@ import javax.faces.validator.ValidatorException;
 
 /**
  * Checks if name contains number or is bigger than the database limit
+ *
  * @author Samy
  */
 @FacesValidator("emailValidator")
-public class EmailValidator implements Validator{
-        
-    private final String emailRegex="[A-Z0-9._%+-]+@[A-Z0-9.-]+\\\\.[A-Z]{2,4}";
-    
+public class EmailValidator implements Validator {
+
+    private final String emailRegex = "[A-Z0-9._%+-]+@[A-Z0-9.-]+\\\\.[A-Z]{2,4}";
+
     @Override
     public void validate(FacesContext context, UIComponent component, Object value) throws ValidatorException {
-       String param = value.toString();
-       
-       if(!param.matches(emailRegex)){
-           FacesMessage msg = new FacesMessage("Invalid Email");
-           msg.setSeverity(FacesMessage.SEVERITY_ERROR);
-           throw new ValidatorException(msg);
-       }
+        String param = value.toString();
+
+        if (!param.matches(emailRegex)) {
+            FacesMessage msg = new FacesMessage("Invalid Email");
+            msg.setSeverity(FacesMessage.SEVERITY_ERROR);
+            throw new ValidatorException(msg);
+        }
     }
 
 }

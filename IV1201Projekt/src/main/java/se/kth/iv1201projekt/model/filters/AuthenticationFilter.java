@@ -20,6 +20,7 @@ import javax.servlet.http.HttpSession;
 /**
  * A filter that checks if the user accessing a restricted page is
  * authenticated.
+ *
  * @author Samy
  */
 @WebFilter("/jsf/logout.xhtml")
@@ -34,19 +35,16 @@ public class AuthenticationFilter implements Filter {
         HttpServletResponse response = (HttpServletResponse) resp;
         HttpServletRequest request = (HttpServletRequest) req;
         HttpSession session = request.getSession(false);
-        if(session != null && session.getAttribute("user") != null){
+        if (session != null && session.getAttribute("user") != null) {
             chain.doFilter(req, resp);
-        }
-        else{
-            response.sendRedirect(request.getContextPath()+"/jsf/login.xhtml");
+        } else {
+            response.sendRedirect(request.getContextPath() + "/jsf/login.xhtml");
         }
     }
 
     @Override
     public void destroy() {
-        
-    }
-    
 
-    
+    }
+
 }

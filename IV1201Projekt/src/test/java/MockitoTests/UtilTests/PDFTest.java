@@ -27,21 +27,22 @@ public class PDFTest {
 
     private JobInterface job;
     private Person person;
-    
+
     /**
      * Initializes up the test job and person
-     * @throws Exception 
+     *
+     * @throws Exception
      */
     @Before
-    public void setUp(){
+    public void setUp() {
         job = new Job(1, "Test type", "Test Job information", new Date(System.currentTimeMillis()),
                 new Date(System.currentTimeMillis()), "Test job name", 0);
         person = new Person(1l, "Per", "Strand", "19671212-1211", "per@strand.kth.se", 1);
     }
-    
+
     /**
-     * Generates PDF with different parameters for job and person.
-     * Tries to parse the pdf and finally after creating a checks file attributes
+     * Generates PDF with different parameters for job and person. Tries to
+     * parse the pdf and finally after creating a checks file attributes
      */
     @Test
     public void testPdfGenerate() {

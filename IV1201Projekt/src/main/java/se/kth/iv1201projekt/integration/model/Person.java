@@ -37,6 +37,7 @@ import org.codehaus.jackson.annotate.JsonIgnore;
     @NamedQuery(name = "Person.findByVersion", query = "SELECT p FROM Person p WHERE p.version = :version"),
     @NamedQuery(name = "Person.findByUsername", query = "SELECT p FROM Person p WHERE p.username = :username")})
 public class Person implements Serializable {
+
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "recruiterPersonId")
     private Collection<JobSv> jobSvCollection;
 

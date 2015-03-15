@@ -1,8 +1,3 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package se.kth.iv1201projekt.businesslogic;
 
 import java.io.File;
@@ -57,11 +52,11 @@ public class JobBean implements Serializable {
 //        job =  new JobDTO(name, type, information, recruiter, fromDate, toDate); 
 //        recruiter = new RecruiterDTO(1, "test", "test", "11", "test", "test", "test");
 //        controller.placeJob(recruiter, job);
-    }
-
 //    public void setLanguageBean(LanguageBean bean) {
 //        this.languageBean = bean;
 //    }
+    }
+
     public List<Job> getJobList() {
         try {
             jobList = controller.getAllJobs(languageBean.getLocale());

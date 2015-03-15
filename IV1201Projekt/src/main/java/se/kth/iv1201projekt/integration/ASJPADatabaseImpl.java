@@ -1,8 +1,4 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
+
 package se.kth.iv1201projekt.integration;
 
 import java.io.Serializable;
@@ -106,12 +102,12 @@ public class ASJPADatabaseImpl implements Serializable {
         String query;
         try {
             char c = language.charAt(0);
-            if(c >= 97 || c <= 122) {
+            if (c >= 97 || c <= 122) {
                 String upperCase = c + "";
                 upperCase = upperCase.toUpperCase();
                 language = upperCase + language.substring(1);
             }
-            
+
             if (language.equalsIgnoreCase("en")) {
                 query = "Job.findAll";
             } else {

@@ -27,13 +27,13 @@ public class LoggerUtil implements Serializable {
     private static final Handler excpFileHandler;
     private static final Handler testFileHandler;
     private static final Handler methodFileHandler;
-    
-    static{
-        excpFileHandler=getHandler(exceptionFile);
-        testFileHandler=getHandler(testExceptionFile);
+
+    static {
+        excpFileHandler = getHandler(exceptionFile);
+        testFileHandler = getHandler(testExceptionFile);
         methodFileHandler = getHandler(methodFile);
     }
-    
+
     /**
      * Logs severe exceptions.
      *

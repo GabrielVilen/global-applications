@@ -15,24 +15,25 @@ import javax.faces.validator.ValidatorException;
 
 /**
  * Checks if name contains number or is bigger than the database limit
+ *
  * @author Samy
  */
 @FacesValidator("dateValidator")
-public class DateValidator implements Validator{
-    
+public class DateValidator implements Validator {
+
     @Override
     public void validate(FacesContext context, UIComponent component, Object value) throws ValidatorException {
         try {
-            String format=null;
+            String format = null;
             String param = value.toString();
-            
-            if(param.contains("T")){
+
+            if (param.contains("T")) {
                 param.replace("T", " ");
-                format="YYYY-MM-dd HH:mm";
+                format = "YYYY-MM-dd HH:mm";
+            } else {
+                format = "YYYY-MM-dd";
             }
-            else
-                format="YYYY-MM-dd";
-            
+
             Logger logger = Logger.getLogger(getClass().getName());
             logger.info(param);
             System.out.println(param);
@@ -43,7 +44,7 @@ public class DateValidator implements Validator{
             msg.setSeverity(FacesMessage.SEVERITY_ERROR);
             throw new ValidatorException(msg);
         }
-       
+
     }
 
 }

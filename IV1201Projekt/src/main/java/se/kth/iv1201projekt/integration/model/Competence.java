@@ -30,15 +30,13 @@ import org.codehaus.jackson.annotate.JsonIgnore;
     @NamedQuery(name = "Competence.findByName", query = "SELECT c FROM Competence c WHERE c.name = :name"),
     @NamedQuery(name = "Competence.findByVersion", query = "SELECT c FROM Competence c WHERE c.version = :version")})
 public class Competence implements Serializable {
-    @OneToMany(mappedBy = "competenceId")
-    private Collection<CompetenceProfile> competenceProfileCollection;
 
     private static final long serialVersionUID = 1L;
     @Id
     @Basic(optional = false)
     @NotNull
     @Column(name = "competence_id")
-    private Integer competenceId;
+    private Long competenceId;
     @Size(max = 255)
     @Column(name = "name")
     private String name;
@@ -46,24 +44,26 @@ public class Competence implements Serializable {
     @NotNull
     @Column(name = "version")
     private int version;
+    @OneToMany(mappedBy = "competenceId")
+    private Collection<CompetenceProfile> competenceProfileCollection;
 
     public Competence() {
     }
 
-    public Competence(Integer competenceId) {
+    public Competence(Long competenceId) {
         this.competenceId = competenceId;
     }
 
-    public Competence(Integer competenceId, int version) {
+    public Competence(Long competenceId, int version) {
         this.competenceId = competenceId;
         this.version = version;
     }
 
-    public Integer getCompetenceId() {
+    public Long getCompetenceId() {
         return competenceId;
     }
 
-    public void setCompetenceId(Integer competenceId) {
+    public void setCompetenceId(Long competenceId) {
         this.competenceId = competenceId;
     }
 
@@ -81,6 +81,16 @@ public class Competence implements Serializable {
 
     public void setVersion(int version) {
         this.version = version;
+    }
+
+    @XmlTransient
+    @JsonIgnore
+    public Collection<CompetenceProfile> getCompetenceProfileCollection() {
+        return competenceProfileCollection;
+    }
+
+    public void setCompetenceProfileCollection(Collection<CompetenceProfile> competenceProfileCollection) {
+        this.competenceProfileCollection = competenceProfileCollection;
     }
 
     @Override
@@ -106,16 +116,6 @@ public class Competence implements Serializable {
     @Override
     public String toString() {
         return "se.kth.iv1201projekt.integration.model.Competence[ competenceId=" + competenceId + " ]";
-    }
-
-    @XmlTransient
-    @JsonIgnore
-    public Collection<CompetenceProfile> getCompetenceProfileCollection() {
-        return competenceProfileCollection;
-    }
-
-    public void setCompetenceProfileCollection(Collection<CompetenceProfile> competenceProfileCollection) {
-        this.competenceProfileCollection = competenceProfileCollection;
     }
 
 }

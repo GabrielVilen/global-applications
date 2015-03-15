@@ -18,11 +18,13 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 /**
- * 
+ * Filter for recruiter. Checks that only a recruiter may enter the place a job
+ * site.
+ *
  * @author Samy
  */
 @WebFilter("/jsf/placejob.xhtml")
-public class RecruiterFilter implements Filter{
+public class RecruiterFilter implements Filter {
 
     @Override
     public void init(FilterConfig fc) throws ServletException {
@@ -34,19 +36,16 @@ public class RecruiterFilter implements Filter{
         HttpServletRequest request = (HttpServletRequest) req;
         HttpSession session = request.getSession(false);
         String attribute = (String) session.getAttribute("role");
-        if(attribute != null && attribute.equals("recruit")){
+        if (attribute != null && attribute.equals("recruit")) {
             chain.doFilter(req, resp);
-        }
-        else{
-            response.sendRedirect(request.getContextPath()+"/jsf/index.xhtml");
+        } else {
+            response.sendRedirect(request.getContextPath() + "/jsf/index.xhtml");
         }
     }
 
     @Override
     public void destroy() {
-        
-    }
-    
 
-    
+    }
+
 }

@@ -1,8 +1,3 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package se.kth.iv1201projekt.businesslogic;
 
 import java.io.Serializable;
@@ -12,14 +7,13 @@ import javax.inject.Named;
 
 /**
  * A bean for the registration of new applicants.
- * 
+ *
  * @author Samy
  */
-
 @Named("registerBean")
 @SessionScoped
 public class RegisterBean implements Serializable {
-    
+
     private String firstname;
     private String lastname;
     private String ssn;
@@ -93,7 +87,7 @@ public class RegisterBean implements Serializable {
     public void setTotime(String totime) {
         this.totime = totime;
     }
-    
+
     public List getCompetences() {
         return competences;
     }

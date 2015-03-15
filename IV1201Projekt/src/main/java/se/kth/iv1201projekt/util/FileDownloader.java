@@ -15,7 +15,7 @@ import javax.faces.context.FacesContext;
 
 /**
  * Class for downloading file.
- * 
+ *
  * @author Samy
  */
 public class FileDownloader {

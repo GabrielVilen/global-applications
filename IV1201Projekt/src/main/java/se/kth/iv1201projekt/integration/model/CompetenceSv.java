@@ -30,8 +30,6 @@ import org.codehaus.jackson.annotate.JsonIgnore;
     @NamedQuery(name = "CompetenceSv.findByName", query = "SELECT c FROM CompetenceSv c WHERE c.name = :name"),
     @NamedQuery(name = "CompetenceSv.findByVersion", query = "SELECT c FROM CompetenceSv c WHERE c.version = :version")})
 public class CompetenceSv implements Serializable {
-    @OneToMany(mappedBy = "competenceId")
-    private Collection<CompetenceProfileSv> competenceProfileSvCollection;
 
     private static final long serialVersionUID = 1L;
     @Id
@@ -47,7 +45,7 @@ public class CompetenceSv implements Serializable {
     @Column(name = "version")
     private int version;
     @OneToMany(mappedBy = "competenceId")
-    private Collection<CompetenceProfile> competenceProfileCollection;
+    private Collection<CompetenceProfileSv> competenceProfileSvCollection;
 
     public CompetenceSv() {
     }
@@ -87,12 +85,12 @@ public class CompetenceSv implements Serializable {
 
     @XmlTransient
     @JsonIgnore
-    public Collection<CompetenceProfile> getCompetenceProfileCollection() {
-        return competenceProfileCollection;
+    public Collection<CompetenceProfileSv> getCompetenceProfileSvCollection() {
+        return competenceProfileSvCollection;
     }
 
-    public void setCompetenceProfileCollection(Collection<CompetenceProfile> competenceProfileCollection) {
-        this.competenceProfileCollection = competenceProfileCollection;
+    public void setCompetenceProfileSvCollection(Collection<CompetenceProfileSv> competenceProfileSvCollection) {
+        this.competenceProfileSvCollection = competenceProfileSvCollection;
     }
 
     @Override
@@ -118,16 +116,6 @@ public class CompetenceSv implements Serializable {
     @Override
     public String toString() {
         return "se.kth.iv1201projekt.integration.model.CompetenceSv[ competenceId=" + competenceId + " ]";
-    }
-
-    @XmlTransient
-    @JsonIgnore
-    public Collection<CompetenceProfileSv> getCompetenceProfileSvCollection() {
-        return competenceProfileSvCollection;
-    }
-
-    public void setCompetenceProfileSvCollection(Collection<CompetenceProfileSv> competenceProfileSvCollection) {
-        this.competenceProfileSvCollection = competenceProfileSvCollection;
     }
 
 }
