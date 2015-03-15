@@ -1,15 +1,10 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package se.kth.iv1201projekt.util;
 
 import java.util.ResourceBundle;
 import javax.faces.context.FacesContext;
 
 /**
- * Class reading error messages from resourcebundle and returning a string
+ * Class reading error messages from resource bundle and returning a string
  *
  * @author Samy
  */

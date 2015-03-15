@@ -1,8 +1,3 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package se.kth.iv1201projekt.model.filters;
 
 import java.io.IOException;
@@ -29,7 +24,16 @@ public class RecruiterFilter implements Filter {
     @Override
     public void init(FilterConfig fc) throws ServletException {
     }
-
+    
+    /**
+     * This filter stops the user from accessing placejob.xhtml if they're not
+     * a recruiter by checking the session variables for the role of the user.
+     * @param req
+     * @param resp
+     * @param chain
+     * @throws IOException
+     * @throws ServletException 
+     */
     @Override
     public void doFilter(ServletRequest req, ServletResponse resp, FilterChain chain) throws IOException, ServletException {
         HttpServletResponse response = (HttpServletResponse) resp;

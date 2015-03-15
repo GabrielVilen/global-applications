@@ -1,8 +1,3 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package se.kth.iv1201projekt.util;
 
 import java.io.File;
@@ -14,12 +9,17 @@ import javax.faces.context.ExternalContext;
 import javax.faces.context.FacesContext;
 
 /**
- * Class for downloading file.
- *
+ * A class that creates a download dialogue
  * @author Samy
  */
 public class FileDownloader {
-
+    
+    /**
+     * This method starts an HTML download by sending an attachment then
+     * using a html response outputstream to parse it to the user
+     * @param file the file to download
+     * @throws IOException 
+     */
     public static void startDownload(File file) throws IOException {
         FacesContext fc = FacesContext.getCurrentInstance();
         ExternalContext ec = fc.getExternalContext();

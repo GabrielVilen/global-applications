@@ -7,6 +7,7 @@ import org.apache.pdfbox.pdmodel.PDDocument;
 import org.apache.pdfbox.pdmodel.PDPage;
 import org.apache.pdfbox.pdmodel.common.PDRectangle;
 import org.apache.pdfbox.pdmodel.edit.PDPageContentStream;
+import org.apache.pdfbox.pdmodel.font.PDFont;
 import org.apache.pdfbox.pdmodel.font.PDType1Font;
 import se.kth.iv1201projekt.integration.model.JobInterface;
 import se.kth.iv1201projekt.integration.model.Person;
@@ -18,14 +19,28 @@ import se.kth.iv1201projekt.integration.model.Person;
  */
 public class PDFUtil {
 
-    private static final PDRectangle pageSize = PDPage.PAGE_SIZE_A4;
-    private static final int newLineSpace = -15;
+    private static final PDRectangle PAGESIZE = PDPage.PAGE_SIZE_A4;
+    private static final int NEWLINESPACE = -15;
+    private static final PDFont HEADERFONT = PDType1Font.HELVETICA_BOLD;
+    private static final int HEADERFONTSIZE = 18;
+    private static final PDFont TEXTFONT = PDType1Font.COURIER;
+    private static final int TEXTFONTSIZE = 14;
 
+    /**
+     * This method uses PDFbox from Apache to create a simple PDF form.
+     * Adds info about the job and the applicant 
+     * 
+     * @param job
+     * @param person
+     * @return
+     * @throws IOException
+     * @throws COSVisitorException 
+     */
     public static File createPDF(JobInterface job, Person person) throws IOException, COSVisitorException {
         try (PDDocument document = new PDDocument()) {
-            PDPage page = new PDPage(pageSize);
-            float width = pageSize.getWidth();
-            float height = pageSize.getHeight();
+            PDPage page = new PDPage(PAGESIZE);
+            float width = PAGESIZE.getWidth();
+            float height = PAGESIZE.getHeight();
             document.addPage(page);
 
             PDPageContentStream contentStream = new PDPageContentStream(document, page);
@@ -34,10 +49,10 @@ public class PDFUtil {
             contentStream.moveTextPositionByAmount(width - 9 * (width / 10), height - height / 7);
 
             //Job info
-            contentStream.setFont(PDType1Font.HELVETICA_BOLD, 18);
+            contentStream.setFont(HEADERFONT, HEADERFONTSIZE);
             contentStream.drawString("Job application form");
             newLine(contentStream);
-            contentStream.setFont(PDType1Font.COURIER, 14);
+            contentStream.setFont(TEXTFONT, TEXTFONTSIZE);
             contentStream.drawString("Job name: " + job.getName());
             newLine(contentStream);
             contentStream.drawString("Job type: " + job.getType());
@@ -50,10 +65,10 @@ public class PDFUtil {
 
             //Applicant Info
             newLine(contentStream, 3);
-            contentStream.setFont(PDType1Font.HELVETICA_BOLD, 18);
+            contentStream.setFont(HEADERFONT,HEADERFONTSIZE);
             contentStream.drawString("Applicant Information");
             newLine(contentStream);
-            contentStream.setFont(PDType1Font.COURIER, 14);
+            contentStream.setFont(TEXTFONT, TEXTFONTSIZE);
             contentStream.drawString("Name: " + person.getName() + " " + person.getSurname());
             newLine(contentStream);
             contentStream.drawString("Email: " + person.getEmail());
@@ -70,10 +85,10 @@ public class PDFUtil {
     }
 
     private static void newLine(PDPageContentStream content) throws IOException {
-        content.moveTextPositionByAmount(0, newLineSpace);
+        content.moveTextPositionByAmount(0, NEWLINESPACE);
     }
 
     private static void newLine(PDPageContentStream content, int multiplier) throws IOException {
-        content.moveTextPositionByAmount(0, newLineSpace * multiplier);
+        content.moveTextPositionByAmount(0, NEWLINESPACE * multiplier);
     }
 }

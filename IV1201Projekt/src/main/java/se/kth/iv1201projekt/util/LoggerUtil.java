@@ -35,27 +35,23 @@ public class LoggerUtil implements Serializable {
     }
 
     /**
+     * Returns the directory where the logs are stored on this machine
+     * @return the directory of the logs 
+     */
+    public static String getLoggingDirectory(){
+        return homeDir+logDir;
+    }
+
+    /**
      * Logs severe exceptions.
      *
      * @param e the exception itself
      * @param exceptionClass the class the exception was called from
      */
     public static void logSevere(Exception e, Object exceptionClass) {
-        Logger logger = Logger.getLogger(exceptionClass.getClass().getName());
+        Logger logger = Logger.getLogger("");
         logger.addHandler(excpFileHandler);
         logger.log(Level.SEVERE, stackTraceToString(e), e);
-    }
-
-    /**
-     * Logs minor exceptions.
-     *
-     * @param e the exception itself
-     * @param exceptionClass the class the exception was called from
-     */
-    public static void logMinor(Exception e, Object exceptionClass) {
-        Logger logger = Logger.getLogger(exceptionClass.getClass().getName());
-        logger.addHandler(excpFileHandler);
-        logger.log(Level.FINE, stackTraceToString(e), e);
     }
 
     /**
@@ -65,9 +61,9 @@ public class LoggerUtil implements Serializable {
      * @param exceptionClass the class the exception was called from
      */
     public static void logTest(Exception e, Object exceptionClass) {
-        Logger logger = Logger.getLogger(exceptionClass.getClass().getName());
+        Logger logger = Logger.getLogger("");
         logger.addHandler(testFileHandler);
-        logger.log(Level.FINE, stackTraceToString(e), e);
+        logger.log(Level.FINE, "StackTrace:\n"+stackTraceToString(e), e);
     }
 
     /**
@@ -78,13 +74,13 @@ public class LoggerUtil implements Serializable {
      * @param before if it's before it's called or after it has exited.
      */
     public static void logMethod(Method method, String[] formattedParams, boolean before) {
-        Logger logger = Logger.getLogger(method.getClass().getName());
+        Logger logger = Logger.getLogger("");
         logger.addHandler(methodFileHandler);
         String paramString = Arrays.toString(formattedParams);
         if (before) {
             logger.log(Level.OFF, "Logging method: " + method.getName() + " in class: "
                     + method.getDeclaringClass().getName());
-            logger.log(Level.OFF, "Parameters before\n", paramString);
+            logger.log(Level.OFF, "Parameters before\n" + paramString);
         } else {
             logger.log(Level.OFF, "Return Value\n" + paramString);
         }
