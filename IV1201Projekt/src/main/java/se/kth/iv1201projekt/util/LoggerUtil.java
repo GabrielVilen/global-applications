@@ -5,7 +5,6 @@ import java.io.File;
 import java.io.IOException;
 import java.io.Serializable;
 import java.lang.reflect.Method;
-import java.nio.file.Paths;
 import java.util.Arrays;
 import java.util.logging.FileHandler;
 import java.util.logging.Handler;
@@ -25,7 +24,16 @@ public class LoggerUtil implements Serializable {
     private static final String exceptionFile = "/exceptionLog%g.log";
     private static final String testExceptionFile = "/testexceptionLog%g.log";
     private static final String methodFile = "/methodLog%g.log";
-
+    private static final Handler excpFileHandler;
+    private static final Handler testFileHandler;
+    private static final Handler methodFileHandler;
+    
+    static{
+        excpFileHandler=getHandler(exceptionFile);
+        testFileHandler=getHandler(testExceptionFile);
+        methodFileHandler = getHandler(methodFile);
+    }
+    
     /**
      * Logs severe exceptions.
      *
@@ -34,7 +42,7 @@ public class LoggerUtil implements Serializable {
      */
     public static void logSevere(Exception e, Object exceptionClass) {
         Logger logger = Logger.getLogger(exceptionClass.getClass().getName());
-        logger.addHandler(getHandler(exceptionFile));
+        logger.addHandler(excpFileHandler);
         logger.log(Level.SEVERE, stackTraceToString(e), e);
     }
 
@@ -46,7 +54,7 @@ public class LoggerUtil implements Serializable {
      */
     public static void logMinor(Exception e, Object exceptionClass) {
         Logger logger = Logger.getLogger(exceptionClass.getClass().getName());
-        logger.addHandler(getHandler(exceptionFile));
+        logger.addHandler(excpFileHandler);
         logger.log(Level.FINE, stackTraceToString(e), e);
     }
 
@@ -58,7 +66,7 @@ public class LoggerUtil implements Serializable {
      */
     public static void logTest(Exception e, Object exceptionClass) {
         Logger logger = Logger.getLogger(exceptionClass.getClass().getName());
-        logger.addHandler(getHandler(testExceptionFile));
+        logger.addHandler(testFileHandler);
         logger.log(Level.FINE, stackTraceToString(e), e);
     }
 
@@ -71,14 +79,14 @@ public class LoggerUtil implements Serializable {
      */
     public static void logMethod(Method method, String[] formattedParams, boolean before) {
         Logger logger = Logger.getLogger(method.getClass().getName());
-        logger.addHandler(getHandler(methodFile));
+        logger.addHandler(methodFileHandler);
         String paramString = Arrays.toString(formattedParams);
         if (before) {
             logger.log(Level.OFF, "Logging method: " + method.getName() + " in class: "
                     + method.getDeclaringClass().getName());
             logger.log(Level.OFF, "Parameters before\n", paramString);
         } else {
-            logger.log(Level.OFF, "Parameters after\n" + paramString);
+            logger.log(Level.OFF, "Return Value\n" + paramString);
         }
     }
 

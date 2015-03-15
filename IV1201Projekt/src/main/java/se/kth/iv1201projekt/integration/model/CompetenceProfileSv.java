@@ -20,6 +20,7 @@ import javax.validation.constraints.NotNull;
 import javax.xml.bind.annotation.XmlRootElement;
 
 /**
+ * This class represents the competence profile
  *
  * @author Kim
  */
@@ -32,6 +33,7 @@ import javax.xml.bind.annotation.XmlRootElement;
     @NamedQuery(name = "CompetenceProfileSv.findByYearsOfExperience", query = "SELECT c FROM CompetenceProfileSv c WHERE c.yearsOfExperience = :yearsOfExperience"),
     @NamedQuery(name = "CompetenceProfileSv.findByVersion", query = "SELECT c FROM CompetenceProfileSv c WHERE c.version = :version")})
 public class CompetenceProfileSv implements Serializable {
+
     private static final long serialVersionUID = 1L;
     @Id
     @Basic(optional = false)
@@ -128,5 +130,5 @@ public class CompetenceProfileSv implements Serializable {
     public String toString() {
         return "se.kth.iv1201projekt.integration.model.CompetenceProfileSv[ competenceProfileId=" + competenceProfileId + " ]";
     }
-    
+
 }

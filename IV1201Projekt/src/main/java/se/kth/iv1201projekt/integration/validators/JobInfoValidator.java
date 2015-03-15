@@ -8,6 +8,7 @@ import javax.faces.validator.Validator;
 import javax.faces.validator.ValidatorException;
 
 /**
+ * Checks if the length of the job info is more than 10 characters
  *
  * @author Gabriel
  */
@@ -24,5 +25,5 @@ public class JobInfoValidator implements Validator {
             throw new ValidatorException(msg);
         }
     }
-    
+
 }

@@ -27,7 +27,7 @@
     </session-config>
 
     <welcome-file-list>
-        <welcome-file>jsf/index.xhtml</welcome-file>
+        <welcome-file>jsf/index.html</welcome-file>
     </welcome-file-list>
 
 <!--     rest stuff 

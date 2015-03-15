@@ -18,11 +18,12 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 /**
+ * A filter that checks if the user accessing the logout page is logged in.
  *
  * @author Samy
  */
 @WebFilter("/jsf/login.xhtml")
-public class NotLoggedInFilter implements Filter{
+public class NotLoggedInFilter implements Filter {
 
     @Override
     public void init(FilterConfig fc) throws ServletException {
@@ -33,19 +34,16 @@ public class NotLoggedInFilter implements Filter{
         HttpServletResponse response = (HttpServletResponse) resp;
         HttpServletRequest request = (HttpServletRequest) req;
         HttpSession session = request.getSession(false);
-        if(session == null  || session.getAttribute("user") == null ){
+        if (session == null || session.getAttribute("user") == null) {
             chain.doFilter(req, resp);
-        }
-        else{
-            response.sendRedirect(request.getContextPath()+"/jsf/logout.xhtml");
+        } else {
+            response.sendRedirect(request.getContextPath() + "/jsf/logout.xhtml");
         }
     }
 
     @Override
     public void destroy() {
-        
-    }
-    
 
-    
+    }
+
 }
