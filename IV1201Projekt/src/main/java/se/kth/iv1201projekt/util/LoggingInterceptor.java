@@ -23,16 +23,14 @@ public class LoggingInterceptor implements Serializable {
     @AroundInvoke
     public static Object intercept(InvocationContext context) throws Exception {
         Object[] params = context.getParameters();
-        String[] formattedParams = new String[context.getParameters().length];
+        String[] formattedParams = new String[params.length];
         for (int i = 0; i < params.length; i++) {
             formattedParams[i] = params[i].toString();
         }
         LoggerUtil.logMethod(context.getMethod(), formattedParams, true);
-        
         Class objClass = context.getMethod().getReturnType();
         Object obj = objClass.newInstance(); //This is to make sure that the object has the same class as the return value
         obj = (Object) context.proceed(); //Let's method be exectued and returns return value
-        
         LoggerUtil.logMethod(context.getMethod(), new String[]{obj.toString()}, false);
         return obj;
     }
