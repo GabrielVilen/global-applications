@@ -97,8 +97,9 @@ public class InterceptorAndLoggerTest {
                 Assert.fail("Couldn't find line in file");
             }
         } catch (IOException ex) {
-            Assert.fail("Problem reading file");
+            Assert.fail("IOException thrown");
         }
+        file.deleteOnExit();//To make sure the file's result isn't reused in a new test.
     }
 
     /**
