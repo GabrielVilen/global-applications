@@ -75,18 +75,18 @@ public class JobBean implements Serializable {
         return null;
 
     }
-    
-        /**
+
+    /**
      * Generates PDF file and starts a file download for the user.
+     *
      * @param job specified to print to pdf
      */
-    
-     public void jobPDF(JobInterface job) {
-        try {     
+    public void jobPDF(JobInterface job) {
+        try {
             File pdfFile = PDFUtil.createPDF(job, userBean.getPerson());
             FileDownloader.startDownload(pdfFile);
-        } catch (IOException|COSVisitorException ex) {
-            logExceptionAndShowError(ex,"invalidPdf");
+        } catch (IOException | COSVisitorException ex) {
+            logExceptionAndShowError(ex, "invalidPdf");
         }
     }
 
@@ -125,13 +125,14 @@ public class JobBean implements Serializable {
     public void setToDate(Date toDate) {
         this.toDate = toDate;
     }
-    
-        /**
+
+    /**
      * Logs the exception and shows the user an errormessage
+     *
      * @param e exception
      * @param errorKey key to the errormessage in error.property
      */
-    private void logExceptionAndShowError(Exception e,String errorKey){
+    private void logExceptionAndShowError(Exception e, String errorKey) {
         LoggerUtil.logSevere(e, this);
         FacesMessage msg = new FacesMessage(ErrorMessageFactory.getErrorMessage(errorKey));
         msg.setSeverity(FacesMessage.SEVERITY_ERROR);

@@ -8,12 +8,13 @@ package se.kth.iv1201projekt.integration.model;
 import java.util.Date;
 
 /**
+ * Interface for the job classes
  *
  * @author Samy
  */
 public interface JobInterface {
-    
-        public Integer getId();
+
+    public Integer getId();
 
     public void setId(Integer id);
 
@@ -49,5 +50,5 @@ public interface JobInterface {
 
     @Override
     public String toString();
-    
+
 }

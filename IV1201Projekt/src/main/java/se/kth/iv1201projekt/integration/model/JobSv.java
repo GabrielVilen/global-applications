@@ -23,7 +23,7 @@ import javax.validation.constraints.Size;
 import javax.xml.bind.annotation.XmlRootElement;
 
 /**
- *
+ * This class represents the swedish version of the job 
  * @author Kim
  */
 @Entity

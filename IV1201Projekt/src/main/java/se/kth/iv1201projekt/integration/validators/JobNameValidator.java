@@ -8,6 +8,7 @@ import javax.faces.validator.Validator;
 import javax.faces.validator.ValidatorException;
 
 /**
+ * Checks if the length of the job name is more than 4 characters
  *
  * @author Gabriel
  */

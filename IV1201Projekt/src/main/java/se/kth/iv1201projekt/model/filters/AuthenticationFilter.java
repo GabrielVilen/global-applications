@@ -18,7 +18,8 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 /**
- * A filter that checks if the user accessing a restricted page is authenticated
+ * A filter that checks if the user accessing a restricted page is
+ * authenticated.
  * @author Samy
  */
 @WebFilter("/jsf/logout.xhtml")
