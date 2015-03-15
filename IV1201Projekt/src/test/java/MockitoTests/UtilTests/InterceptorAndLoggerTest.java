@@ -5,6 +5,9 @@ import java.io.File;
 import java.io.FileReader;
 import java.io.IOException;
 import java.lang.reflect.Method;
+import java.util.Arrays;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.interceptor.InvocationContext;
 import junit.framework.Assert;
 import org.junit.Before;
@@ -64,27 +67,36 @@ public class InterceptorAndLoggerTest {
     }
 
     /**
-     * Because of the above test of the interceptor a method log file was
-     * created. We'll look for that file and check if we can find the correct
-     * return value
+     * Here we try to log a method and later read the last modified file 
+     * too see if what we tried to log is there.
      */
+    @Test
     public void testLogger() {
-        File file = findLastMethodFile();
+        String[] params=null;
+        try {
+            Method method = this.getClass()
+                    .getDeclaredMethod("interceptorMethod", new Class[]{String.class, String.class});
+            params = new String[]{"Hej", "Hå"};
+            LoggerUtil.logMethod(method, params, true);
+        } catch (NoSuchMethodException | SecurityException ex) {
+            Assert.fail();
+        }
         
-        try(BufferedReader br = new BufferedReader(new FileReader(file))){
-            String line=null;
+        File file = findLastMethodFile();
+        try (BufferedReader br = new BufferedReader(new FileReader(file))) {
+            String line;
             boolean found = false;
-            while((line=br.readLine())!=null){
-                if(line.contains("["+param1+param2+"]")){
-                    found=true;
+            String result = Arrays.toString(params);
+            while ((line = br.readLine()) != null) {
+                if (line.contains(result)) {
+                    found = true;
                     break;
                 }
             }
-            if(!found){
+            if (!found) {
                 Assert.fail("Couldn't find line in file");
             }
-        }
-        catch(IOException ex){
+        } catch (IOException ex) {
             Assert.fail("Problem reading file");
         }
     }
@@ -102,6 +114,7 @@ public class InterceptorAndLoggerTest {
 
     /**
      * Finds the last modified Method file
+     *
      * @return
      */
     private File findLastMethodFile() {
@@ -117,6 +130,7 @@ public class InterceptorAndLoggerTest {
             if (file.getName().contains("method")
                     && modifiedDate < file.lastModified()) {
                 lastModifiedFile = file;
+                modifiedDate=file.lastModified();
             }
         }
         return lastModifiedFile;
